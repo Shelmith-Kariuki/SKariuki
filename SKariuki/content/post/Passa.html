@@ -1,0 +1,449 @@
+---
+title: "Rstudio Tidyverse Certified Trainer Preparation Script"
+author: "Shelmith"
+date: "2/12/2020"
+output: html_document
+---
+
+
+
+<p>Tidyverse is a collection of R packages designed for data science. The packages that are included in tidyverse include:</p>
+<ul>
+<li><p>readr: Used for reading in datasets into R.</p></li>
+<li><p>dplyr: Used for data manipulation.</p></li>
+<li><p>tidyr: Used for cleaning messy datasets.</p></li>
+<li><p>ggplot2: Used for generating graphs.</p></li>
+<li><p>forcats: Used for manipulating factor variables in R.</p></li>
+<li><p>lubridate: Used for working with dates</p></li>
+<li><p>tibble: Creates simple dataframes.</p></li>
+<li><p>stringr: Used for manipulating strings.</p></li>
+<li><p>purrr: USed for functional programming.</p></li>
+</ul>
+<div id="load-the-packages-required" class="section level2">
+<h2>Load the packages required</h2>
+<pre class="r"><code>#install.packages(&quot;tidyverse&quot;)
+library(tidyverse)
+library(rChambua)## Contains the dataset that we will use in this script (Wafanyikazi dataset)</code></pre>
+<p><br></p>
+<pre class="r"><code>### 0.1 Install the libraries required
+## Create a vector of packages to be installed
+pkgs &lt;- c(&quot;tidyverse&quot;,&quot;data.table&quot;,&quot;DT&quot;,&quot;lubridate&quot;,&quot;ggthemes&quot;,&quot;randomForest&quot;,&quot;readODS&quot;,&quot;ggcorrplot&quot;)
+
+## Check if there are packages you want to load, that are not already installed. 
+miss_pkgs &lt;- pkgs[!pkgs %in% installed.packages()[,1]] 
+
+## Installing the missing packages
+if(length(miss_pkgs)&gt;0){
+  install.packages(miss_pkgs)
+}
+## Loading all the packages
+invisible(lapply(pkgs,library,character.only=TRUE))
+
+## Remove the objects that are no longer required
+rm(miss_pkgs)
+rm(pkgs)</code></pre>
+</div>
+<div id="read-in-the-wafanyikazi-dataset" class="section level2">
+<h2>Read in the wafanyikazi dataset</h2>
+<p><br></p>
+<pre class="r"><code>df &lt;- wafanyikazi
+
+#df &lt;- read_csv(&quot;&quot;)</code></pre>
+<p>##1. dplyr
+Contains several functions, which we will look at one by one.</p>
+<p>###1.1 select()</p>
+<p>Used for picking and dropping variables.
+<br></p>
+<pre class="r"><code>## Picking variables.
+
+df1 &lt;- df %&gt;% 
+  select(Sid,Gender, Age)
+
+## Dropping variables.
+### When dopping variables, you insert a hyphen in front of the variable name.
+
+df1 &lt;- df %&gt;% 
+  select(-Sid, -Promotion)
+
+## Picking or dropping variables acording to a given pattern.
+
+df1 &lt;- df %&gt;% 
+  select(contains(&quot;f&quot;)) ## Picking variables that contains letter e.
+
+df1 &lt;- df %&gt;% 
+  select(-ends_with(&quot;t&quot;))
+
+## Picking a sequence of variables that appear together.
+
+df1 &lt;- df %&gt;% 
+  select(Sid:Marital_Status)
+
+rm(df1)</code></pre>
+<div id="filter" class="section level3">
+<h3>1.2 filter()</h3>
+<p>Used for picking values.</p>
+<p>filter works with mathematical operators.</p>
+<ul>
+<li><p>== equality</p></li>
+<li><p>!= non-equality</p></li>
+<li><p>&lt; less than</p></li>
+<li><blockquote>
+<p>greater than</p>
+</blockquote></li>
+<li><p>&amp; and</p></li>
+<li><div class="line-block">or</div></li>
+</ul>
+<p>In english grammar, filter means removing unwanted material. But in R, we mostly use filter to keep observations, depending on the mathematical operators used.</p>
+<p><br></p>
+<pre class="r"><code>## Dropping obsevations based on the condition of a numeric variable. 
+
+### Let us drop all those who are aged 25 and above
+df2 &lt;- df %&gt;% 
+  filter(Age &lt; 25) ## notice the number is not enclosed in quotes
+
+
+### Let us keep all those who are older than 25, but younger than 40
+df2 &lt;- df %&gt;% 
+  filter(Age &gt;= 25 &amp; Age &lt;40) ## notice the number is not enclosed in quotes
+
+df2 &lt;- df %&gt;% 
+  filter(Age &gt; 30 &amp; Gender == &quot;Female&quot;)
+
+## Dropping obsevations based on the condition of a character/factor variable. 
+### Let us drop all males
+df2 &lt;- df %&gt;% 
+  filter(Gender == &quot;Female&quot;)
+
+df2 &lt;- df %&gt;% 
+  filter(Gender != &quot;Male&quot;)
+
+rm(df2)</code></pre>
+</div>
+<div id="mutate" class="section level3">
+<h3>1.3 mutate()</h3>
+<p>Used for generating variables</p>
+<pre class="r"><code>## Generating a basic variable.
+df3 &lt;- df %&gt;% 
+  mutate(prop_leavedays = Leave_Days/365)
+
+## Generating a variable, based on the conditions of another variable.
+df3 &lt;- df %&gt;% 
+  mutate(Jinsia = if_else(Gender == &quot;Female&quot;,&quot;Mke&quot;,&quot;Mme&quot;))
+
+rm(df3)</code></pre>
+<p>There are other variations of mutate().
+mutate_all(): Used for implementing the same function on all of the variables.</p>
+<p>mutate_at(): Used for implementing a function, for specific varibles.
+mutate_if(): Used for implementing a function, on specific variables, if they meet a certain condition.</p>
+<div id="mutate_all" class="section level4">
+<h4>1.3.1: mutate_all()</h4>
+<p>The syntax is written as <code>mutate_all(~(function(.)))</code>. In the function, where a variable name should be inserted, replace that with a “period”, to signify all the variables.
+<br></p>
+<pre class="r"><code>df4 &lt;- df %&gt;% 
+  mutate_all(~paste0(., &quot;_x&quot;))
+
+df4 &lt;- df %&gt;% 
+  mutate_all(tolower)
+
+rm(df4)</code></pre>
+</div>
+<div id="mutate_at" class="section level4">
+<h4>1.3.2: mutate_at()</h4>
+<p>The syntax is written as <code>mutate_at(vars(), funs(.))</code></p>
+<p><br></p>
+<pre class="r"><code>df4 &lt;- df %&gt;% 
+  mutate_at(vars(Gender, County), tolower)
+
+df4 &lt;- df %&gt;% 
+  mutate_at(vars(Gender, County), funs(paste(.,&quot;x&quot;)))
+
+rm(df4)</code></pre>
+<p><br></p>
+</div>
+<div id="mutate_if" class="section level4">
+<h4>1.3.3: mutate_if()</h4>
+<p>The syntax is written as <code>mutate_if(condition, funs(.))</code>
+<br></p>
+<pre class="r"><code>df4 &lt;- df %&gt;% 
+  mutate_if(is.numeric, funs(.*100))
+
+df4 &lt;- df %&gt;% 
+  mutate_if(is.character, as.factor)
+
+rm(df4)</code></pre>
+</div>
+</div>
+<div id="group_by-and-summarise" class="section level3">
+<h3>1.4 group_by() and summarise()</h3>
+<p>Used for generating summary statistics.
+<br></p>
+<pre class="r"><code>tab &lt;- df %&gt;% 
+  group_by(Gender) %&gt;% 
+  count() %&gt;% 
+  rename(Count = n)
+
+tab &lt;- df %&gt;% 
+  group_by(Gender) %&gt;% 
+  summarise(Count = n())
+
+tab &lt;- df %&gt;% 
+  group_by(Department) %&gt;% 
+  summarise(Avg_Income = mean(Income, na.rm = T))</code></pre>
+<div id="summarise_at" class="section level4">
+<h4>1.4.2 summarise_at</h4>
+<p><br></p>
+<pre class="r"><code>tab &lt;- df %&gt;% 
+  group_by(County) %&gt;% 
+  summarise_at(vars(Age, Leave_Days, Income), funs(mean(.,na.rm = TRUE)))</code></pre>
+</div>
+<div id="summarise_if" class="section level4">
+<h4>1.4.2 summarise_if</h4>
+<p><br></p>
+<pre class="r"><code>tab &lt;- df %&gt;% 
+  group_by(County,Gender) %&gt;% 
+  summarise_if(is.numeric, funs(mean(.,na.rm = TRUE)))</code></pre>
+</div>
+</div>
+<div id="arrange" class="section level3">
+<h3>1.5 arrange</h3>
+<p>Used for ordering the data based on certain variables
+<br></p>
+<pre class="r"><code>df6 &lt;- df %&gt;% 
+  arrange(Gender, Age)
+
+df6 &lt;- df %&gt;% 
+  arrange(Gender, desc(Age))</code></pre>
+<p>##2. tidyr
+<br></p>
+<pre class="r"><code>## Generatin a dummy dataset
+Year &lt;- c(2010,2011,2012,2013,2014)
+Q1 &lt;-c(1003,1532,954,841,823)
+Q2 &lt;-c(1359,933,992,1434,1034)
+Q3 &lt;-c(1326,904,845,1480,1184)
+Q4 &lt;-c(1122,1479,889,1174,1317)
+
+sales = data.frame(Year,Q1 ,Q2, Q3, Q4)</code></pre>
+</div>
+<div id="wider-to-longer" class="section level3">
+<h3>2.1 Wider to longer</h3>
+<p><br></p>
+<pre class="r"><code>## Method 1: Using gather()
+
+sales1 &lt;- sales %&gt;% 
+  gather(&quot;Quarters&quot;,&quot;Sales_Values&quot;, -Year, na.rm = TRUE)
+
+## Method 2: Using pivot_longer()
+sales2 &lt;- sales %&gt;% 
+  pivot_longer(-Year, names_to = &quot;Quarters&quot;, values_to = &quot;Sales_Values&quot;,values_drop_na = TRUE)</code></pre>
+</div>
+<div id="longer-to-wider" class="section level3">
+<h3>2.2 Longer to wider</h3>
+<p><br></p>
+<pre class="r"><code>## Method 1: Using spread()
+sales3 &lt;- sales1 %&gt;% 
+  spread(Quarters, Sales_Values)
+
+## Method 2: Using pivot_wider()
+sales4 &lt;- sales2 %&gt;% 
+  pivot_wider(names_from = &quot;Quarters&quot;, values_from = &quot;Sales_Values&quot;)</code></pre>
+<p>##3. ggplot2</p>
+<p>Used for creating beautiful graphs
+<br></p>
+<pre class="r"><code>## Let us create a theme that we will use in this training
+
+training_theme &lt;- theme_hc()+ 
+                  theme(legend.position = &quot;right&quot;, 
+                  legend.direction = &quot;vertical&quot;,
+                  legend.title = element_blank(),
+                  plot.title = element_text( size = rel(1.6), hjust = 0.5),
+                  plot.subtitle = element_text(size = rel(1.5), hjust = 0.5),
+                  axis.text.x = element_text(size =rel(1.5),angle = 0),
+                  axis.text.y = element_text(size =rel(1.5),angle = 0),
+                  axis.title = element_text( size = rel(1.55)),
+                  axis.line.x = element_line(size = 1.5, colour = &quot;black&quot;),
+                  panel.background = element_rect(fill = NA))
+
+rstudio_blue &lt;- &quot;#4AA4DE&quot;</code></pre>
+</div>
+<div id="geom_bar-of-one-variable" class="section level3">
+<h3>3.1 geom_bar of one variable</h3>
+<p><br></p>
+<pre class="r"><code>## Let us generate a graph that sows us the number of individuals per department.
+
+## First come up with the table showing frequencies and percentages.
+
+tab &lt;- df %&gt;% 
+  group_by(Department) %&gt;% 
+  count() %&gt;% 
+  rename(Count = n) %&gt;% 
+  ungroup() %&gt;% 
+  mutate(Percentage = round(Count/ sum(Count) *100,1))
+
+## Generate the graph
+bargraph1 &lt;- ggplot(data = tab, aes(x = Department, y = Percentage))+
+             geom_bar(stat = &quot;identity&quot;, fill = rstudio_blue)+
+             geom_text(aes(label = Percentage), vjust = -0.25, hjust = 0.5, size=4)+
+             training_theme+
+             labs(title = &quot;Distribution of Respondents per Department&quot;, x=&quot;Department&quot;,
+                  y=&quot;Percentage&quot;) 
+
+bargraph1  </code></pre>
+<p><img src="/post/Passa_files/figure-html/unnamed-chunk-18-1.png" width="1152" /></p>
+</div>
+<div id="geom_bar-of-more-than-one-variable" class="section level3">
+<h3>3.2 geom_bar of more than one variable</h3>
+<p><br>
+<br></p>
+<pre class="r"><code>## Let us generate a graph that sows us the number of individuals per department and gender category.
+
+## First come up with the table showing frequencies and percentages.
+
+tab &lt;- df %&gt;% 
+  group_by(Department, Gender) %&gt;% 
+  count() %&gt;% 
+  rename(Count = n) %&gt;% 
+  ungroup() %&gt;% 
+  group_by(Department) %&gt;% 
+  mutate(Percentage = round(Count/ sum(Count) *100,1))
+
+## Generate the graph
+bargraph2 &lt;- ggplot(data = tab, aes(x = Department, y = Percentage, fill=Gender))+
+             geom_bar(stat = &quot;identity&quot;, position = &quot;dodge&quot;)+
+             geom_text(aes(label = Percentage), vjust = -0.25, hjust = 0.5, size=4,position = position_dodge(width = 0.9))+
+             training_theme+
+             scale_fill_brewer(palette = &quot;Blues&quot;)+
+             labs(title = &quot;Distribution of Respondents per Department&quot;, x=&quot;Department&quot;,
+                  y=&quot;Percentage&quot;)
+bargraph2 </code></pre>
+<p><img src="/post/Passa_files/figure-html/unnamed-chunk-19-1.png" width="1152" /></p>
+</div>
+<div id="geom_line-of-one-variable" class="section level3">
+<h3>3.3 geom_line of one variable</h3>
+<p><br></p>
+<pre class="r"><code>## Let us generate a graph that sows us the average income per department.
+
+## First come up with the table showing frequencies and percentages.
+
+tab &lt;- df %&gt;% 
+  group_by(Department) %&gt;% 
+  summarise(avg_income = round(mean(Income, na.rm = T), 2))
+
+## Generate the graph
+linegraph1 &lt;- ggplot(data = tab, aes(x = Department, y = avg_income, group = 1))+
+             geom_line(stat = &quot;identity&quot;, color = rstudio_blue)+
+             geom_text(aes(label = avg_income), vjust = -0.25, hjust = 0.5, size=4)+
+             training_theme+
+             labs(title = &quot;Distribution of Average Income per Department&quot;, x=&quot;Department&quot;,
+                  y=&quot;Average Income&quot;)
+linegraph1  </code></pre>
+<p><img src="/post/Passa_files/figure-html/unnamed-chunk-20-1.png" width="1152" /></p>
+</div>
+<div id="geom_line-of-2-variables" class="section level3">
+<h3>3.4 geom_line of 2 variables</h3>
+<p><br></p>
+<pre class="r"><code>## Let us generate a graph that sows us the average income per department and gender.
+
+## First come up with the table showing frequencies and percentages.
+
+tab &lt;- df %&gt;% 
+  group_by(Department, Gender) %&gt;% 
+  summarise(avg_income = round(mean(Income, na.rm = T), 2))
+
+## Generate the graph
+linegraph2 &lt;- ggplot(data = tab, aes(x = Department, y = avg_income, group = Gender, color = Gender))+
+             geom_line(stat = &quot;identity&quot;, size = 2)+
+             training_theme+
+             scale_color_manual(values = c(&quot;Yellow&quot;, &quot;Red&quot;))+
+             labs(title = &quot;Distribution of Average Income per Department&quot;, x=&quot;Department&quot;,
+                  y=&quot;Average Income&quot;)
+linegraph2  </code></pre>
+<p><img src="/post/Passa_files/figure-html/unnamed-chunk-21-1.png" width="1152" /></p>
+</div>
+<div id="geom_boxplot-of-one-variable" class="section level3">
+<h3>3.5 geom_boxplot of one variable</h3>
+<p><br></p>
+<pre class="r"><code>## Let us generate a graph that sows us the average income per department.
+
+## Generate the graph
+boxplot1 &lt;- ggplot(data = df, aes(x = Department, y = Income))+
+             geom_boxplot( fill = rstudio_blue)+
+             training_theme+
+             labs(title = &quot;Distribution of Average Income per Department&quot;, x=&quot;Department&quot;,
+                  y=&quot;Average Income&quot;)
+boxplot1  </code></pre>
+<p><img src="/post/Passa_files/figure-html/unnamed-chunk-22-1.png" width="1152" /></p>
+</div>
+<div id="geom_boxplot-of-two-variables" class="section level3">
+<h3>3.6 geom_boxplot of two variables</h3>
+<p><br></p>
+<pre class="r"><code>## Let us generate a graph that sows us the average income per department and gender.
+
+## Generate the graph
+boxplot2 &lt;- ggplot(data = df, aes(x = Department, y = Income, fill = Gender))+
+             geom_boxplot()+
+             training_theme+
+             scale_fill_brewer(palette = &quot;Blues&quot;)+
+             labs(title = &quot;Distribution of Average Income per Department&quot;, x=&quot;Department&quot;,
+                  y=&quot;Average Income&quot;)
+boxplot2  </code></pre>
+<p><img src="/post/Passa_files/figure-html/unnamed-chunk-23-1.png" width="1152" /></p>
+</div>
+<div id="geom_area-of-one-variable" class="section level3">
+<h3>3.7 geom_area of one variable</h3>
+<p><br></p>
+<pre class="r"><code>## Let us generate a graph that sows us the average income per department and gender.
+
+## Generate the graph
+area1 &lt;- ggplot(data = df, aes(x = Income))+
+             geom_area(stat = &quot;bin&quot;, fill = rstudio_blue)+
+             training_theme+
+             labs(title = &quot;Distribution of Average Income&quot;, x=&quot;Income&quot;,
+                  y=&quot;Count&quot;)
+area1  </code></pre>
+<p><img src="/post/Passa_files/figure-html/unnamed-chunk-24-1.png" width="1152" /></p>
+</div>
+<div id="geom_area-of-two-variables" class="section level3">
+<h3>3.8 geom_area of two variables</h3>
+<p><br></p>
+<pre class="r"><code>## Let us generate a graph that sows us the average income per department and gender.
+
+## Generate the graph
+area2 &lt;- ggplot(data = df, aes(x = Income, fill = Gender))+
+             geom_area(stat = &quot;bin&quot;)+
+             training_theme+
+             scale_fill_brewer(palette = &quot;Blues&quot;)+
+             labs(title = &quot;Distribution of Average Income&quot;, x=&quot;Income&quot;,
+                  y=&quot;Count&quot;)
+area2  </code></pre>
+<p><img src="/post/Passa_files/figure-html/unnamed-chunk-25-1.png" width="1152" /></p>
+</div>
+<div id="geom_histogram-of-one-variable" class="section level3">
+<h3>3.9 geom_histogram of one variable</h3>
+<p><br></p>
+<pre class="r"><code>## Let us generate a graph that sows us the average income per department and gender.
+
+## Generate the graph
+hist1 &lt;- ggplot(data = df, aes(x = Income))+
+             geom_histogram(stat = &quot;bin&quot;, fill = rstudio_blue)+
+             training_theme+
+             labs(title = &quot;Distribution of Average Income&quot;, x=&quot;Income&quot;,
+                  y=&quot;Count&quot;)
+hist1  </code></pre>
+<p><img src="/post/Passa_files/figure-html/unnamed-chunk-26-1.png" width="1152" /></p>
+</div>
+<div id="geom_histogram-of-two-variables" class="section level3">
+<h3>3.10 geom_histogram of two variables</h3>
+<p><br></p>
+<pre class="r"><code>## Let us generate a graph that sows us the average income per department and gender.
+
+## Generate the graph
+hist2 &lt;- ggplot(data = df, aes(x = Income, fill = Gender))+
+             geom_histogram(stat = &quot;bin&quot;)+
+             training_theme+
+             scale_fill_brewer(palette = &quot;Blues&quot;)+
+             labs(title = &quot;Distribution of Average Income&quot;, x=&quot;Income&quot;,
+                  y=&quot;Count&quot;)
+hist2  </code></pre>
+<p><img src="/post/Passa_files/figure-html/unnamed-chunk-27-1.png" width="1152" /></p>
+</div>
+</div>

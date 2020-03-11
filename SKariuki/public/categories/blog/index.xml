@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>blog | Academic</title>
+    <link>/categories/blog/</link>
+      <atom:link href="/categories/blog/index.xml" rel="self" type="application/rss+xml" />
+    <description>blog</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Tue, 10 Mar 2020 02:20:01 -0700</lastBuildDate>
+    <image>
+      <url>/img/avatar.jpg</url>
+      <title>blog</title>
+      <link>/categories/blog/</link>
+    </image>
+    
+    <item>
+      <title>Amandla...my new baby</title>
+      <link>/blog/amandla/</link>
+      <pubDate>Tue, 10 Mar 2020 02:20:01 -0700</pubDate>
+      <guid>/blog/amandla/</guid>
+      <description>
+
+
+&lt;p&gt;Coming Soon&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>My trip to Kisii University</title>
+      <link>/blog/kisiiuni/</link>
+      <pubDate>Tue, 10 Mar 2020 02:20:01 -0700</pubDate>
+      <guid>/blog/kisiiuni/</guid>
+      <description>
+
+
+&lt;p&gt;Coming Soon&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

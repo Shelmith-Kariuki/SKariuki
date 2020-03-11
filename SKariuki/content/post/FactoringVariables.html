@@ -1,0 +1,165 @@
+---
+title: "Factorizing variables in R"
+author: "Shelmith Kariuki"
+date: 2020-01-15
+categories: ["R"]
+tags: ["R Markdown"]
+images: []
+output:
+  blogdown::html_page:
+    toc: true
+    toc_depth: 1
+    number_sections: false
+    fig_width: 16
+---
+
+
+
+<p>There are 5 ways (that I know of) in which we can factorise multiple variables in R.</p>
+<ul>
+<li>One by one (an option for beginners).</li>
+<li>Using a for loop.</li>
+<li>lapply()</li>
+<li>forcats::fct_relevel()</li>
+<li>purrr::map()</li>
+</ul>
+<div id="load-the-packages-that-we-will-require" class="section level3">
+<h3>0. Load the packages that we will require</h3>
+<p><br></p>
+<pre class="r"><code>## Create a vector of packages that we will need
+pkgs &lt;- c(&quot;dplyr&quot;,&quot;purrr&quot;,&quot;repurrrsive&quot;)
+
+## Check if there are variables you want to load, that are not already installed. 
+miss_pkgs &lt;- pkgs[!pkgs %in% installed.packages()[,1]] 
+
+## Installing the missing packages
+if(length(miss_pkgs)&gt;0){
+  install.packages(miss_pkgs)
+}
+
+## Loading all the packages
+invisible(lapply(pkgs,library,character.only=TRUE))
+
+## Remove the objects that are no longer required
+rm(miss_pkgs)
+rm(pkgs)</code></pre>
+<p>Assuming you have a matrix type question (where respondents were asked to rate the questions on a scale of 1 - 5, where 1 represents Strongly Disagree and 5 represents Strongly Agree).
+<br></p>
+<pre class="r"><code>set.seed(2020)
+
+vec &lt;- 1:5
+Questions &lt;- paste0(&quot;Opinion_&quot;,vec)
+opinion_df &lt;- data.frame(matrix(&quot;&quot;, ncol=5, nrow=200))
+names(opinion_df) &lt;- Questions
+
+for(i in 1: length(Questions)){
+ opinion_df[,Questions[i]] &lt;- sample(c(&quot;Strongly Agree&quot;, &quot;Agree&quot;,&quot;Neutral&quot;,&quot;Disagree&quot;, &quot;Strongly Disagree&quot;),size = 200,replace = TRUE) 
+}
+
+head(opinion_df, 10)</code></pre>
+<pre><code>##            Opinion_1         Opinion_2         Opinion_3         Opinion_4
+## 1           Disagree          Disagree             Agree          Disagree
+## 2           Disagree             Agree             Agree Strongly Disagree
+## 3     Strongly Agree           Neutral    Strongly Agree           Neutral
+## 4     Strongly Agree Strongly Disagree             Agree           Neutral
+## 5           Disagree           Neutral             Agree    Strongly Agree
+## 6              Agree           Neutral           Neutral           Neutral
+## 7     Strongly Agree           Neutral Strongly Disagree    Strongly Agree
+## 8  Strongly Disagree           Neutral           Neutral    Strongly Agree
+## 9              Agree          Disagree    Strongly Agree             Agree
+## 10             Agree          Disagree             Agree           Neutral
+##            Opinion_5
+## 1              Agree
+## 2           Disagree
+## 3            Neutral
+## 4            Neutral
+## 5           Disagree
+## 6           Disagree
+## 7  Strongly Disagree
+## 8            Neutral
+## 9              Agree
+## 10          Disagree</code></pre>
+</div>
+<div id="factorizing-one-by-one" class="section level3">
+<h3>1. Factorizing one by one</h3>
+<p><br></p>
+<pre class="r"><code>opinion_df2 &lt;- opinion_df
+
+## Opinion_1
+opinion_df2$Opinion_1 &lt;- factor(opinion_df2$Opinion_1,
+                                levels = c(&quot;Strongly Disagree&quot;, &quot;Disagree&quot;,&quot;Neutral&quot;,&quot;Agree&quot;, &quot;Strongly Agree&quot;),
+                                labels = c(&quot;Strongly Disagree&quot;, &quot;Disagree&quot;,&quot;Neutral&quot;,&quot;Agree&quot;, &quot;Strongly Agree&quot;))
+
+## Opinion_2
+opinion_df2$Opinion_2 &lt;- factor(opinion_df2$Opinion_2,
+                                levels = c(&quot;Strongly Disagree&quot;, &quot;Disagree&quot;,&quot;Neutral&quot;,&quot;Agree&quot;, &quot;Strongly Agree&quot;),
+                                labels = c(&quot;Strongly Disagree&quot;, &quot;Disagree&quot;,&quot;Neutral&quot;,&quot;Agree&quot;, &quot;Strongly Agree&quot;))
+
+## Sorry, I cannot continue with this replication</code></pre>
+</div>
+<div id="using-a-for-loop" class="section level3">
+<h3>2. Using a for loop</h3>
+<p><br></p>
+<pre class="r"><code>opinion_df3 &lt;- opinion_df
+
+factor_function &lt;- function(data,var){
+  data[,var] &lt;- factor(data[,var],
+                  levels = c(&quot;Strongly Disagree&quot;, &quot;Disagree&quot;,&quot;Neutral&quot;,&quot;Agree&quot;, &quot;Strongly Agree&quot;),
+                  labels = c(&quot;Strongly Disagree&quot;, &quot;Disagree&quot;,&quot;Neutral&quot;,&quot;Agree&quot;, &quot;Strongly Agree&quot;))
+  
+  return(data[,var])
+}
+
+for( i in 1:length(Questions)){
+ opinion_df3[,Questions[i]] &lt;- factor_function(opinion_df3,Questions[i])
+ print(levels(opinion_df3[,Questions[i]]))
+}</code></pre>
+<pre><code>## [1] &quot;Strongly Disagree&quot; &quot;Disagree&quot;          &quot;Neutral&quot;          
+## [4] &quot;Agree&quot;             &quot;Strongly Agree&quot;   
+## [1] &quot;Strongly Disagree&quot; &quot;Disagree&quot;          &quot;Neutral&quot;          
+## [4] &quot;Agree&quot;             &quot;Strongly Agree&quot;   
+## [1] &quot;Strongly Disagree&quot; &quot;Disagree&quot;          &quot;Neutral&quot;          
+## [4] &quot;Agree&quot;             &quot;Strongly Agree&quot;   
+## [1] &quot;Strongly Disagree&quot; &quot;Disagree&quot;          &quot;Neutral&quot;          
+## [4] &quot;Agree&quot;             &quot;Strongly Agree&quot;   
+## [1] &quot;Strongly Disagree&quot; &quot;Disagree&quot;          &quot;Neutral&quot;          
+## [4] &quot;Agree&quot;             &quot;Strongly Agree&quot;</code></pre>
+</div>
+<div id="using-lapply." class="section level3">
+<h3>3. Using lapply().</h3>
+<p>sapply() is kind of usually moody at times, and this was one of those days. So I used lapply(), and it works.
+<br></p>
+<pre class="r"><code>opinion_df &lt;- data.frame(opinion_df)
+
+opinion_df4 &lt;- as.data.frame(lapply(opinion_df, function(x) factor(x,
+            levels = c(&quot;Strongly Disagree&quot;, &quot;Disagree&quot;,&quot;Neutral&quot;,&quot;Agree&quot;, &quot;Strongly Agree&quot;),
+            labels = c(&quot;Strongly Disagree&quot;, &quot;Disagree&quot;,&quot;Neutral&quot;,&quot;Agree&quot;, &quot;Strongly Agree&quot;))),check.names = FALSE)
+
+levels(opinion_df3$Opinion_4)</code></pre>
+<pre><code>## [1] &quot;Strongly Disagree&quot; &quot;Disagree&quot;          &quot;Neutral&quot;          
+## [4] &quot;Agree&quot;             &quot;Strongly Agree&quot;</code></pre>
+</div>
+<div id="using-forcatsfct_relevel" class="section level3">
+<h3>4. Using forcats::fct_relevel()</h3>
+<p><br></p>
+<pre class="r"><code>opinion_df5 &lt;- opinion_df %&gt;%
+  dplyr::mutate_all(forcats::fct_relevel, &quot;Strongly Disagree&quot;, &quot;Disagree&quot;, &quot;Neutral&quot;, &quot;Agree&quot;, &quot;Strongly Agree&quot;)
+
+levels(opinion_df5$Opinion_4)</code></pre>
+<pre><code>## [1] &quot;Strongly Disagree&quot; &quot;Disagree&quot;          &quot;Neutral&quot;          
+## [4] &quot;Agree&quot;             &quot;Strongly Agree&quot;</code></pre>
+</div>
+<div id="using-purrrmap" class="section level3">
+<h3>5. Using purrr::map()</h3>
+<p><br>
+The syntax is written as map(.x,.f) i.e for each element of .x, do .f
+<br></p>
+<pre class="r"><code>opinion_df6 &lt;-bind_rows(map(opinion_df, ~factor(.x,
+ levels = c(&quot;Strongly Disagree&quot;, &quot;Disagree&quot;,&quot;Neutral&quot;,&quot;Agree&quot;, &quot;Strongly Agree&quot;),
+ labels = c(&quot;Strongly Disagree&quot;, &quot;Disagree&quot;,&quot;Neutral&quot;,&quot;Agree&quot;, &quot;Strongly Agree&quot;))))
+
+
+levels(opinion_df6$Opinion_4)</code></pre>
+<pre><code>## [1] &quot;Strongly Disagree&quot; &quot;Disagree&quot;          &quot;Neutral&quot;          
+## [4] &quot;Agree&quot;             &quot;Strongly Agree&quot;</code></pre>
+</div>
