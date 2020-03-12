@@ -27,7 +27,7 @@ From previous large studies of women drawn at random from the healthy general pu
 <h5>Calculations by hand</h5>
 ```{r ,comment=NA}
 
-knitr::include_graphics("../../static/img/DSC06212_2.jpg")
+knitr::include_graphics("DSC06212_2.jpg")
 ```
 
 

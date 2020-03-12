@@ -18,6 +18,10 @@
   </url>
   
   <url>
+    <loc>/nyumbani/about/</loc>
+  </url>
+  
+  <url>
     <loc>/blog/amandla/</loc>
     <lastmod>2020-03-10T02:20:01-07:00</lastmod>
   </url>
@@ -49,6 +53,11 @@
   
   <url>
     <loc>/talk/</loc>
+    <lastmod>2020-03-10T02:20:01-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/tidyverse/</loc>
     <lastmod>2020-03-10T02:20:01-07:00</lastmod>
   </url>
   
@@ -200,6 +209,10 @@
   <url>
     <loc>/publication/conference-paper/</loc>
     <lastmod>2013-07-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/nyumbani/</loc>
   </url>
   
   <url>

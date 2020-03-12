@@ -55,6 +55,14 @@
     </item>
     
     <item>
+      <title>Biography</title>
+      <link>/nyumbani/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>/nyumbani/about/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Amandla...my new baby</title>
       <link>/blog/amandla/</link>
       <pubDate>Tue, 10 Mar 2020 02:20:01 -0700</pubDate>
@@ -273,8 +281,8 @@ From previous large studies of women drawn at random from the healthy general pu
 &lt;h5&gt;
 Calculations by hand
 &lt;/h5&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;knitr::include_graphics(&amp;quot;../../static/img/DSC06212_2.jpg&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;../../static/img/DSC06212_2.jpg&#34; width=&#34;1228&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;knitr::include_graphics(&amp;quot;DSC06212_2.jpg&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;DSC06212_2.jpg&#34; width=&#34;1228&#34; /&gt;&lt;/p&gt;
 &lt;h5&gt;
 Execution in R
 &lt;/h5&gt;
@@ -877,7 +885,7 @@ bargraph1 &amp;lt;- ggplot(data = tab, aes(x = Department, y = Percentage))+
                   y=&amp;quot;Percentage&amp;quot;) 
 
 bargraph1  &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/Passa_files/figure-html/unnamed-chunk-18-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;//post/Passa_files/figure-html/unnamed-chunk-18-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;geom_bar-of-more-than-one-variable&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;3.2 geom_bar of more than one variable&lt;/h3&gt;
@@ -904,7 +912,7 @@ bargraph2 &amp;lt;- ggplot(data = tab, aes(x = Department, y = Percentage, fill=
              labs(title = &amp;quot;Distribution of Respondents per Department&amp;quot;, x=&amp;quot;Department&amp;quot;,
                   y=&amp;quot;Percentage&amp;quot;)
 bargraph2 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/Passa_files/figure-html/unnamed-chunk-19-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;//post/Passa_files/figure-html/unnamed-chunk-19-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;geom_line-of-one-variable&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;3.3 geom_line of one variable&lt;/h3&gt;
@@ -925,7 +933,7 @@ linegraph1 &amp;lt;- ggplot(data = tab, aes(x = Department, y = avg_income, grou
              labs(title = &amp;quot;Distribution of Average Income per Department&amp;quot;, x=&amp;quot;Department&amp;quot;,
                   y=&amp;quot;Average Income&amp;quot;)
 linegraph1  &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/Passa_files/figure-html/unnamed-chunk-20-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;//post/Passa_files/figure-html/unnamed-chunk-20-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;geom_line-of-2-variables&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;3.4 geom_line of 2 variables&lt;/h3&gt;
@@ -946,7 +954,7 @@ linegraph2 &amp;lt;- ggplot(data = tab, aes(x = Department, y = avg_income, grou
              labs(title = &amp;quot;Distribution of Average Income per Department&amp;quot;, x=&amp;quot;Department&amp;quot;,
                   y=&amp;quot;Average Income&amp;quot;)
 linegraph2  &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/Passa_files/figure-html/unnamed-chunk-21-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;//post/Passa_files/figure-html/unnamed-chunk-21-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;geom_boxplot-of-one-variable&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;3.5 geom_boxplot of one variable&lt;/h3&gt;
@@ -960,7 +968,7 @@ boxplot1 &amp;lt;- ggplot(data = df, aes(x = Department, y = Income))+
              labs(title = &amp;quot;Distribution of Average Income per Department&amp;quot;, x=&amp;quot;Department&amp;quot;,
                   y=&amp;quot;Average Income&amp;quot;)
 boxplot1  &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/Passa_files/figure-html/unnamed-chunk-22-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;//post/Passa_files/figure-html/unnamed-chunk-22-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;geom_boxplot-of-two-variables&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;3.6 geom_boxplot of two variables&lt;/h3&gt;
@@ -975,7 +983,7 @@ boxplot2 &amp;lt;- ggplot(data = df, aes(x = Department, y = Income, fill = Gend
              labs(title = &amp;quot;Distribution of Average Income per Department&amp;quot;, x=&amp;quot;Department&amp;quot;,
                   y=&amp;quot;Average Income&amp;quot;)
 boxplot2  &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/Passa_files/figure-html/unnamed-chunk-23-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;//post/Passa_files/figure-html/unnamed-chunk-23-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;geom_area-of-one-variable&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;3.7 geom_area of one variable&lt;/h3&gt;
@@ -989,7 +997,7 @@ area1 &amp;lt;- ggplot(data = df, aes(x = Income))+
              labs(title = &amp;quot;Distribution of Average Income&amp;quot;, x=&amp;quot;Income&amp;quot;,
                   y=&amp;quot;Count&amp;quot;)
 area1  &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/Passa_files/figure-html/unnamed-chunk-24-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;//post/Passa_files/figure-html/unnamed-chunk-24-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;geom_area-of-two-variables&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;3.8 geom_area of two variables&lt;/h3&gt;
@@ -1004,7 +1012,7 @@ area2 &amp;lt;- ggplot(data = df, aes(x = Income, fill = Gender))+
              labs(title = &amp;quot;Distribution of Average Income&amp;quot;, x=&amp;quot;Income&amp;quot;,
                   y=&amp;quot;Count&amp;quot;)
 area2  &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/Passa_files/figure-html/unnamed-chunk-25-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;//post/Passa_files/figure-html/unnamed-chunk-25-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;geom_histogram-of-one-variable&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;3.9 geom_histogram of one variable&lt;/h3&gt;
@@ -1018,7 +1026,7 @@ hist1 &amp;lt;- ggplot(data = df, aes(x = Income))+
              labs(title = &amp;quot;Distribution of Average Income&amp;quot;, x=&amp;quot;Income&amp;quot;,
                   y=&amp;quot;Count&amp;quot;)
 hist1  &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/Passa_files/figure-html/unnamed-chunk-26-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;//post/Passa_files/figure-html/unnamed-chunk-26-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;geom_histogram-of-two-variables&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;3.10 geom_histogram of two variables&lt;/h3&gt;
@@ -1033,7 +1041,7 @@ hist2 &amp;lt;- ggplot(data = df, aes(x = Income, fill = Gender))+
              labs(title = &amp;quot;Distribution of Average Income&amp;quot;, x=&amp;quot;Income&amp;quot;,
                   y=&amp;quot;Count&amp;quot;)
 hist2  &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/Passa_files/figure-html/unnamed-chunk-27-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;//post/Passa_files/figure-html/unnamed-chunk-27-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 </description>

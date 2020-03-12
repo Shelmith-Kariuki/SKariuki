@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Nyumbanis | Shel Kariuki</title>
+    <link>/nyumbani/</link>
+      <atom:link href="/nyumbani/index.xml" rel="self" type="application/rss+xml" />
+    <description>Nyumbanis</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language>
+    <image>
+      <url>img/avatar.jpg</url>
+      <title>Nyumbanis</title>
+      <link>/nyumbani/</link>
+    </image>
+    
+    <item>
+      <title>Biography</title>
+      <link>/nyumbani/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>/nyumbani/about/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

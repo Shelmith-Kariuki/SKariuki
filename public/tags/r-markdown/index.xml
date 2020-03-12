@@ -195,8 +195,8 @@ From previous large studies of women drawn at random from the healthy general pu
 &lt;h5&gt;
 Calculations by hand
 &lt;/h5&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;knitr::include_graphics(&amp;quot;../../static/img/DSC06212_2.jpg&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;../../static/img/DSC06212_2.jpg&#34; width=&#34;1228&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;knitr::include_graphics(&amp;quot;DSC06212_2.jpg&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;DSC06212_2.jpg&#34; width=&#34;1228&#34; /&gt;&lt;/p&gt;
 &lt;h5&gt;
 Execution in R
 &lt;/h5&gt;

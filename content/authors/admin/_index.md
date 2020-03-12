@@ -72,9 +72,9 @@ user_groups:
 #- Visitors
 ---
 
-I am a Senior Data Analyst based in Nairobi, Kenya. I am passionate about training and using data analytics to drive development projects in Africa.
+<p style="text-align:justify;">I am a Senior Data Analyst based in Nairobi, Kenya. I am passionate about training and using data analytics to drive development projects in Africa.
 
-I previously worked as an assistant lecturer in several universities, in Kenya. Working as a lecturer was amazing, though my students hated me, since I was strict, especially during exams. It reached a point where I needed to apply my data analysis skills to solve real world problems. I was lucky (very lucky, ask me why when we meet) to join Busara Center for Behavioral Economics as a Junior Data Analyst, where in the past two years, I have grown into being a Senior Data Analyst.
+I previously worked as an assistant lecturer in several universities, in Kenya. Working as a lecturer was amazing, though my students hated me, since I was strict, especially during exams. It reached a point where I needed to apply my data analysis skills to solve real world problems. I was lucky (very lucky, ask me why when we meet) to join Busara Center for Behavioral Economics as a Junior Data Analyst, where in the past two years, I have grown into being a Senior Data Analyst.</p>
 
 I co-organize a community of R users in Nairobi [#NairobiR](https://www.linkedin.com/feed/hashtag/nairobir/) and in Africa [#AfricaR](https://twitter.com/AfricaRUsers). One of the missions of my community work is to make sure that we have an increased number of R adopters, in Africa.
 
