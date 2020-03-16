@@ -77,6 +77,11 @@
   </url>
   
   <url>
+    <loc>/tags/r/</loc>
+    <lastmod>2020-01-15T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/categories/r/</loc>
     <lastmod>2020-01-15T00:00:00+00:00</lastmod>
   </url>
@@ -94,6 +99,46 @@
   <url>
     <loc>/post/t-tests/</loc>
     <lastmod>2019-08-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/project/dishonesty/</loc>
+    <lastmod>2019-07-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/project/soiltesting/</loc>
+    <lastmod>2019-07-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/project/</loc>
+    <lastmod>2019-07-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/project/dignity/</loc>
+    <lastmod>2019-07-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/project/humanaccount/</loc>
+    <lastmod>2019-07-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/project/agents/</loc>
+    <lastmod>2019-07-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/talk/user2019/</loc>
+    <lastmod>2020-03-10T02:20:01-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/talk/dsa/</loc>
+    <lastmod>2020-03-10T02:20:01-07:00</lastmod>
   </url>
   
   <url>
@@ -167,22 +212,7 @@
   </url>
   
   <url>
-    <loc>/tags/demo/</loc>
-    <lastmod>2016-04-27T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/project/external-project/</loc>
-    <lastmod>2016-04-27T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/project/internal-project/</loc>
-    <lastmod>2016-04-27T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/project/</loc>
     <lastmod>2016-04-27T00:00:00+00:00</lastmod>
   </url>
   

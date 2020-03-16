@@ -370,6 +370,72 @@ ttest_1samp(volume, 500)
     </item>
     
     <item>
+      <title>A game to measure honesty</title>
+      <link>/project/dishonesty/</link>
+      <pubDate>Sat, 27 Jul 2019 00:00:00 +0000</pubDate>
+      <guid>/project/dishonesty/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>IMPROVING SOIL TESTING AMONG SMALLHOLDERS</title>
+      <link>/project/soiltesting/</link>
+      <pubDate>Sat, 27 Jul 2019 00:00:00 +0000</pubDate>
+      <guid>/project/soiltesting/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>The benefits of development with dignity</title>
+      <link>/project/dignity/</link>
+      <pubDate>Sat, 27 Jul 2019 00:00:00 +0000</pubDate>
+      <guid>/project/dignity/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>The Human Account</title>
+      <link>/project/humanaccount/</link>
+      <pubDate>Sat, 27 Jul 2019 00:00:00 +0000</pubDate>
+      <guid>/project/humanaccount/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Understanding agent networks</title>
+      <link>/project/agents/</link>
+      <pubDate>Sat, 27 Jul 2019 00:00:00 +0000</pubDate>
+      <guid>/project/agents/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>AfricaR</title>
+      <link>/talk/user2019/</link>
+      <pubDate>Tue, 09 Jul 2019 09:00:00 +0000</pubDate>
+      <guid>/talk/user2019/</guid>
+      <description>
+
+
+&lt;iframe src=&#34;https://www.youtube.com/embed/3ygr4Ju4bek&#34; width=&#34;672&#34; height=&#34;400px&#34;&gt;
+&lt;/iframe&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Data Science Africa (DSA)</title>
+      <link>/talk/dsa/</link>
+      <pubDate>Wed, 05 Jun 2019 09:00:00 +0000</pubDate>
+      <guid>/talk/dsa/</guid>
+      <description>
+
+
+&lt;iframe src=&#34;https://www.youtube.com/embed/LfINGdzoMJE&#34; width=&#34;672&#34; height=&#34;400px&#34;&gt;
+&lt;/iframe&gt;
+</description>
+    </item>
+    
+    <item>
       <title>An example preprint / working paper</title>
       <link>/publication/preprint/</link>
       <pubDate>Sun, 07 Apr 2019 00:00:00 +0000</pubDate>
@@ -533,14 +599,6 @@ Three
       <guid>/terms/</guid>
       <description>&lt;p&gt;&amp;hellip;&lt;/p&gt;
 </description>
-    </item>
-    
-    <item>
-      <title>External Project</title>
-      <link>/project/external-project/</link>
-      <pubDate>Wed, 27 Apr 2016 00:00:00 +0000</pubDate>
-      <guid>/project/external-project/</guid>
-      <description></description>
     </item>
     
     <item>

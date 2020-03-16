@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>R | Shel Kariuki</title>
+    <link>/tags/r/</link>
+      <atom:link href="/tags/r/index.xml" rel="self" type="application/rss+xml" />
+    <description>R</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Wed, 15 Jan 2020 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>img/avatar.jpg</url>
+      <title>R</title>
+      <link>/tags/r/</link>
+    </image>
+    
+    <item>
+      <title>A game to measure honesty</title>
+      <link>/project/dishonesty/</link>
+      <pubDate>Sat, 27 Jul 2019 00:00:00 +0000</pubDate>
+      <guid>/project/dishonesty/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>IMPROVING SOIL TESTING AMONG SMALLHOLDERS</title>
+      <link>/project/soiltesting/</link>
+      <pubDate>Sat, 27 Jul 2019 00:00:00 +0000</pubDate>
+      <guid>/project/soiltesting/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>The benefits of development with dignity</title>
+      <link>/project/dignity/</link>
+      <pubDate>Sat, 27 Jul 2019 00:00:00 +0000</pubDate>
+      <guid>/project/dignity/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>The Human Account</title>
+      <link>/project/humanaccount/</link>
+      <pubDate>Sat, 27 Jul 2019 00:00:00 +0000</pubDate>
+      <guid>/project/humanaccount/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Understanding agent networks</title>
+      <link>/project/agents/</link>
+      <pubDate>Sat, 27 Jul 2019 00:00:00 +0000</pubDate>
+      <guid>/project/agents/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

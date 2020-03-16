@@ -24,5 +24,31 @@
 </description>
     </item>
     
+    <item>
+      <title>AfricaR</title>
+      <link>/talk/user2019/</link>
+      <pubDate>Tue, 09 Jul 2019 09:00:00 +0000</pubDate>
+      <guid>/talk/user2019/</guid>
+      <description>
+
+
+&lt;iframe src=&#34;https://www.youtube.com/embed/3ygr4Ju4bek&#34; width=&#34;672&#34; height=&#34;400px&#34;&gt;
+&lt;/iframe&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Data Science Africa (DSA)</title>
+      <link>/talk/dsa/</link>
+      <pubDate>Wed, 05 Jun 2019 09:00:00 +0000</pubDate>
+      <guid>/talk/dsa/</guid>
+      <description>
+
+
+&lt;iframe src=&#34;https://www.youtube.com/embed/LfINGdzoMJE&#34; width=&#34;672&#34; height=&#34;400px&#34;&gt;
+&lt;/iframe&gt;
+</description>
+    </item>
+    
   </channel>
 </rss>
