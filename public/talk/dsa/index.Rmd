@@ -1,0 +1,42 @@
+---
+title: Data Science Africa (DSA)
+subtitle: R for DataScience
+draft: false
+event: []
+event_url: []
+location: Addis Ababa University
+summary: []
+
+# Talk start and end times.
+#   End time can optionally be hidden by prefixing the line with `#`.
+date: "2019-06-05T9:00:00Z"
+date_end: ""
+all_day: TRUE
+publishdate: "2020-03-10"
+
+links:
+- icon: twitter
+  icon_pack: fab
+  name: Follow
+  url: https://twitter.com/Shel_Kariuki
+
+
+categories:
+  - workshop
+  - tidyverse
+tags:
+
+lastmod: '2020-03-10T02:20:01-07:00'
+featured: no
+disable_jquery: no
+image: 
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+```{r, echo=FALSE}
+knitr::include_url("https://www.youtube.com/embed/LfINGdzoMJE")
+```
+

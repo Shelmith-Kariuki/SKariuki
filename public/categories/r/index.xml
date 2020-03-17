@@ -14,9 +14,9 @@
     
     <item>
       <title>Factorizing variables in R</title>
-      <link>/post/factoringvariables/</link>
+      <link>/post/factorvariables/factoringvariables/</link>
       <pubDate>Wed, 15 Jan 2020 00:00:00 +0000</pubDate>
-      <guid>/post/factoringvariables/</guid>
+      <guid>/post/factorvariables/factoringvariables/</guid>
       <description>
 
 
@@ -173,9 +173,9 @@ levels(opinion_df6$Opinion_4)&lt;/code&gt;&lt;/pre&gt;
     
     <item>
       <title>One sample t-tests</title>
-      <link>/post/t-tests/</link>
+      <link>/post/ttests/t-tests/</link>
       <pubDate>Mon, 19 Aug 2019 00:00:00 +0000</pubDate>
-      <guid>/post/t-tests/</guid>
+      <guid>/post/ttests/t-tests/</guid>
       <description>
 
 
@@ -195,8 +195,8 @@ From previous large studies of women drawn at random from the healthy general pu
 &lt;h5&gt;
 Calculations by hand
 &lt;/h5&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;knitr::include_graphics(&amp;quot;DSC06212_2.jpg&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;DSC06212_2.jpg&#34; width=&#34;1228&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;knitr::include_graphics(&amp;quot;/img/DSC06212_2.jpg&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/img/DSC06212_2.jpg&#34; /&gt;&lt;!-- --&gt;&lt;/p&gt;
 &lt;h5&gt;
 Execution in R
 &lt;/h5&gt;
@@ -242,10 +242,10 @@ Example 2
 &lt;h5&gt;
 Calculations by hand
 &lt;/h5&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;knitr::include_graphics(&amp;quot;DSC06213.JPG&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;DSC06213.JPG&#34; width=&#34;1180&#34; /&gt;&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;knitr::include_graphics(&amp;quot;DSC06214.JPG&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;DSC06214.JPG&#34; width=&#34;1296&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;knitr::include_graphics(&amp;quot;/img/DSC06213.JPG&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/img/DSC06213.JPG&#34; /&gt;&lt;!-- --&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;knitr::include_graphics(&amp;quot;/img/DSC06214.JPG&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/img/DSC06214.JPG&#34; /&gt;&lt;!-- --&gt;&lt;/p&gt;
 &lt;h5&gt;
 Execution in R
 &lt;/h5&gt;

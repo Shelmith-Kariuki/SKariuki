@@ -67,7 +67,7 @@
   </url>
   
   <url>
-    <loc>/post/factoringvariables/</loc>
+    <loc>/post/factorvariables/factoringvariables/</loc>
     <lastmod>2020-01-15T00:00:00+00:00</lastmod>
   </url>
   
@@ -97,7 +97,17 @@
   </url>
   
   <url>
-    <loc>/post/t-tests/</loc>
+    <loc>/post/ttests/t-tests/</loc>
+    <lastmod>2019-08-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/project/</loc>
+    <lastmod>2019-08-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/project/eb/</loc>
     <lastmod>2019-08-19T00:00:00+00:00</lastmod>
   </url>
   
@@ -108,11 +118,6 @@
   
   <url>
     <loc>/project/soiltesting/</loc>
-    <lastmod>2019-07-27T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/project/</loc>
     <lastmod>2019-07-27T00:00:00+00:00</lastmod>
   </url>
   
@@ -237,6 +242,10 @@
   
   <url>
     <loc>/post/passa/</loc>
+  </url>
+  
+  <url>
+    <loc>/true/</loc>
   </url>
   
 </urlset>

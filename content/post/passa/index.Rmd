@@ -2,8 +2,22 @@
 title: "Rstudio Tidyverse Certified Trainer Preparation Script"
 author: "Shelmith"
 date: "2/12/2020"
-output: html_document
+tags:
+  - R
+summary: 
+featured: no
+disable_jquery: no
+image:
+  caption: 
+  focal_point: ''
+  preview_only: no
+output:
+  blogdown::html_page:
+    toc: yes
+    number_sections: no
+    toc_depth: 1
 ---
+
 
 Tidyverse is a collection of R packages designed for data science. The packages that are included in tidyverse include:
 
@@ -26,7 +40,12 @@ Tidyverse is a collection of R packages designed for data science. The packages 
 + purrr: USed for functional programming.
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+
+knitr::opts_chunk$set(echo = TRUE,
+                      comment = "#>",
+                      fig.path = "figs/",
+                      collapse = TRUE)
+
 ```
 
 ## Load the packages required
@@ -69,10 +88,10 @@ df <- wafanyikazi
 #df <- read_csv("")
 ```
 
-##1. dplyr
+## 1. dplyr
 Contains several functions, which we will look at one by one.
 
-###1.1 select()
+### 1.1 select()
 
 Used for picking and dropping variables.
 <br>
@@ -235,6 +254,8 @@ rm(df4)
 Used for generating summary statistics. 
 <br>
 
+#### 1.4.1 summarise() 
+
 ```{r ,warning=FALSE, message=FALSE, fig.width =12}
 
 tab <- df %>% 
@@ -262,7 +283,7 @@ tab <- df %>%
   
 ```
 
-#### 1.4.2 summarise_if
+#### 1.4.3 summarise_if
 
 <br>
 ```{r ,warning=FALSE, message=FALSE, fig.width =12}
@@ -286,7 +307,7 @@ df6 <- df %>%
   arrange(Gender, desc(Age))
 ```
 
-##2. tidyr
+## 2. tidyr
 <br>
 ```{r ,warning=FALSE, message=FALSE, fig.width =12}
 ## Generatin a dummy dataset
@@ -300,7 +321,7 @@ sales = data.frame(Year,Q1 ,Q2, Q3, Q4)
 
 ```
 
-### 2.1 Wider to longer
+### 2.1 Wide to long
 <br>
 ```{r ,warning=FALSE, message=FALSE, fig.width =12}
 ## Method 1: Using gather()
@@ -313,7 +334,7 @@ sales2 <- sales %>%
   pivot_longer(-Year, names_to = "Quarters", values_to = "Sales_Values",values_drop_na = TRUE)
 ```
 
-### 2.2 Longer to wider
+### 2.2 Long to wide
 <br>
 ```{r ,warning=FALSE, message=FALSE, fig.width =12}
 
@@ -328,7 +349,7 @@ sales4 <- sales2 %>%
 ```
 
 
-##3. ggplot2
+## 3. ggplot2
 
 Used for creating beautiful graphs
 <br>
