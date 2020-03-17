@@ -1,0 +1,430 @@
+---
+title: 'Marketing Intelligence'
+subtitle: Company_XXX Case Study
+author: Shelmith Kariuki
+date: '2020-01-24'
+categories:
+tags:
+  - R
+summary: 
+featured: no
+disable_jquery: no
+image:
+  caption: 
+  focal_point: ''
+  preview_only: no
+output:
+  blogdown::html_page:
+    toc: yes
+    number_sections: no
+    toc_depth: 1
+---
+
+
+
+<p>Company_XXX is an online company that meets the growing demand for independent travel information. It offers an extensive hotel meta search to travellers.</p>
+<p>The following document details results from the ‘Marketing Intelligence’ data task.</p>
+<p>The task involves two datasets i.e Marketing Campaigns and Session data.</p>
+<p>The Marketing campaigns data contains weekly information about different online marketing campaigns in one market.</p>
+<p>The Session data contains information about single visits to the Company_XXX website (= sessions). A click out is logged whenever a user clicks on a hotel and is redirected to the booking page. The booking field is binary and indicates if a hotel booking was logged after one of the click outs.</p>
+<p><br></p>
+<pre class="r"><code>### 0.1 Install the libraries required
+## Create a vector of packages to be installed
+pkgs &lt;- c(&quot;tidyverse&quot;,&quot;data.table&quot;,&quot;DT&quot;,&quot;lubridate&quot;,&quot;ggthemes&quot;,&quot;randomForest&quot;,&quot;readODS&quot;,&quot;ggcorrplot&quot;)
+
+## Check if there are packages you want to load, that are not already installed. 
+miss_pkgs &lt;- pkgs[!pkgs %in% installed.packages()[,1]] 
+
+## Installing the missing packages
+if(length(miss_pkgs)&gt;0){
+  install.packages(miss_pkgs)
+}
+## Loading all the packages
+invisible(lapply(pkgs,library,character.only=TRUE))
+
+## Remove the objects that are no longer required
+rm(miss_pkgs)
+rm(pkgs)</code></pre>
+<p><br></p>
+<pre class="r"><code>### Setting the plot theme
+Company_XXX_theme&lt;- theme_hc()+ theme(legend.position = &quot;right&quot;, 
+                 legend.direction = &quot;vertical&quot;,
+                 #legend.title = element_blank(),
+                 plot.title = element_text( size = rel(1.6), hjust = 0.5),
+                plot.subtitle = element_text(size = rel(1.5), hjust = 0.5),
+                 #axis.text = element_text( size = rel(1.5)),
+                 axis.text.x = element_text(size =rel(1.5),angle = 0),
+                 axis.text.y = element_text(size =rel(1.5),angle = 0),
+                 axis.title = element_text( size = rel(1.55)),
+                axis.line.x = element_line(size = 1.5, colour = &quot;#c94a38&quot;),
+                 panel.background = element_rect(fill = NA))
+
+### Colours that will be used for the plots 
+Company_XXX_blue = &quot;#377DA9&quot;
+Company_XXX_maroon = &quot;#BB523A&quot;
+Company_XXX_yellow = &quot;#E79435&quot;
+
+## Avoidance of scientific numbers
+options(scipen = 999)
+
+## Printing function
+pr_func&lt;-function(data,cnames){
+datatable(data,colnames = cnames,
+  extensions = &#39;Buttons&#39;, options = list(
+    dom = &#39;Bfrtip&#39;,
+    buttons = c(&#39;copy&#39;, &#39;print&#39;)
+  )
+)
+}</code></pre>
+<p><br></p>
+<pre class="r"><code>### 0.2 Read in the datasets
+mc_df &lt;- readRDS(&quot;../../../../../PersonalDevelopment/marketing_campaigns2.rds&quot;)
+sessions_df &lt;- readRDS(&quot;../../../../../PersonalDevelopment/session_data.rds&quot;)</code></pre>
+<div id="task-1-marketing-campaigns" class="section level2">
+<h2>Task 1: Marketing Campaigns</h2>
+<ul>
+<li><p>Give an overview of entire market’s development and the different campaigns. Please prepare
+3-5 charts and summarize the most important findings. <em>See 1.2 - 1.8 below</em></p></li>
+<li><p>How would you assess the development of the quality of traffic, e.g. in terms of revenue per
+visitor. How is the overall development and how does each campaign evolve? <em>See 1.2 - 1.8 below</em></p></li>
+<li><p>You are talking with the responsible business developer for the market who wants to spend an
+additional 250€ per week from week 31 onwards. Please help him out with the following
+questions:</p></li>
+<li><ul>
+<li>What is your advice in which campaign to invest and why? <em>See 1.6 below</em></li>
+</ul></li>
+<li><ul>
+<li>How do you expect this to impact the overall performance in the market from week 31
+onwards? <em>See 1.6 below</em></li>
+</ul></li>
+</ul>
+<div id="clean-the-dataset-and-generate-new-variables" class="section level3">
+<h3>1.1. Clean the dataset, and generate new variables</h3>
+<p><br></p>
+<pre class="r"><code>
+## Convert the Campaign variable to factor
+
+mc_df &lt;- mc_df %&gt;% 
+  mutate(Campaign = fct_relevel(Campaign,&quot;Aldebaran&quot;,&quot;Bartledan&quot;,&quot;Cottington&quot;)) 
+
+## Remove duplicates
+mc_df &lt;- mc_df %&gt;% 
+  unique()
+
+## Generate a profit variable
+mc_df &lt;- mc_df %&gt;% 
+  mutate(Profit = Revenue - Cost)
+
+## Weekly_RPV
+mc_df &lt;- mc_df %&gt;% 
+  mutate(Weekly_RPV = Revenue /Visits)</code></pre>
+</div>
+<div id="exploring-the-trend-of-visits-for-each-of-the-campaigns" class="section level3">
+<h3>1.2 Exploring the trend of visits for each of the campaigns</h3>
+<p><br></p>
+<p>The Aldebaran campaign seems to have done really well in terms of attracting visitors to the site, all through the campaign period. As much as the number of visits was quite low in the beginning (as compared to the other two campaigns), and with very few dips in the number of visits here and there, there was a good increasing trend overall.</p>
+<p>The Bartledan campaign started off at a steady rate, until week 14, where the number of visits to the site picked up a bit till the end.</p>
+<p>The Cottington campaign maintained a low but steady state in the number of visits all through the campaign period.</p>
+<pre class="r"><code>graph &lt;- mc_df %&gt;% 
+  ggplot(aes(x = as.factor(Week), y=Visits, group = Campaign,color = Campaign))+
+  geom_line(size = 1.1)+
+  Company_XXX_theme+
+  scale_color_manual(values = c(Company_XXX_maroon, Company_XXX_yellow, Company_XXX_blue))+
+  labs(title = &quot;Distribution of the Number of Visits&quot;,
+       x = &quot;Week&quot;, y=&quot;Number of Visits&quot;,color = &quot;Campaign&quot;)
+graph</code></pre>
+<p><img src="figs/unnamed-chunk-5-1.png" width="1152" /></p>
+</div>
+<div id="revenue-per-visitor" class="section level3">
+<h3>1.3 Revenue Per Visitor</h3>
+<p>RPV is the average revenue per visitor to your website.</p>
+<p>Here, we are assuming that a visit represents a unique visitor.</p>
+<p>RPV is calculated by dividing the total income by the number of visitors during a specific time period.</p>
+<p>We can see that as much the Cottington campaign maintained a low but steady state in the number of visits all through the campaign period (as shown in the previous section), the RPV was the highest, amongst all the three campaigns.</p>
+<p>This means that the low number of visitors actually generated higher revenue as opposed to the revene that was generated by the higher number of visitors on the other two campaigns.
+<br></p>
+<pre class="r"><code>
+graph &lt;- mc_df %&gt;% 
+  ggplot(aes(x = as.factor(Week), y=Weekly_RPV, group = Campaign,color = Campaign))+
+  geom_line(size = 1.1)+
+  Company_XXX_theme+
+  scale_color_manual(values = c(Company_XXX_maroon, Company_XXX_yellow, Company_XXX_blue))+
+  labs(title = &quot;Weekly Revenue Per Visitor&quot;,
+       x = &quot;Week&quot;, y=&quot;Revenue Per Visitor&quot;,color = &quot;Campaign&quot;)
+graph</code></pre>
+<p><img src="figs/unnamed-chunk-6-1.png" width="1152" /></p>
+<p><br></p>
+<pre class="r"><code>
+## Generating ROMI
+RPV_df &lt;- mc_df %&gt;% 
+  group_by(Campaign) %&gt;% 
+  summarise(RPV = round(sum(Revenue)/ sum(Visits),1)) 
+
+## Generate the plot
+graph &lt;- ggplot(data = RPV_df,
+              mapping = aes(x = Campaign, y = RPV, fill = Campaign))+
+              geom_bar(stat = &quot;identity&quot;)+
+              geom_text(aes(label = RPV),vjust = -0.25, size = 5)+
+              Company_XXX_theme+
+              scale_fill_manual(values = c(Company_XXX_maroon, Company_XXX_yellow, Company_XXX_blue))+
+              labs(title = &quot;Overall Revenue Per Visitor&quot;,
+              x = &quot;Campaign&quot;, y=&quot;Revenue Per Visitor&quot;,color = &quot;Campaign&quot;)
+graph</code></pre>
+<p><img src="figs/unnamed-chunk-7-1.png" width="1152" /></p>
+</div>
+<div id="assessing-profitability-of-each-of-the-campaigns-over-the-weeks" class="section level3">
+<h3>1.4 Assessing profitability of each of the campaigns over the weeks</h3>
+<p><br></p>
+<p>Here, Profit = Revenue - Cost</p>
+<p>In terms of profitability, the Bartledan campaign was the worst performer as it never generated any profit.</p>
+<p>The Cottington Campaign was doing well, until Week 20, when it started generating losses.</p>
+<p>Coincidentally, Week 20 is the same week that Aldebaran came out of the red, and started generating profits.</p>
+<pre class="r"><code>
+graph &lt;- mc_df %&gt;% 
+  ggplot(aes(x = as.factor(Week), y=Profit, group = Campaign,color = Campaign))+
+  geom_line(size = 1.1)+
+  geom_hline(yintercept = 0,color=&quot;black&quot;, linetype = &quot;dashed&quot;)+
+  geom_vline(xintercept = 20,color=&quot;red&quot;, linetype = &quot;dashed&quot;)+
+  Company_XXX_theme+
+  scale_color_manual(values = c(Company_XXX_maroon, Company_XXX_yellow, Company_XXX_blue))+
+  labs(title = &quot;Assessing Weekly Campaign Profitability&quot;,
+       x = &quot;Week&quot;, y=&quot;Profitability&quot;,color = &quot;Campaign&quot;)
+graph</code></pre>
+<p><img src="figs/unnamed-chunk-8-1.png" width="1152" /></p>
+</div>
+<div id="assessing-overall-campaign-profitability" class="section level3">
+<h3>1.5 Assessing Overall Campaign Profitability</h3>
+<p><br></p>
+<p>Throughout the campaign period, the Cottington campaign is the only one that made a significant amount of profit.
+<br></p>
+<pre class="r"><code>
+abs_df &lt;- mc_df %&gt;% 
+  select(Week, Campaign, Revenue, Cost) %&gt;% 
+  pivot_longer(cols = Revenue:Cost, names_to =&quot;Revenue_Cost&quot; ,values_to = &quot;Value&quot;) %&gt;% 
+  group_by(Campaign,Revenue_Cost) %&gt;% 
+  summarise(Value = round(sum(Value),1))
+
+## Generate the plot
+graph &lt;- ggplot(data = abs_df,
+              mapping = aes(x = Campaign, y = Value, fill = Revenue_Cost))+
+              geom_bar(stat = &quot;identity&quot;, position = &quot;dodge&quot;)+
+            geom_text(aes(label = Value),vjust = -0.25, size = 5, position = position_dodge(width = 1))+
+              Company_XXX_theme+
+              scale_fill_manual(values = c(&quot;#377DA9&quot;,&quot;#E79435&quot;))+
+              labs(title = &quot;Assessing Overall Campaign Profitability&quot;,
+              x = &quot;Campaign&quot;, y=&quot;Revenue/Cost&quot;,color = &quot;Measure&quot;)
+
+graph</code></pre>
+<p><img src="figs/unnamed-chunk-9-1.png" width="1152" /></p>
+</div>
+<div id="return-on-marketing-investment-romi" class="section level3">
+<h3>1.6 Return on Marketing Investment (ROMI)</h3>
+<p>ROMI is an indication of return on investment in marketing.</p>
+<p>ROMI = [Total sales - marketing campaign costs / marketing campaign costs]
+<br></p>
+<p>There is a larger ROMI on the Cottington campaign, as compared to the Aldebaran campaign. The Bartledan resulted into a negative ROMI, even though the number of visits to the site kept on increasing, as the weeks flew by.</p>
+<p><em>I would advise the business developer for the market to invest in the <strong>Cotington Campaign</strong>. This is because as much as the campaign generally attracts a smaller number of visitors, as compared to the other campaigns, the ROMI is high, and the Revenue per Visitor is also high.</em></p>
+<pre class="r"><code>
+## Generating ROMI
+ROMI_df &lt;- mc_df %&gt;% 
+  group_by(Campaign) %&gt;% 
+  summarise(ROMI_abs = (sum(Revenue)-sum(Cost)) / sum(Cost),
+            ROMI_perc = round(ROMI_abs * 100,2)) 
+
+## Generate the plot
+graph &lt;- ggplot(data = ROMI_df,
+              mapping = aes(x = Campaign, y = ROMI_perc, fill = Campaign))+
+              geom_bar(stat = &quot;identity&quot;)+
+              geom_text(aes(label = ROMI_perc),vjust = -0.25, size = 5)+
+              Company_XXX_theme+
+              scale_fill_manual(values = c(Company_XXX_maroon, Company_XXX_yellow, Company_XXX_blue))+
+              labs(title = &quot;Assessing Campaign Profitability \n (ROMI)&quot;,
+              x = &quot;Campaign&quot;, y=&quot;ROMI (%)&quot;,color = &quot;Campaign&quot;)+
+  ylim(-15,5)
+graph</code></pre>
+<p><img src="figs/unnamed-chunk-10-1.png" width="1152" /></p>
+</div>
+<div id="does-the-type-of-campaign-predict-profit" class="section level3">
+<h3>1.7 Does the type of campaign predict profit?</h3>
+<p>Company_XXX is likely to obtain a significant profit of 11.2 for an additional investment on the Cottington campaign, as opposed to the investment being made on the Aldebaran campaign.</p>
+<p>Company_XXX would make a huge loss (27.6) if it invested cash on the Bartledan campaign.</p>
+<pre class="r"><code>model1 &lt;- lm(Profit ~ Campaign, data = mc_df)
+summary(model1)
+
+Call:
+lm(formula = Profit ~ Campaign, data = mc_df)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-56.473  -9.864   1.269  14.199  46.555 
+
+Coefficients:
+                   Estimate Std. Error t value    Pr(&gt;|t|)    
+(Intercept)          0.9631     3.6803   0.262      0.7942    
+CampaignBartledan  -27.5866     5.2047  -5.300 0.000000864 ***
+CampaignCottington  11.2372     5.2047   2.159      0.0336 *  
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 20.16 on 87 degrees of freedom
+Multiple R-squared:  0.4038,    Adjusted R-squared:  0.3901 
+F-statistic: 29.47 on 2 and 87 DF,  p-value: 0.0000000001693</code></pre>
+<pre class="r"><code>
+## Generating a tidy table
+model1_tidy &lt;- broom::tidy(model1)
+basevalues &lt;- c(&quot;CampaignAldebaran&quot;,0,  5.204708,   0,  0)
+model1_tidy &lt;- rbind(model1_tidy,basevalues)
+model1_tidy$term &lt;- gsub(&quot;Campaign&quot;,&quot;&quot;,model1_tidy$term)
+model1_tidy &lt;- model1_tidy%&gt;% filter(term !=&quot;(Intercept)&quot;)
+model1_tidy &lt;- model1_tidy%&gt;% mutate(estimate = round(as.numeric(estimate),1))
+model1_tidy &lt;- model1_tidy%&gt;% rename(Campaign = term)
+#model1_tidy$estimate &lt;- round(model1_tidy$estimate)
+
+## Generate the plot
+graph &lt;- ggplot(data = model1_tidy,
+              mapping = aes(x = Campaign, y = estimate, fill = Campaign))+
+              geom_bar(stat = &quot;identity&quot;)+
+              geom_text(aes(label = estimate),vjust = -0.25, size = 5)+
+              Company_XXX_theme+
+              scale_fill_manual(values = c(Company_XXX_maroon, Company_XXX_yellow, Company_XXX_blue))+
+              labs(title = &quot;Profit ~ Campaign&quot;,
+              x = &quot;Campaign&quot;, y=&quot;Regression Estimate&quot;,color = &quot;Campaign&quot;)+
+  ylim(-30,13)
+graph</code></pre>
+<p><img src="figs/unnamed-chunk-12-1.png" width="1152" /></p>
+</div>
+<div id="does-the-type-of-campaign-predict-number-of-visits" class="section level3">
+<h3>1.8 Does the type of campaign predict number of visits?</h3>
+<pre class="r"><code>model2 &lt;- lm(Visits ~ Campaign, data = mc_df)
+summary(model2)
+
+Call:
+lm(formula = Visits ~ Campaign, data = mc_df)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-293.667  -33.933    0.233   20.067  292.333 
+
+Coefficients:
+                   Estimate Std. Error t value             Pr(&gt;|t|)    
+(Intercept)          320.67      19.14  16.752 &lt; 0.0000000000000002 ***
+CampaignBartledan   -147.73      27.07  -5.457         0.0000004493 ***
+CampaignCottington  -169.90      27.07  -6.276         0.0000000131 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 104.8 on 87 degrees of freedom
+Multiple R-squared:  0.3486,    Adjusted R-squared:  0.3336 
+F-statistic: 23.28 on 2 and 87 DF,  p-value: 0.000000007978</code></pre>
+<pre class="r"><code>
+## Generating a tidy table
+model2_tidy &lt;- broom::tidy(model2)
+basevalues &lt;- c(&quot;CampaignAldebaran&quot;,0,  5.204708,   0,  0)
+model2_tidy &lt;- rbind(model2_tidy,basevalues)
+model2_tidy$term &lt;- gsub(&quot;Campaign&quot;,&quot;&quot;,model2_tidy$term)
+model2_tidy &lt;- model2_tidy%&gt;% filter(term !=&quot;(Intercept)&quot;)
+model2_tidy &lt;- model2_tidy%&gt;% mutate(estimate = round(as.numeric(estimate),1))
+model2_tidy &lt;- model2_tidy%&gt;% rename(Campaign = term)
+#model2_tidy$estimate &lt;- round(model2_tidy$estimate)
+
+## Generate the plot
+graph &lt;- ggplot(data = model2_tidy,
+              mapping = aes(x = Campaign, y = estimate, fill = Campaign))+
+              geom_bar(stat = &quot;identity&quot;)+
+              geom_text(aes(label = estimate),vjust = -0.25, size = 5)+
+              Company_XXX_theme+
+              scale_fill_manual(values = c(Company_XXX_maroon, Company_XXX_yellow, Company_XXX_blue))+
+              labs(title = &quot;Number of Visits ~ Campaign&quot;,
+              x = &quot;Campaign&quot;, y=&quot;Regression Estimate&quot;,color = &quot;Campaign&quot;)
+graph</code></pre>
+<p><img src="figs/unnamed-chunk-14-1.png" width="1152" /></p>
+</div>
+</div>
+<div id="task-2-session-data" class="section level2">
+<h2>Task 2: Session data</h2>
+<p>Test to see if there are any connections between the booking data and any other given information.</p>
+<div id="create-additional-variables" class="section level3">
+<h3>2.1 Create additional variables</h3>
+<p><br>
+duration: the length of time taken on the session</p>
+<p>start_hour: the hour when the session started.</p>
+<p>time_of_day: the time of day i.e Early Morning, Morning, Afternoon, Evening
+<br></p>
+<pre class="r"><code>## Session duration
+
+sessions_df &lt;- sessions_df%&gt;% 
+  mutate(duration = difftime(session_end_text, session_start_text, units = &quot;secs&quot;,tz = &quot;EAT&quot;),
+         duration = ifelse(duration &lt;0, (24*60*60)+duration, duration))
+
+## Start hour 
+sessions_df &lt;- sessions_df%&gt;% 
+  mutate(start_hour = hour(session_start_text)) 
+
+
+## hour_of_day
+sessions_df &lt;- sessions_df %&gt;% 
+  mutate(start_hour = as.numeric(start_hour)) %&gt;% 
+  mutate(time_of_day = ifelse(start_hour &gt;=0 &amp; start_hour &lt;=5,&quot;Early Morning&quot;,
+                        ifelse(start_hour &gt;=6 &amp; start_hour &lt;=11,&quot;Morning&quot;,
+                        ifelse(start_hour &gt;=12 &amp; start_hour &lt;=18,&quot;Afternoon&quot;,
+                        ifelse(start_hour &gt;=19 &amp; start_hour &lt;=23,&quot;Evening&quot;,&quot;&quot;)))))</code></pre>
+</div>
+<div id="is-there-a-difference-in-means-of-booking-between-the-different-times-of-day" class="section level3">
+<h3>2.2 Is there a difference in means of booking, between the different times of day?</h3>
+<p>H0: The mean of the booking variable, for all the different times = 0</p>
+<p>Ha: At least one of the means is not 0</p>
+<p>The P-value is very large (&gt;0.05) meaning that the means are not really different from each other, and that this variable is not predictive of the instance of booking.
+<br></p>
+<pre class="r"><code>
+## Generate anova results
+anova_test &lt;- aov(booking ~ time_of_day, data = sessions_df)
+summary(anova_test)
+              Df Sum Sq Mean Sq F value Pr(&gt;F)
+time_of_day    3    0.1 0.03623   0.415  0.742
+Residuals   9996  873.4 0.08737               
+TukeyHSD(anova_test)
+  Tukey multiple comparisons of means
+    95% family-wise confidence level
+
+Fit: aov(formula = booking ~ time_of_day, data = sessions_df)
+
+$time_of_day
+                                diff         lwr        upr     p adj
+Early Morning-Afternoon  0.001126106 -0.01967051 0.02192273 0.9990396
+Evening-Afternoon        0.007688625 -0.01407098 0.02944823 0.8006404
+Morning-Afternoon        0.006476426 -0.01419107 0.02714393 0.8520366
+Evening-Early Morning    0.006562519 -0.01597362 0.02909866 0.8774553
+Morning-Early Morning    0.005350320 -0.01613322 0.02683386 0.9190753
+Morning-Evening         -0.001212199 -0.02362924 0.02120484 0.9990434</code></pre>
+</div>
+<div id="what-is-the-correlation-between-the-continuous-variables" class="section level3">
+<h3>2.3 What is the correlation between the continuous variables?</h3>
+<p>There is no correlation between the ‘booking variable’ and any othe variables. Meaning none of the variables can predict booking.
+<br></p>
+<pre class="r"><code>## Generate the correlation matrix
+corr_mat &lt;- cor(sessions_df %&gt;% select(booking, clickouts, duration, start_hour))
+corr_mat
+                 booking    clickouts   duration    start_hour
+booking     1.0000000000 -0.049811677 0.01044032  0.0009995598
+clickouts  -0.0498116772  1.000000000 0.03979617 -0.0077694714
+duration    0.0104403163  0.039796170 1.00000000  0.0154922952
+start_hour  0.0009995598 -0.007769471 0.01549230  1.0000000000</code></pre>
+<p><br></p>
+<pre class="r"><code>
+## Generate the p-values of this correlation matrix
+p.mat &lt;- cor_pmat(corr_mat)
+p.mat
+             booking clickouts  duration start_hour
+booking    0.0000000 0.5628733 0.6811493  0.6836681
+clickouts  0.5628733 0.0000000 0.7530925  0.6518106
+duration   0.6811493 0.7530925 0.0000000  0.6746880
+start_hour 0.6836681 0.6518106 0.6746880  0.0000000</code></pre>
+<pre class="r"><code>## Generate the correlation plot.
+ggcorrplot(corr_mat,
+   outline.col = &quot;white&quot;,lab = TRUE,
+   ggtheme = Company_XXX_theme,
+   colors = c(Company_XXX_maroon, Company_XXX_yellow, Company_XXX_blue),
+   title = &quot;Correlation Plot&quot;)</code></pre>
+<p><img src="figs/unnamed-chunk-19-1.png" width="1152" /></p>
+</div>
+</div>
