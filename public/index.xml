@@ -63,6 +63,62 @@
     </item>
     
     <item>
+      <title>Introducing rCensusKenya</title>
+      <link>/blog/rkenyacensus/</link>
+      <pubDate>Mon, 27 Apr 2020 00:00:00 +0000</pubDate>
+      <guid>/blog/rkenyacensus/</guid>
+      <description>
+
+
+&lt;a href=&#34;https://github.com/Shelmith-Kariuki/rKenyaCensus&#34;&gt;rKenyaCensus&lt;/a&gt; is an R package that contains the 2019 Kenya Population and Housing Census results. The results were released by the &lt;a href=&#34;https://twitter.com/KNBStats&#34;&gt;Kenya National Bureau of Statistics&lt;/a&gt; in February 2020, and published in four different pdf files (Volume 1 - Volume 4).
+&lt;style&gt;
+body {text-align: justify}
+&lt;/style&gt;
+&lt;p&gt;&lt;img src=&#34;img/Resultsannouncement.png&#34; width=&#34;388&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;These files can be downloaded from &lt;a href=&#34;https://www.knbs.or.ke/?page_id=3142&#34;&gt;the KNBS website&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The 2019 Kenya Population and Housing Census was the eighth to be conducted in Kenya since 1948 and was conducted from the night of 24th /25th to 31st August 2019. Kenya leveraged on technology to capture data during cartographic mapping, enumeration and data transmission, making the 2019 Census the first paperless census to be conducted in Kenya (KNBS did a good job 👏, 👏, 👏, 👏).&lt;/p&gt;
+&lt;p&gt;The development version of the package can be installed in R via:&lt;/p&gt;
+&lt;center&gt;
+&lt;strong&gt;devtools::install_github(“Shelmith-Kariuki/rKenyaCensus”)&lt;/strong&gt;
+&lt;/center&gt;
+&lt;p&gt;&lt;br&gt;
+Each table has been scrapped and given a unique identifier, e.g V1.T2.3 is the data in table 2.3 of Volume 1.
+&lt;img src=&#34;img/datalist2.png&#34; width=&#34;368&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;The &lt;strong&gt;&lt;em&gt;DataCatalogue&lt;/em&gt;&lt;/strong&gt; dataset contains a list of the different datasets that are contained in this package. To learn more about each of the different datasets, run ?datasetname, e.g&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;?V1_T2.2&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This opens up a “Help” page, where you can get more information about the dataset, as well as the description of each of the variables.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;img/helppage.png&#34; width=&#34;393&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;A total of 47,564,296 persons were enumerated during the census, comprising 23,548,056 males, 24,014,716 females and 1,524 intersex.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;img/mutiso2.png&#34; width=&#34;318&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Note: The idea behind the coord polar graph above was to display the population distribution per County and Gender, ordered by decreasing population size. The bars have only been used to distinguish between male and female proportions.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;The results indicate a population growth of nine million since the exercise was last carried out 10 years ago.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;figs/unnamed-chunk-8-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Nairobi, Nakuru and Kiambu are counties that registered the highest population counts.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;figs/unnamed-chunk-9-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Mandera, Wajir and Garissa registered the highest average household size, while Nairobi, Kirinyaga and Kiambu registered the least average household size.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;img/mutisodark.png&#34; width=&#34;3200&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;The process of creating this package was amazing. I used the tabulizer R package to scrap the data from the different pdfs, though I faced a small glitch while trying to scrap two or three of the datasets. For those tables, I used data that had already been scrapped, and was readily available on the internet, even though I had to clean it further. I used the &lt;em&gt;usethis&lt;/em&gt; package to “attach” the data onto the package.&lt;/p&gt;
+&lt;p&gt;I decided to come up with the package for a host of reasons. To begin with, I believe that people prefer working with data when it is in an “easy to use” format, as opposed to it being in pdf format. The data has been simplified so that data analysts can play around with it, without having to go through the “dirty” process themselves. I am hoping that people can use the data to practise data visualizations, and come up with amazing graphs.&lt;/p&gt;
+&lt;p&gt;I have always wanted to learn package development through a real life project. I am glad that I can now use the &lt;em&gt;usethis::use_data(xxx, overwrite = T)&lt;/em&gt; command, and I know what &lt;em&gt;“r cmd-check”&lt;/em&gt; is (thanks to &lt;a href=&#34;https://twitter.com/JennyBryan&#34;&gt;Jenny Bryan&lt;/a&gt;). I also needed to work on a project that I could showcase, during my next interview, incase they ask how I spent my time during the Covid19 pandemic (yes, I am job hunting 🙍, 🙍, 🙍, 🙍).&lt;/p&gt;
+&lt;p&gt;Most of the datasets are exactly as they appear in the pdf files, but for some, I tried manipulating them a little bit so that people could easily use them.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;img/countymerge.png&#34; width=&#34;675&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;I also got shapefiles of Kenya County boundaries from a friend (thanks &lt;a href=&#34;https://twitter.com/Akothcarole&#34;&gt;Carole&lt;/a&gt;), but unfortunately, I was not able to include them in the package. They can be downloaded &lt;a href=&#34;https://data.humdata.org/dataset/47-counties-of-kenya&#34;&gt;from this site&lt;/a&gt;. I hope that spatial data analysts could use this data to develop awesome maps (I can’t wait to see what you all come up with 💃, 💃, 💃).&lt;/p&gt;
+&lt;p&gt;One of the major lessons that I learnt from the process is that data cleaning is an important skill. A huge thanks to my friends at the &lt;a href=&#34;https://twitter.com/R4DScommunity&#34;&gt;R4DS community&lt;/a&gt;, especially &lt;a href=&#34;https://twitter.com/scottcame&#34;&gt;Scott Came&lt;/a&gt;, who came through when I needed help with a certain regular expressions problem that I was facing.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;img/scottcame.png&#34; width=&#34;470&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;I hope that I will become better at handling regular expressions, soon (😢, 😢, 😢, 😢, 😢).&lt;/p&gt;
+&lt;p&gt;I want to appreciate my friends (Tabby, Eric, Nangira, Evelyne, AnnMaureen, Caren and Peter), for taking their time to check the data in the package, against the data in the pdf files. We are confident that this work is error free, but please raise an alarm if you think something is amiss. I also want to thank the amazing &lt;a href=&#34;https://twitter.com/johnmutiso_&#34;&gt;John Mutiso&lt;/a&gt;, who spent some hours generating some of the amazing graphs that are embedded on this post. Mutiso has been generating awesome &lt;a href=&#34;https://twitter.com/search?q=%23TidyTuesday&amp;amp;src=typed_query&#34;&gt;#TidyTuesday&lt;/a&gt; graphs as well. He was lucky enough to have one of his graphs published in the &lt;a href=&#34;https://rweekly.org/#get-&#34;&gt;rweekly.org&lt;/a&gt; website (💪, 💪).&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;img/mutisorweekly.png&#34; width=&#34;360&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;This package is still &lt;strong&gt;work in progress&lt;/strong&gt;, as I am yet to work on Volume 4 of the results. I will post an update once I am done with that. I am also hoping to submit the package to CRAN soon.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://media.giphy.com/media/G4Ihli2UThrBS/giphy.gif&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;I am happy to discuss further improvements to the package, so please feel free to contact me through the contact form, at the bottom of my website. Again, incase you come across a bug, please do reach out as well.&lt;/p&gt;
+&lt;p&gt;Parting shot: &lt;strong&gt;If you have an amazing idea, start working on it, the end product will satisfy your soul&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Guess what!! We shall overcome Covid19, but before then, keep safe, stay at home, wash your hands regularly and &lt;strong&gt;if you have to leave your premises&lt;/strong&gt;, please wear a mask. It shall be well.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Happy learRning everyone!🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://media.giphy.com/media/3o6ZsZjE1jQ3qi9ulq/giphy.gif&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Amandla...my new baby</title>
       <link>/blog/amandla/</link>
       <pubDate>Tue, 10 Mar 2020 02:20:01 -0700</pubDate>

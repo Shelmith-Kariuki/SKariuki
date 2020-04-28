@@ -1,5 +1,5 @@
 ---
-title: Improving Soil testing among small holder farmers.
+title: Improving Soil testing among small holder farmers. 
 summary: Data Analytics.
 tags:
 - R

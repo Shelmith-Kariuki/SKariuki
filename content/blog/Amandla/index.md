@@ -1,5 +1,5 @@
 ---
-title: Amandla
+title: Introducing rCensusKenya
 
 summary: []
 abstract: []
@@ -15,13 +15,13 @@ image:
 # all_day: false
 
 # Schedule page publish date (NOT talk date).
-publishDate: "2020-03-10T9:00:00Z"
+publishDate: "2020-04-27T23:00:00Z"
 
 authors: []
 tags: []
 
 image:
-  caption: 'Image credit: PASSA'
+  caption: ''
   focal_point: Right
 
 links:
