@@ -741,6 +741,7 @@ body {text-align: justify}
 <center>
 <strong>devtools::install_github(“Shelmith-Kariuki/rKenyaCensus”)</strong>
 </center>
+<p><em>Note: You first have to have devtools installed.</em></p>
 <p><br>
 Each table has been scrapped and given a unique identifier, e.g V1.T2.3 is the data in table 2.3 of Volume 1.
 <img src="img/datalist2.png" width="368" /></p>
@@ -758,22 +759,22 @@ Each table has been scrapped and given a unique identifier, e.g V1.T2.3 is the d
 <p>Mandera, Wajir and Garissa registered the highest average household size, while Nairobi, Kirinyaga and Kiambu registered the least average household size.</p>
 <p><img src="img/mutisodark.png" width="3200" /></p>
 <p>The process of creating this package was amazing. I used the tabulizer R package to scrap the data from the different pdfs, though I faced a small glitch while trying to scrap two or three of the datasets. For those tables, I used data that had already been scrapped, and was readily available on the internet, even though I had to clean it further. I used the <em>usethis</em> package to “attach” the data onto the package.</p>
-<p>I decided to come up with the package for a host of reasons. To begin with, I believe that people prefer working with data when it is in an “easy to use” format, as opposed to it being in pdf format. The data has been simplified so that data analysts can play around with it, without having to go through the “dirty” process themselves. I am hoping that people can use the data to practise data visualizations, and come up with amazing graphs.</p>
-<p>I have always wanted to learn package development through a real life project. I am glad that I can now use the <em>usethis::use_data(xxx, overwrite = T)</em> command, and I know what <em>“r cmd-check”</em> is (thanks to <a href="https://twitter.com/JennyBryan">Jenny Bryan</a>). I also needed to work on a project that I could showcase, during my next interview, incase they ask how I spent my time during the Covid19 pandemic (yes, I am job hunting 🙍, 🙍, 🙍, 🙍).</p>
+<p>I decided to come up with the package for a host of reasons. To begin with, I believe that people prefer working with data when it is in an “easy to use” format, as opposed to it being in pdf format. The data has been simplified so that data analysts can play around with it, without having to go through the “dirty” process themselves. I am hoping that people can use the data to practise data visualizations, and come up with amazing graphs (or better still, amazing shiny dashboards).</p>
+<p>I have also always wanted to learn package development through a real life project. I am glad that I can now use the <em>usethis::use_data(xxx, overwrite = T)</em> command, and I know what <em>“r cmd-check”</em> is (thanks to <a href="https://twitter.com/JennyBryan">Jenny Bryan</a> for creating and maintaining the package). I also needed to work on a project that I could showcase, during my next interview, incase they ask how I spent my time during the Covid19 pandemic (yes, I am job hunting 😞, 😞, 😞, 😞).</p>
 <p>Most of the datasets are exactly as they appear in the pdf files, but for some, I tried manipulating them a little bit so that people could easily use them.</p>
 <p><img src="img/countymerge.png" width="675" /></p>
 <p>I also got shapefiles of Kenya County boundaries from a friend (thanks <a href="https://twitter.com/Akothcarole">Carole</a>), but unfortunately, I was not able to include them in the package. They can be downloaded <a href="https://data.humdata.org/dataset/47-counties-of-kenya">from this site</a>. I hope that spatial data analysts could use this data to develop awesome maps (I can’t wait to see what you all come up with 💃, 💃, 💃).</p>
-<p>One of the major lessons that I learnt from the process is that data cleaning is an important skill. A huge thanks to my friends at the <a href="https://twitter.com/R4DScommunity">R4DS community</a>, especially <a href="https://twitter.com/scottcame">Scott Came</a>, who came through when I needed help with a certain regular expressions problem that I was facing.</p>
-<p><img src="img/scottcame.png" width="470" /></p>
-<p>I hope that I will become better at handling regular expressions, soon (😢, 😢, 😢, 😢, 😢).</p>
+<p>One of the major lessons I learnt from the process is that data cleaning is a very very important skill (well, I have always known this, but I am now more convinced). A huge thanks to my friends at the <a href="https://twitter.com/R4DScommunity">R4DS community</a>, especially <a href="https://twitter.com/ascensionasana">Stephen</a> and <a href="https://twitter.com/scottcame">Scott Came</a>, who came through when I needed help on certain issues.</p>
+<p><img src="img/stephscott.png" width="630" /></p>
+<p>I pray for the day I will become better at handling regular expressions. (😢, 😢, 😢, 😢, 😢).</p>
 <p>I want to appreciate my friends (Tabby, Eric, Nangira, Evelyne, AnnMaureen, Caren and Peter), for taking their time to check the data in the package, against the data in the pdf files. We are confident that this work is error free, but please raise an alarm if you think something is amiss. I also want to thank the amazing <a href="https://twitter.com/johnmutiso_">John Mutiso</a>, who spent some hours generating some of the amazing graphs that are embedded on this post. Mutiso has been generating awesome <a href="https://twitter.com/search?q=%23TidyTuesday&amp;src=typed_query">#TidyTuesday</a> graphs as well. He was lucky enough to have one of his graphs published in the <a href="https://rweekly.org/#get-">rweekly.org</a> website (💪, 💪).</p>
 <p><img src="img/mutisorweekly.png" width="360" /></p>
 <p>This package is still <strong>work in progress</strong>, as I am yet to work on Volume 4 of the results. I will post an update once I am done with that. I am also hoping to submit the package to CRAN soon.</p>
 <p><img src="https://media.giphy.com/media/G4Ihli2UThrBS/giphy.gif" /></p>
-<p>I am happy to discuss further improvements to the package, so please feel free to contact me through the contact form, at the bottom of my website. Again, incase you come across a bug, please do reach out as well.</p>
+<p>I am happy to discuss further improvements to the package, so please feel free to contact me through the contact form, at the bottom of this site. Again, incase you come across a bug, please do reach out as well, either via the contact form, or better still, open an issue on github.</p>
 <p>Parting shot: <strong>If you have an amazing idea, start working on it, the end product will satisfy your soul</strong>.</p>
 <p><em>Guess what!! We shall overcome Covid19, but before then, keep safe, stay at home, wash your hands regularly and <strong>if you have to leave your premises</strong>, please wear a mask. It shall be well.</em></p>
-<p>Happy learRning everyone!🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪</p>
+<p>Stay safe everyone!🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪</p>
 <p><img src="https://media.giphy.com/media/3o6ZsZjE1jQ3qi9ulq/giphy.gif" /></p>
 
     </div>

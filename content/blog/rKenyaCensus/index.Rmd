@@ -66,6 +66,8 @@ The 2019 Kenya Population and Housing Census was the eighth to be conducted in K
 The development version of the package can be installed in R via:
 
 <center><strong>devtools::install_github("Shelmith-Kariuki/rKenyaCensus")</strong></center>
+_Note: You first have to have devtools installed._
+
 <br>
 Each table has been scrapped and given a unique identifier, e.g V1.T2.3 is the data in table 2.3 of Volume 1. 
 ```{r, echo=FALSE}
@@ -151,10 +153,10 @@ knitr::include_graphics("img/mutisodark.png")
 
 The process of creating this package was amazing. I used the tabulizer R package to scrap the data from the different pdfs, though I faced a small glitch while trying to scrap two or three of the datasets. For those tables, I used data that had already been scrapped, and was readily available on the internet, even though I had to clean it further. I used the _usethis_ package to "attach" the data onto the package. 
 
-I decided to come up with the package for a host of reasons. To begin with, I believe that people prefer working with data when it is in an "easy to use" format, as opposed to it being in pdf format. The data has been simplified so that data analysts can play around with it, without having to go through the "dirty" process themselves. I am hoping that people can use the data to practise data visualizations, and come up with amazing graphs.
+I decided to come up with the package for a host of reasons. To begin with, I believe that people prefer working with data when it is in an "easy to use" format, as opposed to it being in pdf format. The data has been simplified so that data analysts can play around with it, without having to go through the "dirty" process themselves. I am hoping that people can use the data to practise data visualizations, and come up with amazing graphs (or better still, amazing shiny dashboards).
 
 
-I have always wanted to learn package development through a real life project. I am glad that I can now use the _usethis::use_data(xxx, overwrite = T)_ command, and I know what _"r cmd-check"_ is (thanks to [Jenny Bryan](https://twitter.com/JennyBryan)). I also needed to work on a project that I could showcase, during my next interview, incase they ask how I spent my time during the Covid19 pandemic (yes, I am job hunting `r rep(emo::ji("sad"),4)`).
+I have also always wanted to learn package development through a real life project. I am glad that I can now use the _usethis::use_data(xxx, overwrite = T)_ command, and I know what _"r cmd-check"_ is (thanks to [Jenny Bryan ](https://twitter.com/JennyBryan) for creating and maintaining the package). I also needed to work on a project that I could showcase, during my next interview, incase they ask how I spent my time during the Covid19 pandemic (yes, I am job hunting `r rep(emo::ji("sad"),4)`).
 
 Most of the datasets are exactly as they appear in the pdf files, but for some, I tried manipulating them a little bit so that people could easily use them.
 
@@ -164,13 +166,15 @@ knitr::include_graphics("img/countymerge.png")
 
 I also got shapefiles of Kenya County boundaries from a friend (thanks [Carole](https://twitter.com/Akothcarole)), but unfortunately, I was not able to include them in the package. They can be downloaded [from this site](https://data.humdata.org/dataset/47-counties-of-kenya). I hope that spatial data analysts could use this data to develop awesome maps (I can't wait to see what you all come up with `r rep(emo::ji("dancing"),3)`).
 
-One of the major lessons that I learnt from the process is that data cleaning is an important skill. A huge thanks to my friends at the [R4DS community](https://twitter.com/R4DScommunity), especially  [Scott Came](https://twitter.com/scottcame), who came through when I needed help   with a certain regular expressions problem that I was facing. 
+One of the major lessons I learnt from the process is that data cleaning is a very very important skill (well, I have always known this, but I am now more convinced). A huge thanks to my friends at the [R4DS community](https://twitter.com/R4DScommunity), especially [Stephen](https://twitter.com/ascensionasana) and  [Scott Came](https://twitter.com/scottcame), who came through when I needed help on certain issues. 
 
 ```{r, echo=FALSE}
-knitr::include_graphics("img/scottcame.png")
+
+knitr::include_graphics("img/stephscott.png")
+
 ```
 
-I hope that I will become better at handling regular expressions, soon (`r rep(emo::ji("cry"),5)`).
+I pray for the day I will become better at handling regular expressions. (`r rep(emo::ji("cry"),5)`).
 
 I want to appreciate my friends (Tabby, Eric, Nangira, Evelyne, AnnMaureen, Caren and Peter), for taking their time to check the data in the package, against the data in the pdf files. We are confident that this work is error free, but please raise an alarm if you think something is amiss. I also want to thank the amazing [John Mutiso](https://twitter.com/johnmutiso_), who spent some hours generating some of the amazing graphs that are embedded on this post. Mutiso has been generating awesome [#TidyTuesday](https://twitter.com/search?q=%23TidyTuesday&src=typed_query) graphs as well. He was lucky enough to have one of his graphs published in the [rweekly.org](https://rweekly.org/#get-) website (`r rep(emo::ji("muscle"),2)`). 
 
@@ -182,13 +186,13 @@ This package is still **work in progress**, as I am yet to work on Volume 4 of t
 
 ![](https://media.giphy.com/media/G4Ihli2UThrBS/giphy.gif)
 
-I am happy to discuss further improvements to the package, so please feel free to contact me through the contact form, at the bottom of my website. Again, incase you come across a bug, please do reach out as well.
+I am happy to discuss further improvements to the package, so please feel free to contact me through the contact form, at the bottom of this site. Again, incase you come across a bug, please do reach out as well, either via the contact form, or better still, open an issue on github.
 
 Parting shot: **If you have an amazing idea, start working on it, the end product will satisfy your soul**.
 
 _Guess what!! We shall overcome Covid19, but before then, keep safe, stay at home, wash your hands regularly and **if you have to leave your premises**, please wear a mask. It shall be well._
 
-Happy learRning everyone!🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪
+Stay safe everyone!🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪
 
 
 ![](https://media.giphy.com/media/3o6ZsZjE1jQ3qi9ulq/giphy.gif)
