@@ -80,7 +80,7 @@ The **_DataCatalogue_** dataset contains a list of the different datasets that a
 ?V1_T2.2
 ```
 
-This opens up a "Help" page, where you can get more information about the dataset, as well as the description of each of the variables.
+This opens up a "Help" page where you can get more information about the dataset, as well as the description of each of the variables.
 
 ```{r, echo=FALSE}
 knitr::include_graphics("img/helppage.png")
@@ -111,13 +111,13 @@ plot1 <- ggplot(data = V2_T1.1,aes(x = Year, y =`Population (millions)`,
           position = position_dodge(width = 0.9))+
           my_theme + ylim(c(0,50))+
           labs(title = "Kenya Population Distribution", x = "Census Year",
-               caption = "Graph by: Shel Kariuki") 
+               caption = "Graph by: Shelmith Kariuki") 
           
 plot1
 
 ```
 
-Nairobi, Nakuru and Kiambu are counties that registered the highest population counts.
+Nairobi, Nakuru and Kiambu registered the highest population counts.
 
 ```{r, fig.height=6,fig.width = 12,echo=FALSE}
 
@@ -138,7 +138,7 @@ plot1 <- V1_T2.2 %>%
           labs(title = "Kenya Population Distribution", 
                subtitle = "\n(Most Populous)",
                x = "County", y = "Population (Millions)",
-               caption = "Graph by: Shel Kariuki") 
+               caption = "Graph by: Shelmith Kariuki") 
           
 plot1
 
