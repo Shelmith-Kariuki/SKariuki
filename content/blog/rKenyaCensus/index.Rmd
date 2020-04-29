@@ -174,8 +174,6 @@ knitr::include_graphics("img/stephscott.png")
 
 ```
 
-I pray for the day I will become better at handling regular expressions. (`r rep(emo::ji("cry"),5)`).
-
 I want to appreciate my friends (Tabby, Eric, Nangira, Evelyne, AnnMaureen, Caren and Peter), for taking their time to check the data in the package, against the data in the pdf files. We are confident that this work is error free, but please raise an alarm if you think something is amiss. I also want to thank the amazing [John Mutiso](https://twitter.com/johnmutiso_), who spent some hours generating some of the amazing graphs that are embedded on this post. Mutiso has been generating awesome [#TidyTuesday](https://twitter.com/search?q=%23TidyTuesday&src=typed_query) graphs as well. He was lucky enough to have one of his graphs published in the [rweekly.org](https://rweekly.org/#get-) website (`r rep(emo::ji("muscle"),2)`). 
 
 ```{r, echo=FALSE}
