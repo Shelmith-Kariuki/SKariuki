@@ -180,11 +180,14 @@ I want to appreciate my friends (Tabby, Eric, Nangira, Evelyne, AnnMaureen, Care
 knitr::include_graphics("img/mutisorweekly.png")
 ```
 
-This package is still **work in progress**, as I am yet to work on Volume 4 of the results. I will post an update once I am done with that. I am also hoping to submit the package to CRAN soon.
+**Disclaimer alert**: This package is still **work in progress**. The data is being cleaned and refined on a daily basis. Changes (Volume 3) are being pushed to github every afternoon beginning 29th April, 2020. Please keep refreshing (re-installing) the package, so that you have the most updated version. I am yet to work on Volume 4 of the results. I will post an update once I am done with that. I am also hoping to submit the package to CRAN, once the development version is stable.
+
 
 ![](https://media.giphy.com/media/G4Ihli2UThrBS/giphy.gif)
 
-I am happy to discuss further improvements to the package, so please feel free to contact me through the contact form, at the bottom of this site. Again, incase you come across a bug, please do reach out as well, either via the contact form, or better still, open an issue on github.
+I am happy to discuss further improvements to the package, so please feel free to contact me through the contact form, at the bottom of this site. Again, **incase you come across a bug, please do reach out as well, either via the contact form, or better still, open an issue on github.**
+
+
 
 Parting shot: **If you have an amazing idea, start working on it, the end product will satisfy your soul**.
 
