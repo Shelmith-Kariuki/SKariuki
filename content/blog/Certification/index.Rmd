@@ -1,0 +1,80 @@
+---
+title: "The RStudio Certification Process" 
+author: "Shelmith Kariuki"
+date: 2020-05-13
+categories: ["blog"]
+tags: []
+images: []
+output:
+  blogdown::html_page:
+    toc: true
+    toc_depth: 1
+    number_sections: true
+    fig_width: 16
+
+links:
+- icon: twitter
+  icon_pack: fab
+  name: Follow
+  url: https://twitter.com/Shel_Kariuki
+    
+---
+
+In February 2020, I was lucky to be certified as an [RStudio Certified Tidyverse trainer](https://education.rstudio.com/trainers/). 
+
+The certification process was totally amazing. It was led by [Greg Wilson](https://twitter.com/gvwilson) who is a member of the [RStudio Education team](https://twitter.com/RStudioEDU). 
+
+There are three steps to becoming certified:
+
++ Candidates must take part in a training course on modern teaching methods. 
+
++ After completing that course, candidates must complete a 90-minute exam on the material that includes preparing and delivering a 15-minute demonstration lesson.
+
++ Finally, in order to ensure that instructors are proficient with the technical content they will be teaching, they must complete a practical examination and deliver a demonstration for each subject they wish to be certified in.
+<style>
+body {text-align: justify}
+</style>
+
+**Training**
+
+The training took place on 18th and 19th January, from 8:00 PM to around midnight EAT, on both days. The class comprised of around 12 participants, and 4 instructors. 
+
+A lot of material was covered in those 2 days, but I will only mention a few. 
+
+First, I learnt how to **distinguish between a novice, a competent student and an expert**. As an instructor, you know a novice is learning, when they search for the right things, and can recognize useful answers. 
+
+Secondly, I got to learn about **cognitive load**. This is the total amount of mental activity imposed on working memory in any one instant. There are three forms of cognitive load. Intrinsic load (this is what people have to keep in mind, in order to absorb new material), germane load (the desirable mental effort required to to link new information to the old information) and extraneous load (anything that distracts learning). As a trainer, one can take care of the mental capacity of students, by chunking i.e dividing your lesson plan into many tiny bits (you would rather have 3 2-hour lessons, than 2 3-hour lessons). 
+
+I also learnt a lot on **assessments**. There are two kinds of assessments; formative and summative. A formative assessment is one where the trainer uses questions or exercises during the lesson in order to figure out if learning has taken place (think of CATS or RATS), while summative assessment tells you if the learner has mastered the material taught, and is ready to go out on their own (think of the end of semester exam).
+
+Another really interesting thing I learnt, was the idea of **concept maps**. This is a graphical tool that instructional designers use to organize and structure knowledge. I did not study this in school, so it was really new and interesting. Since then, I have used concept maps to guide my teaching, and my work basically. I even had to create a concept map to guide me in writing this blog post. 
+
+You would think that 4 hours is quite a long time to sit for a session, but it was not the case fo these sessions. The instructors encouraged us to take regular 5-10 minutes breaks. They also kept us engaged by asking us to discuss ideas amongst ourselves, and even put some of our thoughts on a google doc (this is such an amazing way to keeping students active during a training session). 
+
+At the end of the two-day training, we each had to reserve an exam date, on Greg's calendar. I decided to sit for both exams in about 3 weeks. 
+
+In those 3 weeks, I prepared adequately. One had to have good knowledge on tidyverse concepts before sitting for the exam, so this was not part of the training. Luckily, I had been using tidyverse since 2017, so I had mastered a majority of the concepts. Nevertheless, I still had to brush through the [R for Data Science book](https://r4ds.had.co.nz/) , to remind myself of a few things.
+
+**Exam**
+
+While I was a teaching assistant,  I always enjoyed giving exams. Seems I had forgotten how it felt having to sit for one myself.
+
+That day, I woke up very very nervous. I did not know what to expect. I spent the day [writing these codes](https://shelkariuki.netlify.app/post/passa/), to ensure that I was 100% ready.
+
+I was to sit for the tidyverse exam from 8:00 PM - 9:30 PM EAT and the teaching exam from  9:30 PM - 11:00 PM EAT. 
+
+The tidyverse exam was amazing, I loved how it was set. It covered **all** the tidyverse concepts. I was very very tensed, but the cheerful Greg made the process smooth. I wount lie, there were 2 questions that made me sweat a lot, but luckily, we were allowed to consult Google, when things got thick, and more often than not, Google rarely disappoints. In 90 minutes, I was done. 
+
+I took a 10-15 minutes break, after which I was ready for the teaching exam.
+The first step involved delivering a 15 minutes lesson to Greg. I chose to teach him some basic dplyr concepts. The next step involved answering a few questions based on the 2 day training we had earlier. This exam also took 90 minutes, so by midnight I was done.
+
+I received the results 10-15 minutes after completing the teaching exam. That feeling you get when the certificate comes through, is unexplainable. Two days later (on February 14th), I was added to the ["wall of fame"](https://education.rstudio.com/trainers/)  (best valentines day ever!! no bouquet of flowers could ever beat that).
+
+**Conclusion**
+
+I want to thank my amazing friend, [Ahmadou](https://twitter.com/dickoah), for encouraging me to go for it. I also want to thank Greg and the entire RStudio Education team for making the process an enjoyable one. 
+
+Fore more details about the certification process, please visit  [this site](https://education.rstudio.com/trainers/#info).
+
+Cheers!!
+

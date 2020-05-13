@@ -5,12 +5,56 @@
     <link>/blog/</link>
       <atom:link href="/blog/index.xml" rel="self" type="application/rss+xml" />
     <description>Blog Posts</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Mon, 27 Apr 2020 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Wed, 13 May 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>img/avatar.jpg</url>
       <title>Blog Posts</title>
       <link>/blog/</link>
     </image>
+    
+    <item>
+      <title>The RStudio Certification Process</title>
+      <link>/blog/certification/</link>
+      <pubDate>Wed, 13 May 2020 00:00:00 +0000</pubDate>
+      <guid>/blog/certification/</guid>
+      <description>
+
+
+&lt;p&gt;In February 2020, I was lucky to be certified as an &lt;a href=&#34;https://education.rstudio.com/trainers/&#34;&gt;RStudio Certified Tidyverse trainer&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The certification process was totally amazing. It was led by &lt;a href=&#34;https://twitter.com/gvwilson&#34;&gt;Greg Wilson&lt;/a&gt; who is a member of the &lt;a href=&#34;https://twitter.com/RStudioEDU&#34;&gt;RStudio Education team&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;There are three steps to becoming certified:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Candidates must take part in a training course on modern teaching methods.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;After completing that course, candidates must complete a 90-minute exam on the material that includes preparing and delivering a 15-minute demonstration lesson.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;Finally, in order to ensure that instructors are proficient with the technical content they will be teaching, they must complete a practical examination and deliver a demonstration for each subject they wish to be certified in.
+&lt;style&gt;
+body {text-align: justify}
+&lt;/style&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Training&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The training took place on 18th and 19th January, from 8:00 PM to around midnight EAT, on both days. The class comprised of around 12 participants, and 4 instructors.&lt;/p&gt;
+&lt;p&gt;A lot of material was covered in those 2 days, but I will only mention a few.&lt;/p&gt;
+&lt;p&gt;First, I learnt how to &lt;strong&gt;distinguish between a novice, a competent student and an expert&lt;/strong&gt;. As an instructor, you know a novice is learning, when they search for the right things, and can recognize useful answers.&lt;/p&gt;
+&lt;p&gt;Secondly, I got to learn about &lt;strong&gt;cognitive load&lt;/strong&gt;. This is the total amount of mental activity imposed on working memory in any one instant. There are three forms of cognitive load. Intrinsic load (this is what people have to keep in mind, in order to absorb new material), germane load (the desirable mental effort required to to link new information to the old information) and extraneous load (anything that distracts learning). As a trainer, one can take care of the mental capacity of students, by chunking i.e dividing your lesson plan into many tiny bits (you would rather have 3 2-hour lessons, than 2 3-hour lessons).&lt;/p&gt;
+&lt;p&gt;I also learnt a lot on &lt;strong&gt;assessments&lt;/strong&gt;. There are two kinds of assessments; formative and summative. A formative assessment is one where the trainer uses questions or exercises during the lesson in order to figure out if learning has taken place (think of CATS or RATS), while summative assessment tells you if the learner has mastered the material taught, and is ready to go out on their own (think of the end of semester exam).&lt;/p&gt;
+&lt;p&gt;Another really interesting thing I learnt, was the idea of &lt;strong&gt;concept maps&lt;/strong&gt;. This is a graphical tool that instructional designers use to organize and structure knowledge. I did not study this in school, so it was really new and interesting. Since then, I have used concept maps to guide my teaching, and my work basically. I even had to create a concept map to guide me in writing this blog post.&lt;/p&gt;
+&lt;p&gt;You would think that 4 hours is quite a long time to sit for a session, but it was not the case fo these sessions. The instructors encouraged us to take regular 5-10 minutes breaks. They also kept us engaged by asking us to discuss ideas amongst ourselves, and even put some of our thoughts on a google doc (this is such an amazing way to keeping students active during a training session).&lt;/p&gt;
+&lt;p&gt;At the end of the two-day training, we each had to reserve an exam date, on Greg’s calendar. I decided to sit for both exams in about 3 weeks.&lt;/p&gt;
+&lt;p&gt;In those 3 weeks, I prepared adequately. One had to have good knowledge on tidyverse concepts before sitting for the exam, so this was not part of the training. Luckily, I had been using tidyverse since 2017, so I had mastered a majority of the concepts. Nevertheless, I still had to brush through the &lt;a href=&#34;https://r4ds.had.co.nz/&#34;&gt;R for Data Science book&lt;/a&gt; , to remind myself of a few things.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Exam&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;While I was a teaching assistant, I always enjoyed giving exams. Seems I had forgotten how it felt having to sit for one myself.&lt;/p&gt;
+&lt;p&gt;That day, I woke up very very nervous. I did not know what to expect. I spent the day &lt;a href=&#34;https://shelkariuki.netlify.app/post/passa/&#34;&gt;writing these codes&lt;/a&gt;, to ensure that I was 100% ready.&lt;/p&gt;
+&lt;p&gt;I was to sit for the tidyverse exam from 8:00 PM - 9:30 PM EAT and the teaching exam from 9:30 PM - 11:00 PM EAT.&lt;/p&gt;
+&lt;p&gt;The tidyverse exam was amazing, I loved how it was set. It covered &lt;strong&gt;all&lt;/strong&gt; the tidyverse concepts. I was very very tensed, but the cheerful Greg made the process smooth. I wount lie, there were 2 questions that made me sweat a lot, but luckily, we were allowed to consult Google, when things got thick, and more often than not, Google rarely disappoints. In 90 minutes, I was done.&lt;/p&gt;
+&lt;p&gt;I took a 10-15 minutes break, after which I was ready for the teaching exam.
+The first step involved delivering a 15 minutes lesson to Greg. I chose to teach him some basic dplyr concepts. The next step involved answering a few questions based on the 2 day training we had earlier. This exam also took 90 minutes, so by midnight I was done.&lt;/p&gt;
+&lt;p&gt;I received the results 10-15 minutes after completing the teaching exam. That feeling you get when the certificate comes through, is unexplainable. Two days later (on February 14th), I was added to the &lt;a href=&#34;https://education.rstudio.com/trainers/&#34;&gt;“wall of fame”&lt;/a&gt; (best valentines day ever!! no bouquet of flowers could ever beat that).&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Conclusion&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I want to thank my amazing friend, &lt;a href=&#34;https://twitter.com/dickoah&#34;&gt;Ahmadou&lt;/a&gt;, for encouraging me to go for it. I also want to thank Greg and the entire RStudio Education team for making the process an enjoyable one.&lt;/p&gt;
+&lt;p&gt;Fore more details about the certification process, please visit &lt;a href=&#34;https://education.rstudio.com/trainers/#info&#34;&gt;this site&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Cheers!!&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Introducing rCensusKenya</title>
