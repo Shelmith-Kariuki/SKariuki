@@ -1,6 +1,6 @@
 ---
 # Display name
-name: Shelmith Nyagathiri Kariuki
+name: Shelmith Nyagathiri Kariuki 🇰🇪
 
 # Username (this should match the folder name)
 authors:
@@ -25,6 +25,7 @@ interests:
 - R
 - Python
 - Training
+- Marketing analytics
 
 
 education:
@@ -72,10 +73,10 @@ user_groups:
 #- Visitors
 ---
 
-<p style="text-align:justify;">I am a Senior Data Analyst based in Nairobi, Kenya. I am passionate about training and using data analytics to drive development projects in Africa.
+ <style>
+body {text-align: justify}
+</style>
+I am a Senior Data Analyst based in Nairobi, Kenya. I am an [RStudio Certified Tidyverse trainer](https://education.rstudio.com/trainers/), and recently worked as a Research Manager at Geopoll, and as a Data Analyst at Busara Center for Behavioral Economics. I have previously worked as an assistant lecturer in various Kenyan universities, teaching units in Statistics and Actuarial Science. I have a Bsc in Actuarial Science and Msc in Applied Statistics from JKUAT. I have extensive experience in data analysis using R and Python. I co-organize a community of R users in Nairobi [#NairobiR](https://www.linkedin.com/feed/hashtag/nairobir/) and in Africa [#AfricaR](https://twitter.com/AfricaRUsers). One of the missions of my community work is to make sure that we have an increased number of R adopters, in Africa. I am very passionate about training and using data analytics to drive development projects in Africa.
 
-I previously worked as an assistant lecturer in several universities, in Kenya. Working as a lecturer was amazing, though my students hated me, since I was strict, especially during exams. It reached a point where I needed to apply my data analysis skills to solve real world problems. I was lucky (very lucky, ask me why when we meet) to join Busara Center for Behavioral Economics as a Junior Data Analyst, where in the past two years, I have grown into being a Senior Data Analyst.</p>
-
-I co-organize a community of R users in Nairobi [#NairobiR](https://www.linkedin.com/feed/hashtag/nairobir/) and in Africa [#AfricaR](https://twitter.com/AfricaRUsers). One of the missions of my community work is to make sure that we have an increased number of R adopters, in Africa.
 
 

@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en-us">
+<!DOCTYPE html><html lang="en-us" >
 
 <head>
 
@@ -21,7 +20,7 @@
   
   
 
-  <meta name="author" content="Shelmith Nyagathiri Kariuki">
+  
 
   
   
@@ -214,6 +213,9 @@ Highlight your code snippets, take notes on math classes, and draw diagrams from
 
 
   
+  
+
+  
 
   <link rel="manifest" href="/index.webmanifest">
   <link rel="icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_2.png">
@@ -221,6 +223,8 @@ Highlight your code snippets, take notes on math classes, and draw diagrams from
 
   <link rel="canonical" href="/post/writing-technical-content/">
 
+  
+  
   
   
   
@@ -279,11 +283,6 @@ Highlight your code snippets, take notes on math classes, and draw diagrams from
   "datePublished": "2019-07-12T00:00:00Z",
   "dateModified": "2019-07-12T00:00:00Z",
   
-  "author": {
-    "@type": "Person",
-    "name": "Shelmith Nyagathiri Kariuki"
-  },
-  
   "publisher": {
     "@type": "Organization",
     "name": "Shel Kariuki",
@@ -302,36 +301,6 @@ Highlight your code snippets, take notes on math classes, and draw diagrams from
 
 
   
-  
-  
-  
-  
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.1/cookieconsent.min.js" integrity="sha256-5VhCqFam2Cn+yjw61zbBNrbHVJ6SRydPeKopYlngbiQ=" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.1/cookieconsent.min.css" integrity="sha256-zQ0LblD/Af8vOppw18+2anxsuaz3pWYyVWi+bTvTH8Q=" crossorigin="anonymous">
-  
-  <script>
-  window.addEventListener("load", function(){
-    window.cookieconsent.initialise({
-      "palette": {
-        "popup": {
-          "background": "#ff3860",
-          "text": "#fff"
-        },
-        "button": {
-          "background": "#fff",
-          "text": "#ff3860"
-        }
-      },
-      "theme": "classic",
-      "content": {
-        "message": "This website uses cookies to ensure you get the best experience on our website.",
-        "dismiss": "Got it!",
-        "link": "Learn more",
-        "href": "/privacy/"
-      }
-    })});
-  </script>
-
 
 
   
@@ -390,6 +359,10 @@ Highlight your code snippets, take notes on math classes, and draw diagrams from
   <div class="container">
 
     
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="/">Shel Kariuki</a>
+    </div>
+    
 
     
     <button type="button" class="navbar-toggler" data-toggle="collapse"
@@ -398,6 +371,10 @@ Highlight your code snippets, take notes on math classes, and draw diagrams from
     </button>
     
 
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="/">Shel Kariuki</a>
+    </div>
     
 
     
@@ -431,7 +408,7 @@ Highlight your code snippets, take notes on math classes, and draw diagrams from
         
 
         <li class="nav-item">
-          <a class="nav-link " href="/#about"><span>About</span></a>
+          <a class="nav-link " href="/#hero"><span>Demo</span></a>
         </li>
 
         
@@ -460,7 +437,7 @@ Highlight your code snippets, take notes on math classes, and draw diagrams from
         
 
         <li class="nav-item">
-          <a class="nav-link " href="/#posts"><span>Code Work</span></a>
+          <a class="nav-link " href="/#posts"><span>Posts</span></a>
         </li>
 
         
@@ -489,7 +466,7 @@ Highlight your code snippets, take notes on math classes, and draw diagrams from
         
 
         <li class="nav-item">
-          <a class="nav-link " href="/#blog"><span>Blog</span></a>
+          <a class="nav-link " href="/#projects"><span>Projects</span></a>
         </li>
 
         
@@ -518,7 +495,7 @@ Highlight your code snippets, take notes on math classes, and draw diagrams from
         
 
         <li class="nav-item">
-          <a class="nav-link " href="/#talks"><span>Talks & Trainings</span></a>
+          <a class="nav-link " href="/#featured"><span>Publications</span></a>
         </li>
 
         
@@ -538,16 +515,9 @@ Highlight your code snippets, take notes on math classes, and draw diagrams from
         
         
         
-          
-          
-          
-            
-          
-          
-        
 
         <li class="nav-item">
-          <a class="nav-link " href="/#gallery"><span>Gallery</span></a>
+          <a class="nav-link " href="/courses/"><span>Courses</span></a>
         </li>
 
         
@@ -582,28 +552,6 @@ Highlight your code snippets, take notes on math classes, and draw diagrams from
         
         
 
-        
-
-        
-        
-        
-          
-        
-
-        
-        
-        
-        
-        
-        
-
-        <li class="nav-item">
-          <a class="nav-link " href="/files/cv.pdf"><span>CV</span></a>
-        </li>
-
-        
-        
-
       
 
         
@@ -613,13 +561,26 @@ Highlight your code snippets, take notes on math classes, and draw diagrams from
     <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
       
       <li class="nav-item">
-        <a class="nav-link js-search" href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
+        <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
       </li>
       
 
       
-      <li class="nav-item">
-        <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
+      <li class="nav-item dropdown theme-dropdown">
+        <a href="#" class="nav-link js-theme-selector" data-toggle="dropdown" aria-haspopup="true">
+          <i class="fas fa-palette" aria-hidden="true"></i>
+        </a>
+        <div class="dropdown-menu">
+          <a href="#" class="dropdown-item js-set-theme-light">
+            <span>Light</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-dark">
+            <span>Dark</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-auto">
+            <span>Automatic</span>
+          </a>
+        </div>
       </li>
       
 
@@ -677,7 +638,7 @@ Highlight your code snippets, take notes on math classes, and draw diagrams from
     
       
     
-    2019-07-12
+    Jul 12, 2019
   </span>
   
 
@@ -686,7 +647,7 @@ Highlight your code snippets, take notes on math classes, and draw diagrams from
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    4 min read
+    5 min read
   </span>
   
 
@@ -758,12 +719,12 @@ data.head()
 <p>renders as</p>
 <p>$$\gamma_{n} = \frac{ \left | \left (\mathbf x_{n} - \mathbf x_{n-1} \right )^T \left [\nabla F (\mathbf x_{n}) - \nabla F (\mathbf x_{n-1}) \right ] \right |}{\left |\nabla F(\mathbf{x}_{n}) - \nabla F(\mathbf{x}_{n-1}) \right |^2}$$</p>
 <p>Example <strong>inline math</strong> <code>$\nabla F(\mathbf{x}_{n})$</code> renders as $\nabla F(\mathbf{x}_{n})$.</p>
-<p>Example <strong>multi-line math</strong> using the <code>\\</code> math linebreak:</p>
-<pre><code class="language-tex">$$f(k;p_0^*) = \begin{cases} p_0^* &amp; \text{if }k=1, \\
+<p>Example <strong>multi-line math</strong> using the <code>\\\\</code> math linebreak:</p>
+<pre><code class="language-tex">$$f(k;p_0^*) = \begin{cases} p_0^* &amp; \text{if }k=1, \\\\
 1-p_0^* &amp; \text {if }k=0.\end{cases}$$
 </code></pre>
 <p>renders as</p>
-<p>$$f(k;p_0^*) = \begin{cases} p_0^* &amp; \text{if }k=1, \<br>
+<p>$$f(k;p_0^*) = \begin{cases} p_0^* &amp; \text{if }k=1, \\<br>
 1-p_0^* &amp; \text {if }k=0.\end{cases}$$</p>
 <h3 id="diagrams">Diagrams</h3>
 <p>Academic supports a Markdown extension for diagrams. You can enable this feature by toggling the <code>diagram</code> option in your <code>config/_default/params.toml</code> file or by adding <code>diagram: true</code> to your page front matter.</p>
@@ -938,6 +899,25 @@ A Markdown aside is useful for displaying notices, hints, or definitions to your
     A Markdown aside is useful for displaying notices, hints, or definitions to your readers.
   </div>
 </div>
+<h3 id="spoilers">Spoilers</h3>
+<p>Add a spoiler to a page to reveal text, such as an answer to a question, after a button is clicked.</p>
+<pre><code class="language-markdown">{{&lt; spoiler text=&quot;Click to view the spoiler&quot; &gt;}}
+You found me!
+{{&lt; /spoiler &gt;}}
+</code></pre>
+<p>renders as</p>
+<div class="spoiler " >
+  <p>
+    <a class="btn btn-primary" data-toggle="collapse" href="#spoiler-1" role="button" aria-expanded="false" aria-controls="spoiler-1">
+      Click to view the spoiler
+    </a>
+  </p>
+  <div class="collapse card " id="spoiler-1">
+    <div class="card-body">
+      You found me!
+    </div>
+  </div>
+</div>
 <h3 id="icons">Icons</h3>
 <p>Academic enables you to use a wide range of 
 <a href="https://sourcethemes.com/academic/docs/page-builder/#icons" target="_blank" rel="noopener">icons from <em>Font Awesome</em> and <em>Academicons</em></a> in addition to 
@@ -959,6 +939,7 @@ A Markdown aside is useful for displaying notices, hints, or definitions to your
     </div>
 
     
+
 
 
 
@@ -1029,7 +1010,7 @@ A Markdown aside is useful for displaying notices, hints, or definitions to your
       
       
       <li>
-        <a href="https://web.whatsapp.com/send?text=Writing%20technical%20content%20in%20Academic%20/post/writing-technical-content/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+        <a href="whatsapp://send?text=Writing%20technical%20content%20in%20Academic%20/post/writing-technical-content/" target="_blank" rel="noopener" class="share-btn-whatsapp">
           <i class="fab fa-whatsapp"></i>
         </a>
       </li>
@@ -1069,23 +1050,24 @@ A Markdown aside is useful for displaying notices, hints, or definitions to your
 
 
   
-  
-  
     
-  
-  
-  
-  <div class="media author-card content-widget-hr">
+    
     
       
-      <img class="avatar mr-3 avatar-circle" src="/authors/admin/avatar_huc2b6f175d529747ed447fd43ad63158b_20155_270x270_fill_q90_lanczos_center.jpg" alt="Avatar">
     
+    
+    
+    <div class="media author-card content-widget-hr">
+      
+        
+        <img class="avatar mr-3 avatar-circle" src="/author/avatar_huc2b6f175d529747ed447fd43ad63158b_20155_270x270_fill_q90_lanczos_center.jpg" alt="">
+      
 
-    <div class="media-body">
-      <h5 class="card-title"><a href="/">Shelmith Nyagathiri Kariuki</a></h5>
-      <h6 class="card-subtitle">Senior Data Analyst</h6>
-      
-      <ul class="network-icon" aria-hidden="true">
+      <div class="media-body">
+        <h5 class="card-title"><a href=""></a></h5>
+        <h6 class="card-subtitle">Senior Data Analyst</h6>
+        
+        <ul class="network-icon" aria-hidden="true">
   
     
     
@@ -1187,8 +1169,11 @@ A Markdown aside is useful for displaying notices, hints, or definitions to your
   
 </ul>
 
+      </div>
     </div>
-  </div>
+  
+
+
 
 
 
@@ -1203,6 +1188,8 @@ A Markdown aside is useful for displaying notices, hints, or definitions to your
 
   
   
+
+
 
 
 
@@ -1214,7 +1201,7 @@ A Markdown aside is useful for displaying notices, hints, or definitions to your
     
     
     
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
@@ -1261,7 +1248,8 @@ A Markdown aside is useful for displaying notices, hints, or definitions to your
         'post': "Posts",
         'project': "Projects",
         'publication' : "Publications",
-        'talk' : "Talks"
+        'talk' : "Talks",
+        'slides' : "Slides"
         };
     </script>
     
@@ -1298,6 +1286,9 @@ A Markdown aside is useful for displaying notices, hints, or definitions to your
 
     
     
+
+    
+    
     
     
     
@@ -1310,7 +1301,7 @@ A Markdown aside is useful for displaying notices, hints, or definitions to your
     
     
     
-    <script src="/js/academic.min.c816d323c3a55093dae0829b44ea1ca8.js"></script>
+    <script src="/js/academic.min.37431be2d92d7fb0160054761ab79602.js"></script>
 
     
 
@@ -1336,8 +1327,18 @@ A Markdown aside is useful for displaying notices, hints, or definitions to your
   
 
   <p class="powered-by">
-    
+    ©2020
+  </p>
 
+  
+  
+
+
+
+
+
+
+  <p class="powered-by">
     Powered by the
     <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
     <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.

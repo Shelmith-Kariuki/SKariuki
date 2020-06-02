@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>R | Shel Kariuki</title>
+    <link>/category/r/</link>
+      <atom:link href="/category/r/index.xml" rel="self" type="application/rss+xml" />
+    <description>R</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>©2020</copyright><lastBuildDate>Wed, 15 Jan 2020 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>img/avatar.jpg</url>
+      <title>R</title>
+      <link>/category/r/</link>
+    </image>
+    
+    <item>
+      <title>Factorizing variables in R</title>
+      <link>/codes/factorvariables/factoringvariables/</link>
+      <pubDate>Wed, 15 Jan 2020 00:00:00 +0000</pubDate>
+      <guid>/codes/factorvariables/factoringvariables/</guid>
+      <description>
+
+
+&lt;p&gt;There are 5 ways (that I know of) in which we can factorise multiple variables in R.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;One by one (an option for beginners).&lt;/li&gt;
+&lt;li&gt;Using a for loop.&lt;/li&gt;
+&lt;li&gt;lapply()&lt;/li&gt;
+&lt;li&gt;forcats::fct_relevel()&lt;/li&gt;
+&lt;li&gt;purrr::map()&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div id=&#34;load-the-packages-that-we-will-require&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;0. Load the packages that we will require&lt;/h3&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;## Create a vector of packages that we will need
+pkgs &amp;lt;- c(&amp;quot;dplyr&amp;quot;,&amp;quot;purrr&amp;quot;,&amp;quot;repurrrsive&amp;quot;)
+
+## Check if there are variables you want to load, that are not already installed. 
+miss_pkgs &amp;lt;- pkgs[!pkgs %in% installed.packages()[,1]] 
+
+## Installing the missing packages
+if(length(miss_pkgs)&amp;gt;0){
+  install.packages(miss_pkgs)
+}
+
+## Loading all the packages
+invisible(lapply(pkgs,library,character.only=TRUE))
+
+## Remove the objects that are no longer required
+rm(miss_pkgs)
+rm(pkgs)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Assuming you have a matrix type question (where respondents were asked to rate the questions on a scale of 1 - 5, where 1 represents Strongly Disagree and 5 represents Strongly Agree).
+&lt;br&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;set.seed(2020)
+
+vec &amp;lt;- 1:5
+Questions &amp;lt;- paste0(&amp;quot;Opinion_&amp;quot;,vec)
+opinion_df &amp;lt;- data.frame(matrix(&amp;quot;&amp;quot;, ncol=5, nrow=200))
+names(opinion_df) &amp;lt;- Questions
+
+for(i in 1: length(Questions)){
+ opinion_df[,Questions[i]] &amp;lt;- sample(c(&amp;quot;Strongly Agree&amp;quot;, &amp;quot;Agree&amp;quot;,&amp;quot;Neutral&amp;quot;,&amp;quot;Disagree&amp;quot;, &amp;quot;Strongly Disagree&amp;quot;),size = 200,replace = TRUE) 
+}
+
+head(opinion_df, 10)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##            Opinion_1         Opinion_2         Opinion_3         Opinion_4
+## 1           Disagree          Disagree             Agree          Disagree
+## 2           Disagree             Agree             Agree Strongly Disagree
+## 3     Strongly Agree           Neutral    Strongly Agree           Neutral
+## 4     Strongly Agree Strongly Disagree             Agree           Neutral
+## 5           Disagree           Neutral             Agree    Strongly Agree
+## 6              Agree           Neutral           Neutral           Neutral
+## 7     Strongly Agree           Neutral Strongly Disagree    Strongly Agree
+## 8  Strongly Disagree           Neutral           Neutral    Strongly Agree
+## 9              Agree          Disagree    Strongly Agree             Agree
+## 10             Agree          Disagree             Agree           Neutral
+##            Opinion_5
+## 1              Agree
+## 2           Disagree
+## 3            Neutral
+## 4            Neutral
+## 5           Disagree
+## 6           Disagree
+## 7  Strongly Disagree
+## 8            Neutral
+## 9              Agree
+## 10          Disagree&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;factorizing-one-by-one&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;1. Factorizing one by one&lt;/h3&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;opinion_df2 &amp;lt;- opinion_df
+
+## Opinion_1
+opinion_df2$Opinion_1 &amp;lt;- factor(opinion_df2$Opinion_1,
+                                levels = c(&amp;quot;Strongly Disagree&amp;quot;, &amp;quot;Disagree&amp;quot;,&amp;quot;Neutral&amp;quot;,&amp;quot;Agree&amp;quot;, &amp;quot;Strongly Agree&amp;quot;),
+                                labels = c(&amp;quot;Strongly Disagree&amp;quot;, &amp;quot;Disagree&amp;quot;,&amp;quot;Neutral&amp;quot;,&amp;quot;Agree&amp;quot;, &amp;quot;Strongly Agree&amp;quot;))
+
+## Opinion_2
+opinion_df2$Opinion_2 &amp;lt;- factor(opinion_df2$Opinion_2,
+                                levels = c(&amp;quot;Strongly Disagree&amp;quot;, &amp;quot;Disagree&amp;quot;,&amp;quot;Neutral&amp;quot;,&amp;quot;Agree&amp;quot;, &amp;quot;Strongly Agree&amp;quot;),
+                                labels = c(&amp;quot;Strongly Disagree&amp;quot;, &amp;quot;Disagree&amp;quot;,&amp;quot;Neutral&amp;quot;,&amp;quot;Agree&amp;quot;, &amp;quot;Strongly Agree&amp;quot;))
+
+## Sorry, I cannot continue with this replication&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;using-a-for-loop&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;2. Using a for loop&lt;/h3&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;opinion_df3 &amp;lt;- opinion_df
+
+factor_function &amp;lt;- function(data,var){
+  data[,var] &amp;lt;- factor(data[,var],
+                  levels = c(&amp;quot;Strongly Disagree&amp;quot;, &amp;quot;Disagree&amp;quot;,&amp;quot;Neutral&amp;quot;,&amp;quot;Agree&amp;quot;, &amp;quot;Strongly Agree&amp;quot;),
+                  labels = c(&amp;quot;Strongly Disagree&amp;quot;, &amp;quot;Disagree&amp;quot;,&amp;quot;Neutral&amp;quot;,&amp;quot;Agree&amp;quot;, &amp;quot;Strongly Agree&amp;quot;))
+  
+  return(data[,var])
+}
+
+for( i in 1:length(Questions)){
+ opinion_df3[,Questions[i]] &amp;lt;- factor_function(opinion_df3,Questions[i])
+ print(levels(opinion_df3[,Questions[i]]))
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;Strongly Disagree&amp;quot; &amp;quot;Disagree&amp;quot;          &amp;quot;Neutral&amp;quot;          
+## [4] &amp;quot;Agree&amp;quot;             &amp;quot;Strongly Agree&amp;quot;   
+## [1] &amp;quot;Strongly Disagree&amp;quot; &amp;quot;Disagree&amp;quot;          &amp;quot;Neutral&amp;quot;          
+## [4] &amp;quot;Agree&amp;quot;             &amp;quot;Strongly Agree&amp;quot;   
+## [1] &amp;quot;Strongly Disagree&amp;quot; &amp;quot;Disagree&amp;quot;          &amp;quot;Neutral&amp;quot;          
+## [4] &amp;quot;Agree&amp;quot;             &amp;quot;Strongly Agree&amp;quot;   
+## [1] &amp;quot;Strongly Disagree&amp;quot; &amp;quot;Disagree&amp;quot;          &amp;quot;Neutral&amp;quot;          
+## [4] &amp;quot;Agree&amp;quot;             &amp;quot;Strongly Agree&amp;quot;   
+## [1] &amp;quot;Strongly Disagree&amp;quot; &amp;quot;Disagree&amp;quot;          &amp;quot;Neutral&amp;quot;          
+## [4] &amp;quot;Agree&amp;quot;             &amp;quot;Strongly Agree&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;using-lapply.&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;3. Using lapply().&lt;/h3&gt;
+&lt;p&gt;sapply() is kind of usually moody at times, and this was one of those days. So I used lapply(), and it works.
+&lt;br&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;opinion_df &amp;lt;- data.frame(opinion_df)
+
+opinion_df4 &amp;lt;- as.data.frame(lapply(opinion_df, function(x) factor(x,
+            levels = c(&amp;quot;Strongly Disagree&amp;quot;, &amp;quot;Disagree&amp;quot;,&amp;quot;Neutral&amp;quot;,&amp;quot;Agree&amp;quot;, &amp;quot;Strongly Agree&amp;quot;),
+            labels = c(&amp;quot;Strongly Disagree&amp;quot;, &amp;quot;Disagree&amp;quot;,&amp;quot;Neutral&amp;quot;,&amp;quot;Agree&amp;quot;, &amp;quot;Strongly Agree&amp;quot;))),check.names = FALSE)
+
+levels(opinion_df3$Opinion_4)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;Strongly Disagree&amp;quot; &amp;quot;Disagree&amp;quot;          &amp;quot;Neutral&amp;quot;          
+## [4] &amp;quot;Agree&amp;quot;             &amp;quot;Strongly Agree&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;using-forcatsfct_relevel&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;4. Using forcats::fct_relevel()&lt;/h3&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;opinion_df5 &amp;lt;- opinion_df %&amp;gt;%
+  dplyr::mutate_all(forcats::fct_relevel, &amp;quot;Strongly Disagree&amp;quot;, &amp;quot;Disagree&amp;quot;, &amp;quot;Neutral&amp;quot;, &amp;quot;Agree&amp;quot;, &amp;quot;Strongly Agree&amp;quot;)
+
+levels(opinion_df5$Opinion_4)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;Strongly Disagree&amp;quot; &amp;quot;Disagree&amp;quot;          &amp;quot;Neutral&amp;quot;          
+## [4] &amp;quot;Agree&amp;quot;             &amp;quot;Strongly Agree&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;using-purrrmap&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;5. Using purrr::map()&lt;/h3&gt;
+&lt;p&gt;&lt;br&gt;
+The syntax is written as map(.x,.f) i.e for each element of .x, do .f
+&lt;br&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;opinion_df6 &amp;lt;-bind_rows(map(opinion_df, ~factor(.x,
+ levels = c(&amp;quot;Strongly Disagree&amp;quot;, &amp;quot;Disagree&amp;quot;,&amp;quot;Neutral&amp;quot;,&amp;quot;Agree&amp;quot;, &amp;quot;Strongly Agree&amp;quot;),
+ labels = c(&amp;quot;Strongly Disagree&amp;quot;, &amp;quot;Disagree&amp;quot;,&amp;quot;Neutral&amp;quot;,&amp;quot;Agree&amp;quot;, &amp;quot;Strongly Agree&amp;quot;))))
+
+
+levels(opinion_df6$Opinion_4)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;Strongly Disagree&amp;quot; &amp;quot;Disagree&amp;quot;          &amp;quot;Neutral&amp;quot;          
+## [4] &amp;quot;Agree&amp;quot;             &amp;quot;Strongly Agree&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>One sample t-tests</title>
+      <link>/codes/ttests/t-tests/</link>
+      <pubDate>Mon, 19 Aug 2019 00:00:00 +0000</pubDate>
+      <guid>/codes/ttests/t-tests/</guid>
+      <description>
+
+
+&lt;center&gt;
+&lt;strong&gt;
+&lt;h4&gt;
+Example 1
+&lt;/h4&gt;
+&lt;/strong&gt;
+&lt;/center&gt;
+&lt;p style=&#34;text-align:justify;&#34;&gt;
+Consider 20 first year resident female doctors drawn at random from one area, resting systolic blood pressures measured using an electronic gadget were:&lt;br&gt;
+128, 118, 144, 133, 132, 111, 149, 139,136,126, 127,115,142, 140, 131,132,122,119,129,128.&lt;br&gt;
+From previous large studies of women drawn at random from the healthy general public, a resting systolic blood pressure of 120mm was predicted as the population mean, for the relevant age group. Test to see whether there is a difference between the means at 95% level of significance.
+&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;&lt;br&gt;&lt;/p&gt;
+&lt;h5&gt;
+Calculations by hand
+&lt;/h5&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;knitr::include_graphics(&amp;quot;/img/DSC06212_2.jpg&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/img/DSC06212_2.jpg&#34; /&gt;&lt;!-- --&gt;&lt;/p&gt;
+&lt;h5&gt;
+Execution in R
+&lt;/h5&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;## load the library required to intergrate R and Python
+library(reticulate)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;
+## Load the python libraries
+from scipy.stats import ttest_1samp #used for carrying out one sample t-tests&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;## Generate a vector of values
+vals &amp;lt;- c(128, 118, 144, 133, 132, 111, 149, 139,136,126, 127,115,142, 140, 131,132,122,119,129,128)
+
+## Carry out the t-test to determine whether the population mean is significantly different from 120
+t.test(vals, mu=120,alternative = &amp;quot;two.sided&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;
+    One Sample t-test
+
+data:  vals
+t = 4.5124, df = 19, p-value = 0.0002384
+alternative hypothesis: true mean is not equal to 120
+95 percent confidence interval:
+ 125.3884 134.7116
+sample estimates:
+mean of x 
+   130.05 &lt;/code&gt;&lt;/pre&gt;
+&lt;h5&gt;
+Execution in Python
+&lt;/h5&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;
+## Generate a vector of values
+vals_py = [128, 118, 144, 133, 132, 111, 149, 139,136,126, 127,115,142, 140, 131,132,122,119,129,128]
+
+## Carry out the t-test to determine whether the population mean is significantly different from 120
+ttest_1samp(vals_py, 120)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;Ttest_1sampResult(statistic=4.512403659336718, pvalue=0.00023838063630967753)&lt;/code&gt;&lt;/pre&gt;
+&lt;center&gt;
+&lt;strong&gt;
+&lt;h4&gt;
+Example 2
+&lt;/h4&gt;
+&lt;/strong&gt;
+&lt;/center&gt;
+&lt;h5&gt;
+Calculations by hand
+&lt;/h5&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;knitr::include_graphics(&amp;quot;/img/DSC06213.JPG&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/img/DSC06213.JPG&#34; /&gt;&lt;!-- --&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;knitr::include_graphics(&amp;quot;/img/DSC06214.JPG&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/img/DSC06214.JPG&#34; /&gt;&lt;!-- --&gt;&lt;/p&gt;
+&lt;h5&gt;
+Execution in R
+&lt;/h5&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;## Generate a vector of values
+volume &amp;lt;- c(484.11,459.49,471.38,512.01,494.48,528.63,493.64,485.03,473.88,
+            501.59,502.85,538.08,465.68,495.03,475.32,529.41,518.13,464.32,449.08,489.27)
+
+## Carry out the t-test
+t.test(volume, alternative = &amp;quot;less&amp;quot;, mu=500,conf.level = 0.99)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;
+    One Sample t-test
+
+data:  volume
+t = -1.5205, df = 19, p-value = 0.07243
+alternative hypothesis: true mean is less than 500
+99 percent confidence interval:
+     -Inf 505.6495
+sample estimates:
+mean of x 
+ 491.5705 &lt;/code&gt;&lt;/pre&gt;
+&lt;h5&gt;
+Execution in Python
+&lt;/h5&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;## Generate a vector of values
+volume = [484.11,459.49,471.38,512.01,494.48,528.63,493.64,485.03,473.88,
+            501.59,502.85,538.08,465.68,495.03,475.32,529.41,518.13,464.32,449.08,489.27]
+
+## Carry out the t-test 
+ttest_1samp(volume, 500)
+
+
+##Notes:
+## The p-value obtained is that of a two tailed test, so we divide it by 2 to get the p-value of a one tailed test (0.14486225283259022/2 = 0.07243113)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;Ttest_1sampResult(statistic=-1.5204626102079255, pvalue=0.14486225283259022)&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

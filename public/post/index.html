@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en-us">
+<!DOCTYPE html><html lang="en-us" >
 
 <head>
 
@@ -21,7 +20,7 @@
   
   
 
-  <meta name="author" content="Shelmith Nyagathiri Kariuki">
+  
 
   
   
@@ -210,6 +209,9 @@
 
 
   
+  
+
+  
   <link rel="alternate" href="/post/index.xml" type="application/rss+xml" title="Shel Kariuki">
   
 
@@ -219,6 +221,8 @@
 
   <link rel="canonical" href="/post/">
 
+  
+  
   
   
   
@@ -234,11 +238,11 @@
   
   <meta property="og:site_name" content="Shel Kariuki">
   <meta property="og:url" content="/post/">
-  <meta property="og:title" content="Posts | Shel Kariuki">
+  <meta property="og:title" content="Blog Posts | Shel Kariuki">
   <meta property="og:description" content="Welcome to my personal website."><meta property="og:image" content="img/avatar.jpg">
   <meta property="twitter:image" content="img/avatar.jpg"><meta property="og:locale" content="en-us">
   
-    <meta property="og:updated_time" content="2020-01-15T00:00:00&#43;00:00">
+    <meta property="og:updated_time" content="2020-05-13T00:00:00&#43;00:00">
   
 
   
@@ -247,36 +251,6 @@
 
 
   
-  
-  
-  
-  
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.1/cookieconsent.min.js" integrity="sha256-5VhCqFam2Cn+yjw61zbBNrbHVJ6SRydPeKopYlngbiQ=" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.1/cookieconsent.min.css" integrity="sha256-zQ0LblD/Af8vOppw18+2anxsuaz3pWYyVWi+bTvTH8Q=" crossorigin="anonymous">
-  
-  <script>
-  window.addEventListener("load", function(){
-    window.cookieconsent.initialise({
-      "palette": {
-        "popup": {
-          "background": "#ff3860",
-          "text": "#fff"
-        },
-        "button": {
-          "background": "#fff",
-          "text": "#ff3860"
-        }
-      },
-      "theme": "classic",
-      "content": {
-        "message": "This website uses cookies to ensure you get the best experience on our website.",
-        "dismiss": "Got it!",
-        "link": "Learn more",
-        "href": "/privacy/"
-      }
-    })});
-  </script>
-
 
 
   
@@ -285,7 +259,7 @@
 
 
 
-  <title>Posts | Shel Kariuki</title>
+  <title>Blog Posts | Shel Kariuki</title>
 
 </head>
 
@@ -335,6 +309,10 @@
   <div class="container">
 
     
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="/">Shel Kariuki</a>
+    </div>
+    
 
     
     <button type="button" class="navbar-toggler" data-toggle="collapse"
@@ -343,6 +321,10 @@
     </button>
     
 
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="/">Shel Kariuki</a>
+    </div>
     
 
     
@@ -396,16 +378,9 @@
         
         
         
-          
-          
-          
-            
-          
-          
-        
 
         <li class="nav-item">
-          <a class="nav-link " href="/#blog"><span>Blog</span></a>
+          <a class="nav-link " href="/blogspage"><span>Blog</span></a>
         </li>
 
         
@@ -425,103 +400,9 @@
         
         
         
-          
-          
-          
-            
-          
-          
-        
 
         <li class="nav-item">
-          <a class="nav-link " href="/#projects"><span>Projects</span></a>
-        </li>
-
-        
-        
-
-        
-
-        
-        
-        
-          
-        
-
-        
-        
-        
-        
-        
-        
-          
-          
-          
-            
-          
-          
-        
-
-        <li class="nav-item">
-          <a class="nav-link " href="/#posts"><span>Code Work</span></a>
-        </li>
-
-        
-        
-
-        
-
-        
-        
-        
-          
-        
-
-        
-        
-        
-        
-        
-        
-          
-          
-          
-            
-          
-          
-        
-
-        <li class="nav-item">
-          <a class="nav-link " href="/#talks"><span>Talks & Trainings</span></a>
-        </li>
-
-        
-        
-
-        
-
-        
-        
-        
-          
-        
-
-        
-        
-        
-        
-        
-        
-          
-          
-          
-            
-          
-          
-        
-
-        <li class="nav-item">
-          <a class="nav-link " href="/#contact"><span>Contact</span></a>
+          <a class="nav-link " href="/contactpage"><span>Contact</span></a>
         </li>
 
         
@@ -558,13 +439,26 @@
     <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
       
       <li class="nav-item">
-        <a class="nav-link js-search" href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
+        <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
       </li>
       
 
       
-      <li class="nav-item">
-        <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
+      <li class="nav-item dropdown theme-dropdown">
+        <a href="#" class="nav-link js-theme-selector" data-toggle="dropdown" aria-haspopup="true">
+          <i class="fas fa-palette" aria-hidden="true"></i>
+        </a>
+        <div class="dropdown-menu">
+          <a href="#" class="dropdown-item js-set-theme-light">
+            <span>Light</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-dark">
+            <span>Dark</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-auto">
+            <span>Automatic</span>
+          </a>
+        </div>
       </li>
       
 
@@ -597,7 +491,7 @@
     
   
 <div class="universal-wrapper pt-3">
-  <h1>Posts</h1>
+  <h1>Blog Posts</h1>
 
   
 
@@ -633,13 +527,13 @@
   <div class="media-body">
 
     <h3 class="article-title mb-0 mt-0">
-      <a href="/post/factorvariables/factoringvariables/" >Factorizing variables in R</a>
+      <a href="/post/certification/" >The RStudio Certification Process</a>
     </h3>
 
     
     <div class="article-style">
-      There are 5 ways (that I know of) in which we can factorise multiple variables in R.
- One by one (an option for beginners). Using a for loop. lapply() forcats::fct_relevel() purrr::map()  0.
+      In February 2020, I was lucky to be certified as an RStudio Certified Tidyverse trainer.
+The certification process was totally amazing. It was led by Greg Wilson who is a member of the RStudio Education team.
     </div>
     
 
@@ -662,7 +556,7 @@
     
       
     
-    2020-01-15
+    May 13, 2020
   </span>
   
 
@@ -671,7 +565,7 @@
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    3 min read
+    5 min read
   </span>
   
 
@@ -683,7 +577,7 @@
   
   <span class="middot-divider"></span>
   <span class="article-categories">
-    <i class="fas fa-folder mr-1"></i><a href="/categories/r/">R</a></span>
+    <i class="fas fa-folder mr-1"></i><a href="/category/blog/">blog</a></span>
   
 
 </div>
@@ -696,6 +590,11 @@
   </div>
   <div class="ml-3">
     
+    
+    
+    <a href="/post/certification/" >
+      <img src="/post/certification/featured_hu8449734d38410fbc89331e08c8f77863_73350_150x0_resize_q90_lanczos.jpg" alt="The RStudio Certification Process">
+    </a>
     
   </div>
 </div>
@@ -723,12 +622,12 @@
   <div class="media-body">
 
     <h3 class="article-title mb-0 mt-0">
-      <a href="/post/ttests/t-tests/" >One sample t-tests</a>
+      <a href="/post/rkenyacensus/" >Introducing rCensusKenya</a>
     </h3>
 
     
     <div class="article-style">
-      Example 1    Consider 20 first year resident female doctors drawn at random from one area, resting systolic blood pressures measured using an electronic gadget were:
+      rKenyaCensus is an R package that contains the 2019 Kenya Population and Housing Census results. The results were released by the Kenya National Bureau of Statistics in February 2020, and published in four different pdf files (Volume 1 - Volume 4).
     </div>
     
 
@@ -751,7 +650,7 @@
     
       
     
-    2019-08-19
+    Apr 27, 2020
   </span>
   
 
@@ -760,7 +659,7 @@
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    2 min read
+    6 min read
   </span>
   
 
@@ -772,7 +671,7 @@
   
   <span class="middot-divider"></span>
   <span class="article-categories">
-    <i class="fas fa-folder mr-1"></i><a href="/categories/r/">R</a></span>
+    <i class="fas fa-folder mr-1"></i><a href="/category/blog/">blog</a></span>
   
 
 </div>
@@ -785,6 +684,11 @@
   </div>
   <div class="ml-3">
     
+    
+    
+    <a href="/post/rkenyacensus/" >
+      <img src="/post/rkenyacensus/featured_hudf75701b5887d4f557a17652b4961ff5_197082_150x0_resize_q90_lanczos.jpg" alt="Introducing rCensusKenya">
+    </a>
     
   </div>
 </div>
@@ -812,14 +716,12 @@
   <div class="media-body">
 
     <h3 class="article-title mb-0 mt-0">
-      <a href="/post/passa/" >Rstudio Tidyverse Certified Trainer Preparation Script</a>
+      <a href="/post/amandla/" >Amandla...my new baby</a>
     </h3>
 
     
     <div class="article-style">
-      Tidyverse is a collection of R packages designed for data science. The packages that are included in tidyverse include:
- readr: Used for reading in datasets into R.
- dplyr: Used for data manipulation.
+      Coming Soon
     </div>
     
 
@@ -842,7 +744,7 @@
     
       
     
-    0001-01-01
+    Mar 10, 2020
   </span>
   
 
@@ -851,7 +753,7 @@
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    8 min read
+    1 min read
   </span>
   
 
@@ -860,6 +762,10 @@
   
 
   
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder mr-1"></i><a href="/category/blog/">blog</a></span>
   
 
 </div>
@@ -873,6 +779,11 @@
   <div class="ml-3">
     
     
+    
+    <a href="/post/amandla/" >
+      <img src="/post/amandla/featured_huc02e5b975cde4c340899cac7b29e39e8_111930_150x0_resize_q90_lanczos.jpg" alt="Amandla...my new baby">
+    </a>
+    
   </div>
 </div>
 
@@ -889,7 +800,7 @@
     
     
     
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
@@ -934,7 +845,8 @@
         'post': "Posts",
         'project': "Projects",
         'publication' : "Publications",
-        'talk' : "Talks"
+        'talk' : "Talks",
+        'slides' : "Slides"
         };
     </script>
     
@@ -971,6 +883,9 @@
 
     
     
+
+    
+    
     
     
     
@@ -983,7 +898,7 @@
     
     
     
-    <script src="/js/academic.min.c816d323c3a55093dae0829b44ea1ca8.js"></script>
+    <script src="/js/academic.min.37431be2d92d7fb0160054761ab79602.js"></script>
 
     
 
@@ -1009,8 +924,18 @@
   
 
   <p class="powered-by">
-    
+    ©2020
+  </p>
 
+  
+  
+
+
+
+
+
+
+  <p class="powered-by">
     Powered by the
     <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
     <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.

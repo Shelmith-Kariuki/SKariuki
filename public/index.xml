@@ -5,7 +5,7 @@
     <link>/</link>
       <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     <description>Shel Kariuki</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Thu, 28 Jun 2018 00:00:00 +0100</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>©2020</copyright><lastBuildDate>Tue, 02 Jun 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>img/avatar.jpg</url>
       <title>Shel Kariuki</title>
@@ -55,18 +55,34 @@
     </item>
     
     <item>
-      <title>Biography</title>
-      <link>/nyumbani/about/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>/nyumbani/about/</guid>
+      <title>Blog</title>
+      <link>/blogspage/</link>
+      <pubDate>Tue, 02 Jun 2020 00:00:00 +0000</pubDate>
+      <guid>/blogspage/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Codework</title>
+      <link>/codework/</link>
+      <pubDate>Tue, 02 Jun 2020 00:00:00 +0000</pubDate>
+      <guid>/codework/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Contact</title>
+      <link>/contactpage/</link>
+      <pubDate>Mon, 01 Jun 2020 00:00:00 +0000</pubDate>
+      <guid>/contactpage/</guid>
       <description></description>
     </item>
     
     <item>
       <title>The RStudio Certification Process</title>
-      <link>/blog/certification/</link>
+      <link>/post/certification/</link>
       <pubDate>Wed, 13 May 2020 00:00:00 +0000</pubDate>
-      <guid>/blog/certification/</guid>
+      <guid>/post/certification/</guid>
       <description>
 
 
@@ -108,9 +124,9 @@ The first step involved delivering a 15 minutes lesson to Greg. I chose to teach
     
     <item>
       <title>Introducing rCensusKenya</title>
-      <link>/blog/rkenyacensus/</link>
+      <link>/post/rkenyacensus/</link>
       <pubDate>Mon, 27 Apr 2020 00:00:00 +0000</pubDate>
-      <guid>/blog/rkenyacensus/</guid>
+      <guid>/post/rkenyacensus/</guid>
       <description>
 
 
@@ -144,7 +160,7 @@ Each table has been scrapped and given a unique identifier, e.g V1.T2.3 is the d
 &lt;p&gt;&lt;img src=&#34;img/mutisodark.png&#34; width=&#34;3200&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;The process of creating this package was amazing. I used the tabulizer R package to scrap the data from the different pdfs, though I faced a small glitch while trying to scrap two or three of the datasets. For those tables, I used data that had already been scrapped, and was readily available on the internet, even though I had to clean it further. I used the &lt;em&gt;usethis&lt;/em&gt; package to “attach” the data onto the package.&lt;/p&gt;
 &lt;p&gt;I decided to come up with the package for a host of reasons. To begin with, I believe that people prefer working with data when it is in an “easy to use” format, as opposed to it being in pdf format. The data has been simplified so that data analysts can play around with it, without having to go through the “dirty” process themselves. I am hoping that people can use the data to practise data visualizations, and come up with amazing graphs (or better still, amazing shiny dashboards).&lt;/p&gt;
-&lt;p&gt;I have also always wanted to learn package development through a real life project. I am glad that I can now use the &lt;em&gt;usethis::use_data(xxx, overwrite = T)&lt;/em&gt; command, and I know what &lt;em&gt;“r cmd-check”&lt;/em&gt; is (thanks to &lt;a href=&#34;https://twitter.com/JennyBryan&#34;&gt;Jenny Bryan&lt;/a&gt; for creating and maintaining the package). I also needed to work on a project that I could showcase, during my next interview, incase they ask how I spent my time during the Covid19 pandemic (yes, I am job hunting 🙍, 🙍, 🙍, 🙍).&lt;/p&gt;
+&lt;p&gt;I have also always wanted to learn package development through a real life project. I am glad that I can now use the &lt;em&gt;usethis::use_data(xxx, overwrite = T)&lt;/em&gt; command, and I know what &lt;em&gt;“r cmd-check”&lt;/em&gt; is (thanks to &lt;a href=&#34;https://twitter.com/JennyBryan&#34;&gt;Jenny Bryan&lt;/a&gt; for creating and maintaining the package). I also needed to work on a project that I could showcase, during my next interview, incase they ask how I spent my time during the Covid19 pandemic (yes, I am job hunting 😢, 😢, 😢, 😢).&lt;/p&gt;
 &lt;p&gt;Most of the datasets are exactly as they appear in the pdf files, but for some, I tried manipulating them a little bit so that people could easily use them.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;img/countymerge.png&#34; width=&#34;675&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;I also got shapefiles of Kenya County boundaries from a friend (thanks &lt;a href=&#34;https://twitter.com/Akothcarole&#34;&gt;Carole&lt;/a&gt;), but unfortunately, I was not able to include them in the package. They can be downloaded &lt;a href=&#34;https://data.humdata.org/dataset/47-counties-of-kenya&#34;&gt;from this site&lt;/a&gt;. I hope that spatial data analysts could use this data to develop awesome maps (I can’t wait to see what you all come up with 💃, 💃, 💃).&lt;/p&gt;
@@ -166,9 +182,9 @@ Each table has been scrapped and given a unique identifier, e.g V1.T2.3 is the d
     
     <item>
       <title>Amandla...my new baby</title>
-      <link>/blog/amandla/</link>
+      <link>/post/amandla/</link>
       <pubDate>Tue, 10 Mar 2020 02:20:01 -0700</pubDate>
-      <guid>/blog/amandla/</guid>
+      <guid>/post/amandla/</guid>
       <description>
 
 
@@ -607,9 +623,9 @@ ggcorrplot(corr_mat,
     
     <item>
       <title>Factorizing variables in R</title>
-      <link>/post/factorvariables/factoringvariables/</link>
+      <link>/codes/factorvariables/factoringvariables/</link>
       <pubDate>Wed, 15 Jan 2020 00:00:00 +0000</pubDate>
-      <guid>/post/factorvariables/factoringvariables/</guid>
+      <guid>/codes/factorvariables/factoringvariables/</guid>
       <description>
 
 
@@ -766,9 +782,9 @@ levels(opinion_df6$Opinion_4)&lt;/code&gt;&lt;/pre&gt;
     
     <item>
       <title>One sample t-tests</title>
-      <link>/post/ttests/t-tests/</link>
+      <link>/codes/ttests/t-tests/</link>
       <pubDate>Mon, 19 Aug 2019 00:00:00 +0000</pubDate>
-      <guid>/post/ttests/t-tests/</guid>
+      <guid>/codes/ttests/t-tests/</guid>
       <description>
 
 
@@ -1753,9 +1769,9 @@ Three
     
     <item>
       <title>Rstudio Tidyverse Certified Trainer Preparation Script</title>
-      <link>/post/passa/</link>
+      <link>/codes/passa/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>/post/passa/</guid>
+      <guid>/codes/passa/</guid>
       <description>
 
 

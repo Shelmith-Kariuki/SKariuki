@@ -18,16 +18,32 @@
   </url>
   
   <url>
-    <loc>/nyumbani/about/</loc>
+    <loc>/blogspage/</loc>
+    <lastmod>2020-06-02T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/categories/blog/</loc>
+    <loc>/codework/</loc>
+    <lastmod>2020-06-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/</loc>
+    <lastmod>2020-06-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/contactpage/</loc>
+    <lastmod>2020-06-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/category/blog/</loc>
     <lastmod>2020-05-13T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/blog/</loc>
+    <loc>/post/</loc>
     <lastmod>2020-05-13T00:00:00+00:00</lastmod>
   </url>
   
@@ -37,17 +53,17 @@
   </url>
   
   <url>
-    <loc>/blog/certification/</loc>
+    <loc>/post/certification/</loc>
     <lastmod>2020-05-13T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/blog/rkenyacensus/</loc>
+    <loc>/post/rkenyacensus/</loc>
     <lastmod>2020-04-27T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/blog/amandla/</loc>
+    <loc>/post/amandla/</loc>
     <lastmod>2020-03-10T02:20:01-07:00</lastmod>
   </url>
   
@@ -62,12 +78,12 @@
   </url>
   
   <url>
-    <loc>/categories/tidyverse/</loc>
+    <loc>/category/tidyverse/</loc>
     <lastmod>2020-03-10T02:20:01-07:00</lastmod>
   </url>
   
   <url>
-    <loc>/categories/workshop/</loc>
+    <loc>/category/workshop/</loc>
     <lastmod>2020-03-10T02:20:01-07:00</lastmod>
   </url>
   
@@ -82,7 +98,7 @@
   </url>
   
   <url>
-    <loc>/tags/r/</loc>
+    <loc>/tag/r/</loc>
     <lastmod>2020-01-24T00:00:00+00:00</lastmod>
   </url>
   
@@ -92,27 +108,27 @@
   </url>
   
   <url>
-    <loc>/post/factorvariables/factoringvariables/</loc>
+    <loc>/codes/factorvariables/factoringvariables/</loc>
     <lastmod>2020-01-15T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/post/</loc>
+    <loc>/codes/</loc>
     <lastmod>2020-01-15T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/categories/r/</loc>
+    <loc>/category/r/</loc>
     <lastmod>2020-01-15T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/r-markdown/</loc>
+    <loc>/tag/r-markdown/</loc>
     <lastmod>2020-01-15T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/post/ttests/t-tests/</loc>
+    <loc>/codes/ttests/t-tests/</loc>
     <lastmod>2019-08-19T00:00:00+00:00</lastmod>
   </url>
   
@@ -162,12 +178,12 @@
   </url>
   
   <url>
-    <loc>/authors/admin/</loc>
+    <loc>/author/</loc>
     <lastmod>2019-04-07T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/publication_types/3/</loc>
+    <loc>/publication-type/3/</loc>
     <lastmod>2019-04-07T00:00:00+00:00</lastmod>
   </url>
   
@@ -192,7 +208,7 @@
   </url>
   
   <url>
-    <loc>/tags/source-themes/</loc>
+    <loc>/tag/source-themes/</loc>
     <lastmod>2019-04-07T00:00:00+00:00</lastmod>
   </url>
   
@@ -212,17 +228,12 @@
   </url>
   
   <url>
-    <loc>/</loc>
-    <lastmod>2018-06-28T00:00:00+01:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/terms/</loc>
     <lastmod>2018-06-28T00:00:00+01:00</lastmod>
   </url>
   
   <url>
-    <loc>/publication_types/2/</loc>
+    <loc>/publication-type/2/</loc>
     <lastmod>2015-09-01T00:00:00+00:00</lastmod>
   </url>
   
@@ -232,12 +243,12 @@
   </url>
   
   <url>
-    <loc>/authors/robert-ford/</loc>
+    <loc>/author/robert-ford/</loc>
     <lastmod>2015-09-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/publication_types/1/</loc>
+    <loc>/publication-type/1/</loc>
     <lastmod>2013-07-01T00:00:00+00:00</lastmod>
   </url>
   
@@ -247,15 +258,11 @@
   </url>
   
   <url>
-    <loc>/nyumbani/</loc>
+    <loc>/codes/passa/</loc>
   </url>
   
   <url>
-    <loc>/post/passa/</loc>
-  </url>
-  
-  <url>
-    <loc>/true/</loc>
+    <loc>/author/%E5%90%B3%E6%81%A9%E9%81%94/</loc>
   </url>
   
 </urlset>

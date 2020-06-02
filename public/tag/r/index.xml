@@ -1,0 +1,1557 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>R | Shel Kariuki</title>
+    <link>/tag/r/</link>
+      <atom:link href="/tag/r/index.xml" rel="self" type="application/rss+xml" />
+    <description>R</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>©2020</copyright><lastBuildDate>Fri, 24 Jan 2020 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>img/avatar.jpg</url>
+      <title>R</title>
+      <link>/tag/r/</link>
+    </image>
+    
+    <item>
+      <title>Marketing Intelligence</title>
+      <link>/project/mi/</link>
+      <pubDate>Fri, 24 Jan 2020 00:00:00 +0000</pubDate>
+      <guid>/project/mi/</guid>
+      <description>
+
+
+&lt;p&gt;Company_XXX is an online company that meets the growing demand for independent travel information. It offers an extensive hotel meta search to travellers.&lt;/p&gt;
+&lt;p&gt;The following document details results from the ‘Marketing Intelligence’ data task.&lt;/p&gt;
+&lt;p&gt;The task involves two datasets i.e Marketing Campaigns and Session data.&lt;/p&gt;
+&lt;p&gt;The Marketing campaigns data contains weekly information about different online marketing campaigns in one market.&lt;/p&gt;
+&lt;p&gt;The Session data contains information about single visits to the Company_XXX website (= sessions). A click out is logged whenever a user clicks on a hotel and is redirected to the booking page. The booking field is binary and indicates if a hotel booking was logged after one of the click outs.&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;### 0.1 Install the libraries required
+## Create a vector of packages to be installed
+pkgs &amp;lt;- c(&amp;quot;tidyverse&amp;quot;,&amp;quot;data.table&amp;quot;,&amp;quot;DT&amp;quot;,&amp;quot;lubridate&amp;quot;,&amp;quot;ggthemes&amp;quot;,&amp;quot;randomForest&amp;quot;,&amp;quot;readODS&amp;quot;,&amp;quot;ggcorrplot&amp;quot;)
+
+## Check if there are packages you want to load, that are not already installed. 
+miss_pkgs &amp;lt;- pkgs[!pkgs %in% installed.packages()[,1]] 
+
+## Installing the missing packages
+if(length(miss_pkgs)&amp;gt;0){
+  install.packages(miss_pkgs)
+}
+## Loading all the packages
+invisible(lapply(pkgs,library,character.only=TRUE))
+
+## Remove the objects that are no longer required
+rm(miss_pkgs)
+rm(pkgs)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;### Setting the plot theme
+Company_XXX_theme&amp;lt;- theme_hc()+ theme(legend.position = &amp;quot;right&amp;quot;, 
+                 legend.direction = &amp;quot;vertical&amp;quot;,
+                 #legend.title = element_blank(),
+                 plot.title = element_text( size = rel(1.6), hjust = 0.5),
+                plot.subtitle = element_text(size = rel(1.5), hjust = 0.5),
+                 #axis.text = element_text( size = rel(1.5)),
+                 axis.text.x = element_text(size =rel(1.5),angle = 0),
+                 axis.text.y = element_text(size =rel(1.5),angle = 0),
+                 axis.title = element_text( size = rel(1.55)),
+                axis.line.x = element_line(size = 1.5, colour = &amp;quot;#c94a38&amp;quot;),
+                 panel.background = element_rect(fill = NA))
+
+### Colours that will be used for the plots 
+Company_XXX_blue = &amp;quot;#377DA9&amp;quot;
+Company_XXX_maroon = &amp;quot;#BB523A&amp;quot;
+Company_XXX_yellow = &amp;quot;#E79435&amp;quot;
+
+## Avoidance of scientific numbers
+options(scipen = 999)
+
+## Printing function
+pr_func&amp;lt;-function(data,cnames){
+datatable(data,colnames = cnames,
+  extensions = &amp;#39;Buttons&amp;#39;, options = list(
+    dom = &amp;#39;Bfrtip&amp;#39;,
+    buttons = c(&amp;#39;copy&amp;#39;, &amp;#39;print&amp;#39;)
+  )
+)
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;### 0.2 Read in the datasets
+mc_df &amp;lt;- readRDS(&amp;quot;../../../../../PersonalDevelopment/marketing_campaigns2.rds&amp;quot;)
+sessions_df &amp;lt;- readRDS(&amp;quot;../../../../../PersonalDevelopment/session_data.rds&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;task-1-marketing-campaigns&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Task 1: Marketing Campaigns&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Give an overview of entire market’s development and the different campaigns. Please prepare
+3-5 charts and summarize the most important findings. &lt;em&gt;See 1.2 - 1.8 below&lt;/em&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;How would you assess the development of the quality of traffic, e.g. in terms of revenue per
+visitor. How is the overall development and how does each campaign evolve? &lt;em&gt;See 1.2 - 1.8 below&lt;/em&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;You are talking with the responsible business developer for the market who wants to spend an
+additional 250€ per week from week 31 onwards. Please help him out with the following
+questions:&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;ul&gt;
+&lt;li&gt;What is your advice in which campaign to invest and why? &lt;em&gt;See 1.6 below&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;ul&gt;
+&lt;li&gt;How do you expect this to impact the overall performance in the market from week 31
+onwards? &lt;em&gt;See 1.6 below&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div id=&#34;clean-the-dataset-and-generate-new-variables&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;1.1. Clean the dataset, and generate new variables&lt;/h3&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
+## Convert the Campaign variable to factor
+
+mc_df &amp;lt;- mc_df %&amp;gt;% 
+  mutate(Campaign = fct_relevel(Campaign,&amp;quot;Aldebaran&amp;quot;,&amp;quot;Bartledan&amp;quot;,&amp;quot;Cottington&amp;quot;)) 
+
+## Remove duplicates
+mc_df &amp;lt;- mc_df %&amp;gt;% 
+  unique()
+
+## Generate a profit variable
+mc_df &amp;lt;- mc_df %&amp;gt;% 
+  mutate(Profit = Revenue - Cost)
+
+## Weekly_RPV
+mc_df &amp;lt;- mc_df %&amp;gt;% 
+  mutate(Weekly_RPV = Revenue /Visits)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;exploring-the-trend-of-visits-for-each-of-the-campaigns&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;1.2 Exploring the trend of visits for each of the campaigns&lt;/h3&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;The Aldebaran campaign seems to have done really well in terms of attracting visitors to the site, all through the campaign period. As much as the number of visits was quite low in the beginning (as compared to the other two campaigns), and with very few dips in the number of visits here and there, there was a good increasing trend overall.&lt;/p&gt;
+&lt;p&gt;The Bartledan campaign started off at a steady rate, until week 14, where the number of visits to the site picked up a bit till the end.&lt;/p&gt;
+&lt;p&gt;The Cottington campaign maintained a low but steady state in the number of visits all through the campaign period.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;graph &amp;lt;- mc_df %&amp;gt;% 
+  ggplot(aes(x = as.factor(Week), y=Visits, group = Campaign,color = Campaign))+
+  geom_line(size = 1.1)+
+  Company_XXX_theme+
+  scale_color_manual(values = c(Company_XXX_maroon, Company_XXX_yellow, Company_XXX_blue))+
+  labs(title = &amp;quot;Distribution of the Number of Visits&amp;quot;,
+       x = &amp;quot;Week&amp;quot;, y=&amp;quot;Number of Visits&amp;quot;,color = &amp;quot;Campaign&amp;quot;)
+graph&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;figs/unnamed-chunk-5-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;revenue-per-visitor&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;1.3 Revenue Per Visitor&lt;/h3&gt;
+&lt;p&gt;RPV is the average revenue per visitor to your website.&lt;/p&gt;
+&lt;p&gt;Here, we are assuming that a visit represents a unique visitor.&lt;/p&gt;
+&lt;p&gt;RPV is calculated by dividing the total income by the number of visitors during a specific time period.&lt;/p&gt;
+&lt;p&gt;We can see that as much the Cottington campaign maintained a low but steady state in the number of visits all through the campaign period (as shown in the previous section), the RPV was the highest, amongst all the three campaigns.&lt;/p&gt;
+&lt;p&gt;This means that the low number of visitors actually generated higher revenue as opposed to the revene that was generated by the higher number of visitors on the other two campaigns.
+&lt;br&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
+graph &amp;lt;- mc_df %&amp;gt;% 
+  ggplot(aes(x = as.factor(Week), y=Weekly_RPV, group = Campaign,color = Campaign))+
+  geom_line(size = 1.1)+
+  Company_XXX_theme+
+  scale_color_manual(values = c(Company_XXX_maroon, Company_XXX_yellow, Company_XXX_blue))+
+  labs(title = &amp;quot;Weekly Revenue Per Visitor&amp;quot;,
+       x = &amp;quot;Week&amp;quot;, y=&amp;quot;Revenue Per Visitor&amp;quot;,color = &amp;quot;Campaign&amp;quot;)
+graph&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;figs/unnamed-chunk-6-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
+## Generating ROMI
+RPV_df &amp;lt;- mc_df %&amp;gt;% 
+  group_by(Campaign) %&amp;gt;% 
+  summarise(RPV = round(sum(Revenue)/ sum(Visits),1)) 
+
+## Generate the plot
+graph &amp;lt;- ggplot(data = RPV_df,
+              mapping = aes(x = Campaign, y = RPV, fill = Campaign))+
+              geom_bar(stat = &amp;quot;identity&amp;quot;)+
+              geom_text(aes(label = RPV),vjust = -0.25, size = 5)+
+              Company_XXX_theme+
+              scale_fill_manual(values = c(Company_XXX_maroon, Company_XXX_yellow, Company_XXX_blue))+
+              labs(title = &amp;quot;Overall Revenue Per Visitor&amp;quot;,
+              x = &amp;quot;Campaign&amp;quot;, y=&amp;quot;Revenue Per Visitor&amp;quot;,color = &amp;quot;Campaign&amp;quot;)
+graph&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;figs/unnamed-chunk-7-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;assessing-profitability-of-each-of-the-campaigns-over-the-weeks&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;1.4 Assessing profitability of each of the campaigns over the weeks&lt;/h3&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;Here, Profit = Revenue - Cost&lt;/p&gt;
+&lt;p&gt;In terms of profitability, the Bartledan campaign was the worst performer as it never generated any profit.&lt;/p&gt;
+&lt;p&gt;The Cottington Campaign was doing well, until Week 20, when it started generating losses.&lt;/p&gt;
+&lt;p&gt;Coincidentally, Week 20 is the same week that Aldebaran came out of the red, and started generating profits.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
+graph &amp;lt;- mc_df %&amp;gt;% 
+  ggplot(aes(x = as.factor(Week), y=Profit, group = Campaign,color = Campaign))+
+  geom_line(size = 1.1)+
+  geom_hline(yintercept = 0,color=&amp;quot;black&amp;quot;, linetype = &amp;quot;dashed&amp;quot;)+
+  geom_vline(xintercept = 20,color=&amp;quot;red&amp;quot;, linetype = &amp;quot;dashed&amp;quot;)+
+  Company_XXX_theme+
+  scale_color_manual(values = c(Company_XXX_maroon, Company_XXX_yellow, Company_XXX_blue))+
+  labs(title = &amp;quot;Assessing Weekly Campaign Profitability&amp;quot;,
+       x = &amp;quot;Week&amp;quot;, y=&amp;quot;Profitability&amp;quot;,color = &amp;quot;Campaign&amp;quot;)
+graph&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;figs/unnamed-chunk-8-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;assessing-overall-campaign-profitability&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;1.5 Assessing Overall Campaign Profitability&lt;/h3&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;Throughout the campaign period, the Cottington campaign is the only one that made a significant amount of profit.
+&lt;br&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
+abs_df &amp;lt;- mc_df %&amp;gt;% 
+  select(Week, Campaign, Revenue, Cost) %&amp;gt;% 
+  pivot_longer(cols = Revenue:Cost, names_to =&amp;quot;Revenue_Cost&amp;quot; ,values_to = &amp;quot;Value&amp;quot;) %&amp;gt;% 
+  group_by(Campaign,Revenue_Cost) %&amp;gt;% 
+  summarise(Value = round(sum(Value),1))
+
+## Generate the plot
+graph &amp;lt;- ggplot(data = abs_df,
+              mapping = aes(x = Campaign, y = Value, fill = Revenue_Cost))+
+              geom_bar(stat = &amp;quot;identity&amp;quot;, position = &amp;quot;dodge&amp;quot;)+
+            geom_text(aes(label = Value),vjust = -0.25, size = 5, position = position_dodge(width = 1))+
+              Company_XXX_theme+
+              scale_fill_manual(values = c(&amp;quot;#377DA9&amp;quot;,&amp;quot;#E79435&amp;quot;))+
+              labs(title = &amp;quot;Assessing Overall Campaign Profitability&amp;quot;,
+              x = &amp;quot;Campaign&amp;quot;, y=&amp;quot;Revenue/Cost&amp;quot;,color = &amp;quot;Measure&amp;quot;)
+
+graph&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;figs/unnamed-chunk-9-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;return-on-marketing-investment-romi&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;1.6 Return on Marketing Investment (ROMI)&lt;/h3&gt;
+&lt;p&gt;ROMI is an indication of return on investment in marketing.&lt;/p&gt;
+&lt;p&gt;ROMI = [Total sales - marketing campaign costs / marketing campaign costs]
+&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;There is a larger ROMI on the Cottington campaign, as compared to the Aldebaran campaign. The Bartledan resulted into a negative ROMI, even though the number of visits to the site kept on increasing, as the weeks flew by.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;I would advise the business developer for the market to invest in the &lt;strong&gt;Cotington Campaign&lt;/strong&gt;. This is because as much as the campaign generally attracts a smaller number of visitors, as compared to the other campaigns, the ROMI is high, and the Revenue per Visitor is also high.&lt;/em&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
+## Generating ROMI
+ROMI_df &amp;lt;- mc_df %&amp;gt;% 
+  group_by(Campaign) %&amp;gt;% 
+  summarise(ROMI_abs = (sum(Revenue)-sum(Cost)) / sum(Cost),
+            ROMI_perc = round(ROMI_abs * 100,2)) 
+
+## Generate the plot
+graph &amp;lt;- ggplot(data = ROMI_df,
+              mapping = aes(x = Campaign, y = ROMI_perc, fill = Campaign))+
+              geom_bar(stat = &amp;quot;identity&amp;quot;)+
+              geom_text(aes(label = ROMI_perc),vjust = -0.25, size = 5)+
+              Company_XXX_theme+
+              scale_fill_manual(values = c(Company_XXX_maroon, Company_XXX_yellow, Company_XXX_blue))+
+              labs(title = &amp;quot;Assessing Campaign Profitability \n (ROMI)&amp;quot;,
+              x = &amp;quot;Campaign&amp;quot;, y=&amp;quot;ROMI (%)&amp;quot;,color = &amp;quot;Campaign&amp;quot;)+
+  ylim(-15,5)
+graph&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;figs/unnamed-chunk-10-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;does-the-type-of-campaign-predict-profit&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;1.7 Does the type of campaign predict profit?&lt;/h3&gt;
+&lt;p&gt;Company_XXX is likely to obtain a significant profit of 11.2 for an additional investment on the Cottington campaign, as opposed to the investment being made on the Aldebaran campaign.&lt;/p&gt;
+&lt;p&gt;Company_XXX would make a huge loss (27.6) if it invested cash on the Bartledan campaign.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;model1 &amp;lt;- lm(Profit ~ Campaign, data = mc_df)
+summary(model1)
+
+Call:
+lm(formula = Profit ~ Campaign, data = mc_df)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-56.473  -9.864   1.269  14.199  46.555 
+
+Coefficients:
+                   Estimate Std. Error t value    Pr(&amp;gt;|t|)    
+(Intercept)          0.9631     3.6803   0.262      0.7942    
+CampaignBartledan  -27.5866     5.2047  -5.300 0.000000864 ***
+CampaignCottington  11.2372     5.2047   2.159      0.0336 *  
+---
+Signif. codes:  0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1 &amp;#39; &amp;#39; 1
+
+Residual standard error: 20.16 on 87 degrees of freedom
+Multiple R-squared:  0.4038,    Adjusted R-squared:  0.3901 
+F-statistic: 29.47 on 2 and 87 DF,  p-value: 0.0000000001693&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
+## Generating a tidy table
+model1_tidy &amp;lt;- broom::tidy(model1)
+basevalues &amp;lt;- c(&amp;quot;CampaignAldebaran&amp;quot;,0,  5.204708,   0,  0)
+model1_tidy &amp;lt;- rbind(model1_tidy,basevalues)
+model1_tidy$term &amp;lt;- gsub(&amp;quot;Campaign&amp;quot;,&amp;quot;&amp;quot;,model1_tidy$term)
+model1_tidy &amp;lt;- model1_tidy%&amp;gt;% filter(term !=&amp;quot;(Intercept)&amp;quot;)
+model1_tidy &amp;lt;- model1_tidy%&amp;gt;% mutate(estimate = round(as.numeric(estimate),1))
+model1_tidy &amp;lt;- model1_tidy%&amp;gt;% rename(Campaign = term)
+#model1_tidy$estimate &amp;lt;- round(model1_tidy$estimate)
+
+## Generate the plot
+graph &amp;lt;- ggplot(data = model1_tidy,
+              mapping = aes(x = Campaign, y = estimate, fill = Campaign))+
+              geom_bar(stat = &amp;quot;identity&amp;quot;)+
+              geom_text(aes(label = estimate),vjust = -0.25, size = 5)+
+              Company_XXX_theme+
+              scale_fill_manual(values = c(Company_XXX_maroon, Company_XXX_yellow, Company_XXX_blue))+
+              labs(title = &amp;quot;Profit ~ Campaign&amp;quot;,
+              x = &amp;quot;Campaign&amp;quot;, y=&amp;quot;Regression Estimate&amp;quot;,color = &amp;quot;Campaign&amp;quot;)+
+  ylim(-30,13)
+graph&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;figs/unnamed-chunk-12-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;does-the-type-of-campaign-predict-number-of-visits&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;1.8 Does the type of campaign predict number of visits?&lt;/h3&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;model2 &amp;lt;- lm(Visits ~ Campaign, data = mc_df)
+summary(model2)
+
+Call:
+lm(formula = Visits ~ Campaign, data = mc_df)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-293.667  -33.933    0.233   20.067  292.333 
+
+Coefficients:
+                   Estimate Std. Error t value             Pr(&amp;gt;|t|)    
+(Intercept)          320.67      19.14  16.752 &amp;lt; 0.0000000000000002 ***
+CampaignBartledan   -147.73      27.07  -5.457         0.0000004493 ***
+CampaignCottington  -169.90      27.07  -6.276         0.0000000131 ***
+---
+Signif. codes:  0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1 &amp;#39; &amp;#39; 1
+
+Residual standard error: 104.8 on 87 degrees of freedom
+Multiple R-squared:  0.3486,    Adjusted R-squared:  0.3336 
+F-statistic: 23.28 on 2 and 87 DF,  p-value: 0.000000007978&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
+## Generating a tidy table
+model2_tidy &amp;lt;- broom::tidy(model2)
+basevalues &amp;lt;- c(&amp;quot;CampaignAldebaran&amp;quot;,0,  5.204708,   0,  0)
+model2_tidy &amp;lt;- rbind(model2_tidy,basevalues)
+model2_tidy$term &amp;lt;- gsub(&amp;quot;Campaign&amp;quot;,&amp;quot;&amp;quot;,model2_tidy$term)
+model2_tidy &amp;lt;- model2_tidy%&amp;gt;% filter(term !=&amp;quot;(Intercept)&amp;quot;)
+model2_tidy &amp;lt;- model2_tidy%&amp;gt;% mutate(estimate = round(as.numeric(estimate),1))
+model2_tidy &amp;lt;- model2_tidy%&amp;gt;% rename(Campaign = term)
+#model2_tidy$estimate &amp;lt;- round(model2_tidy$estimate)
+
+## Generate the plot
+graph &amp;lt;- ggplot(data = model2_tidy,
+              mapping = aes(x = Campaign, y = estimate, fill = Campaign))+
+              geom_bar(stat = &amp;quot;identity&amp;quot;)+
+              geom_text(aes(label = estimate),vjust = -0.25, size = 5)+
+              Company_XXX_theme+
+              scale_fill_manual(values = c(Company_XXX_maroon, Company_XXX_yellow, Company_XXX_blue))+
+              labs(title = &amp;quot;Number of Visits ~ Campaign&amp;quot;,
+              x = &amp;quot;Campaign&amp;quot;, y=&amp;quot;Regression Estimate&amp;quot;,color = &amp;quot;Campaign&amp;quot;)
+graph&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;figs/unnamed-chunk-14-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;task-2-session-data&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Task 2: Session data&lt;/h2&gt;
+&lt;p&gt;Test to see if there are any connections between the booking data and any other given information.&lt;/p&gt;
+&lt;div id=&#34;create-additional-variables&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;2.1 Create additional variables&lt;/h3&gt;
+&lt;p&gt;&lt;br&gt;
+duration: the length of time taken on the session&lt;/p&gt;
+&lt;p&gt;start_hour: the hour when the session started.&lt;/p&gt;
+&lt;p&gt;time_of_day: the time of day i.e Early Morning, Morning, Afternoon, Evening
+&lt;br&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;## Session duration
+
+sessions_df &amp;lt;- sessions_df%&amp;gt;% 
+  mutate(duration = difftime(session_end_text, session_start_text, units = &amp;quot;secs&amp;quot;,tz = &amp;quot;EAT&amp;quot;),
+         duration = ifelse(duration &amp;lt;0, (24*60*60)+duration, duration))
+
+## Start hour 
+sessions_df &amp;lt;- sessions_df%&amp;gt;% 
+  mutate(start_hour = hour(session_start_text)) 
+
+
+## hour_of_day
+sessions_df &amp;lt;- sessions_df %&amp;gt;% 
+  mutate(start_hour = as.numeric(start_hour)) %&amp;gt;% 
+  mutate(time_of_day = ifelse(start_hour &amp;gt;=0 &amp;amp; start_hour &amp;lt;=5,&amp;quot;Early Morning&amp;quot;,
+                        ifelse(start_hour &amp;gt;=6 &amp;amp; start_hour &amp;lt;=11,&amp;quot;Morning&amp;quot;,
+                        ifelse(start_hour &amp;gt;=12 &amp;amp; start_hour &amp;lt;=18,&amp;quot;Afternoon&amp;quot;,
+                        ifelse(start_hour &amp;gt;=19 &amp;amp; start_hour &amp;lt;=23,&amp;quot;Evening&amp;quot;,&amp;quot;&amp;quot;)))))&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;is-there-a-difference-in-means-of-booking-between-the-different-times-of-day&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;2.2 Is there a difference in means of booking, between the different times of day?&lt;/h3&gt;
+&lt;p&gt;H0: The mean of the booking variable, for all the different times = 0&lt;/p&gt;
+&lt;p&gt;Ha: At least one of the means is not 0&lt;/p&gt;
+&lt;p&gt;The P-value is very large (&amp;gt;0.05) meaning that the means are not really different from each other, and that this variable is not predictive of the instance of booking.
+&lt;br&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
+## Generate anova results
+anova_test &amp;lt;- aov(booking ~ time_of_day, data = sessions_df)
+summary(anova_test)
+              Df Sum Sq Mean Sq F value Pr(&amp;gt;F)
+time_of_day    3    0.1 0.03623   0.415  0.742
+Residuals   9996  873.4 0.08737               
+TukeyHSD(anova_test)
+  Tukey multiple comparisons of means
+    95% family-wise confidence level
+
+Fit: aov(formula = booking ~ time_of_day, data = sessions_df)
+
+$time_of_day
+                                diff         lwr        upr     p adj
+Early Morning-Afternoon  0.001126106 -0.01967051 0.02192273 0.9990396
+Evening-Afternoon        0.007688625 -0.01407098 0.02944823 0.8006404
+Morning-Afternoon        0.006476426 -0.01419107 0.02714393 0.8520366
+Evening-Early Morning    0.006562519 -0.01597362 0.02909866 0.8774553
+Morning-Early Morning    0.005350320 -0.01613322 0.02683386 0.9190753
+Morning-Evening         -0.001212199 -0.02362924 0.02120484 0.9990434&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;what-is-the-correlation-between-the-continuous-variables&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;2.3 What is the correlation between the continuous variables?&lt;/h3&gt;
+&lt;p&gt;There is no correlation between the ‘booking variable’ and any othe variables. Meaning none of the variables can predict booking.
+&lt;br&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;## Generate the correlation matrix
+corr_mat &amp;lt;- cor(sessions_df %&amp;gt;% select(booking, clickouts, duration, start_hour))
+corr_mat
+                 booking    clickouts   duration    start_hour
+booking     1.0000000000 -0.049811677 0.01044032  0.0009995598
+clickouts  -0.0498116772  1.000000000 0.03979617 -0.0077694714
+duration    0.0104403163  0.039796170 1.00000000  0.0154922952
+start_hour  0.0009995598 -0.007769471 0.01549230  1.0000000000&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
+## Generate the p-values of this correlation matrix
+p.mat &amp;lt;- cor_pmat(corr_mat)
+p.mat
+             booking clickouts  duration start_hour
+booking    0.0000000 0.5628733 0.6811493  0.6836681
+clickouts  0.5628733 0.0000000 0.7530925  0.6518106
+duration   0.6811493 0.7530925 0.0000000  0.6746880
+start_hour 0.6836681 0.6518106 0.6746880  0.0000000&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;## Generate the correlation plot.
+ggcorrplot(corr_mat,
+   outline.col = &amp;quot;white&amp;quot;,lab = TRUE,
+   ggtheme = Company_XXX_theme,
+   colors = c(Company_XXX_maroon, Company_XXX_yellow, Company_XXX_blue),
+   title = &amp;quot;Correlation Plot&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;figs/unnamed-chunk-19-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Web Analytics</title>
+      <link>/project/eb/</link>
+      <pubDate>Mon, 19 Aug 2019 00:00:00 +0000</pubDate>
+      <guid>/project/eb/</guid>
+      <description>
+&lt;script src=&#34;//rmarkdown-libs/htmlwidgets/htmlwidgets.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;//rmarkdown-libs/jquery/jquery.min.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;//rmarkdown-libs/datatables-css/datatables-crosstalk.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;//rmarkdown-libs/datatables-binding/datatables.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;//rmarkdown-libs/dt-core/css/jquery.dataTables.min.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;link href=&#34;//rmarkdown-libs/dt-core/css/jquery.dataTables.extra.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;//rmarkdown-libs/dt-core/js/jquery.dataTables.min.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;//rmarkdown-libs/dt-ext-buttons/css/buttons.dataTables.min.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;//rmarkdown-libs/dt-ext-buttons/js/dataTables.buttons.min.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;//rmarkdown-libs/dt-ext-buttons/js/buttons.flash.min.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;//rmarkdown-libs/dt-ext-buttons/js/buttons.html5.min.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;//rmarkdown-libs/dt-ext-buttons/js/buttons.colVis.min.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;//rmarkdown-libs/dt-ext-buttons/js/buttons.print.min.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;//rmarkdown-libs/crosstalk/css/crosstalk.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;//rmarkdown-libs/crosstalk/js/crosstalk.min.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;Company_XXX is an online company that meets the growing demand for independent travel information. it offers an extensive hotel meta search to travellers.&lt;/p&gt;
+&lt;p&gt;Company_XXX hosts different case studies on their website, that job applicants can work on.&lt;/p&gt;
+&lt;p&gt;Task:
+&lt;em&gt;The task consists of user visit data, stored as a csv.&lt;/em&gt;
+&lt;em&gt;First, we would like you to perform some descriptive analysis of the data at hand. What can you tell us about the visits that are included? Imagine that you want to understand our product and think about what would be important for you. Explore the data, get a feel for how it is structured and show us what you can do. Some topics you may want to look into are:&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;What is good for the product, what is bad?&lt;/em&gt;
++ &lt;em&gt;Anomalies in data&lt;/em&gt;
++ &lt;em&gt;Inferences from the data&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Secondly define three KPI’s for the performance of the product and show how they are calculated. Describe what you see and try to think about why these developments might be happening. Define plausible reasons for any changes you might observe in the data.&lt;/em&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;## Install the libraries required
+
+## create a vector of packages to be installed
+pkgs &amp;lt;- c(&amp;quot;tidyverse&amp;quot;,&amp;quot;data.table&amp;quot;,&amp;quot;DT&amp;quot;,&amp;quot;lubridate&amp;quot;,&amp;quot;ggthemes&amp;quot;)
+
+## Check if there are packages you want to load, that are not already installed. 
+miss_pkgs &amp;lt;- pkgs[!pkgs %in% installed.packages()[,1]] 
+
+## Installing the missing packages
+if(length(miss_pkgs)&amp;gt;0){
+  install.packages(miss_pkgs)
+}
+## Loading all the packages
+invisible(lapply(pkgs,library,character.only=TRUE))
+
+## Remove the objects that are no longer required
+rm(miss_pkgs)
+rm(pkgs)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;### Setting the plot theme
+Company_XXX_theme&amp;lt;- theme_hc()+ theme(legend.position = &amp;quot;right&amp;quot;, 
+                 legend.direction = &amp;quot;vertical&amp;quot;,
+                 #legend.title = element_blank(),
+                 plot.title = element_text( size = rel(1.6), hjust = 0.5),
+                plot.subtitle = element_text(size = rel(1.5), hjust = 0.5),
+                 #axis.text = element_text( size = rel(1.5)),
+                 axis.text.x = element_text(size =rel(1.5),angle = 0),
+                 axis.text.y = element_text(size =rel(1.5),angle = 0),
+                 axis.title = element_text( size = rel(1.55)),
+                axis.line.x = element_line(size = 1.5, colour = &amp;quot;#c94a38&amp;quot;),
+                 panel.background = element_rect(fill = NA))
+
+### Colours that will be used for the plots 
+Company_XXX_blue = &amp;quot;#007faf&amp;quot;
+Company_XXX_orange = &amp;quot;#c94a38&amp;quot;
+Company_XXX_yellow = &amp;quot;#f48f00&amp;quot;
+
+## Avoidance of scientific numbers
+options(scipen = 999)
+
+## Printing function
+pr_func&amp;lt;-function(data,cnames){
+datatable(data,colnames = cnames,
+  extensions = &amp;#39;Buttons&amp;#39;, options = list(
+    dom = &amp;#39;Bfrtip&amp;#39;,
+    buttons = c(&amp;#39;copy&amp;#39;, &amp;#39;print&amp;#39;)
+  )
+)
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
+## Read in the datasets
+page_log &amp;lt;- read_csv(&amp;quot;../../../../../PersonalDevelopment/page_log.csv&amp;quot;)
+ 
+visit_caseStudy &amp;lt;- read_delim(&amp;quot;../../../../../PersonalDevelopment/visit_caseStudy.csv&amp;quot;,&amp;quot;;&amp;quot;, escape_double = FALSE, trim_ws = TRUE)&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;task-1&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Task 1&lt;/h3&gt;
+&lt;p&gt;The first part of the challenge involved analysis of user visit data.&lt;/p&gt;
+&lt;p&gt;The data provided is only one day’s worth, as is shown by the minimum timestamp, i.e 2018-06-13 and maximum timestamp, i.e 2018-06-13 23:59:59&lt;/p&gt;
+&lt;p&gt;The data contains 142599 unique participants, and a total of 156638 unique sessions, meaning on average
+1.1 sessions per user.&lt;/p&gt;
+&lt;p&gt;The analysis sought to answer the following questions:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;On average, how many times did users visit the website?&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Of those who visited the website only once, how many made successive bookings?&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Of those who visited the website more than once, what was the rate of successful bookings?&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Where are most of the website users based?&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Is there a trend in website visit times? Do users prefer visiting the website in the morning, afternoon or evening?&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Generally, what is the length of time between the booking date and start of travel date?&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;What is the distribution of advertisers&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Which advertiser results into a majority of booking errors?&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;For those who only visit the website once and never succeed in booking, how far along is the travel date from the booking date? Is it that they do not log in again because the trip is not that urgent?&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;For those who visited the website more than once, what is the average length of time between the first visit and second visit?&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;For those who re-visit the website within one hour, after how many minutes do they do so?&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;For those who visited the website more than once and were not successful in making a booking in the first instance, after how many trials (sessions) were they successful?&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div id=&#34;on-average-how-many-times-did-users-visit-the-website&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;1. On average, how many times did users visit the website?&lt;/h4&gt;
+&lt;p&gt;From the plot given below, a majority of the users (94%) visited the website only once. I would be keen to find out whether they made successive bookings.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Note: The graph has been truncated to only display information for those who visited the website less than 7 times&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
+## Table
+summ_tab &amp;lt;- visit_caseStudy %&amp;gt;% 
+  distinct(tracking_id, session_id) %&amp;gt;% 
+  group_by(tracking_id) %&amp;gt;% 
+  summarise(frequency = n()) %&amp;gt;% 
+  ungroup() %&amp;gt;% 
+  group_by(frequency) %&amp;gt;% 
+  summarise(count = n()) %&amp;gt;% 
+  mutate(perc = round((count/sum(count))*100,0)) 
+
+## Print the table
+
+pr_func(summ_tab,cnames = c(&amp;quot;Number of Log-Ins&amp;quot;,&amp;quot;Frequency&amp;quot;,&amp;quot;Percentage&amp;quot;) )&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;htmlwidget-1&#34; style=&#34;width:100%;height:auto;&#34; class=&#34;datatables html-widget&#34;&gt;&lt;/div&gt;
+&lt;script type=&#34;application/json&#34; data-for=&#34;htmlwidget-1&#34;&gt;{&#34;x&#34;:{&#34;filter&#34;:&#34;none&#34;,&#34;extensions&#34;:[&#34;Buttons&#34;],&#34;data&#34;:[[&#34;1&#34;,&#34;2&#34;,&#34;3&#34;,&#34;4&#34;,&#34;5&#34;,&#34;6&#34;,&#34;7&#34;,&#34;8&#34;,&#34;9&#34;,&#34;10&#34;,&#34;11&#34;,&#34;12&#34;,&#34;13&#34;,&#34;14&#34;,&#34;15&#34;,&#34;16&#34;,&#34;17&#34;,&#34;18&#34;,&#34;19&#34;,&#34;20&#34;],[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,20,30],[133815,6107,1448,673,253,147,60,33,20,13,10,4,4,1,1,2,2,2,2,2],[94,4,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]],&#34;container&#34;:&#34;&lt;table class=\&#34;display\&#34;&gt;\n  &lt;thead&gt;\n    &lt;tr&gt;\n      &lt;th&gt; &lt;\/th&gt;\n      &lt;th&gt;Number of Log-Ins&lt;\/th&gt;\n      &lt;th&gt;Frequency&lt;\/th&gt;\n      &lt;th&gt;Percentage&lt;\/th&gt;\n    &lt;\/tr&gt;\n  &lt;\/thead&gt;\n&lt;\/table&gt;&#34;,&#34;options&#34;:{&#34;dom&#34;:&#34;Bfrtip&#34;,&#34;buttons&#34;:[&#34;copy&#34;,&#34;print&#34;],&#34;columnDefs&#34;:[{&#34;className&#34;:&#34;dt-right&#34;,&#34;targets&#34;:[1,2,3]},{&#34;orderable&#34;:false,&#34;targets&#34;:0}],&#34;order&#34;:[],&#34;autoWidth&#34;:false,&#34;orderClasses&#34;:false}},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]}&lt;/script&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
+
+## Graph
+summ_graph &amp;lt;- ggplot(summ_tab%&amp;gt;% filter(frequency &amp;lt;6), aes(x=frequency,y=count))+
+              geom_bar(stat = &amp;quot;identity&amp;quot;, fill=Company_XXX_yellow)+
+              geom_text(aes(label =count),vjust = -0.25, size = 5)+
+              Company_XXX_theme+
+              labs(title = &amp;quot;Distribution of Website Visits&amp;quot;,x=&amp;quot;Number of Log-Ins&amp;quot;,
+                   y=&amp;quot;Frequency&amp;quot;)
+summ_graph&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;figs/unnamed-chunk-4-2.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;of-those-who-visited-the-website-only-once-how-many-made-successive-bookings&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;2. Of those who visited the website only once, how many made successive bookings?&lt;/h4&gt;
+&lt;p&gt;A majority (98%) of those who only visited the website once did not succeed in making a booking.&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;## Table
+summ_tab &amp;lt;- visit_caseStudy %&amp;gt;% 
+  distinct(tracking_id, session_id,.keep_all = TRUE) %&amp;gt;% 
+  group_by(tracking_id) %&amp;gt;% 
+  mutate(frequency = n()) %&amp;gt;% 
+  filter(frequency==1) %&amp;gt;% 
+  ungroup() %&amp;gt;% 
+  mutate(bookingOk = ifelse(bookingOk==0,&amp;quot;No&amp;quot;,&amp;quot;Yes&amp;quot;)) %&amp;gt;% 
+  group_by(bookingOk) %&amp;gt;% 
+  summarise(count = n()) %&amp;gt;% 
+  mutate(perc = round((count/sum(count))*100,0))
+
+## Print the table
+
+pr_func(summ_tab,cnames = c(&amp;quot;Ok Booking&amp;quot;,&amp;quot;Frequency&amp;quot;,&amp;quot;Percentage&amp;quot;) )&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;htmlwidget-2&#34; style=&#34;width:100%;height:auto;&#34; class=&#34;datatables html-widget&#34;&gt;&lt;/div&gt;
+&lt;script type=&#34;application/json&#34; data-for=&#34;htmlwidget-2&#34;&gt;{&#34;x&#34;:{&#34;filter&#34;:&#34;none&#34;,&#34;extensions&#34;:[&#34;Buttons&#34;],&#34;data&#34;:[[&#34;1&#34;,&#34;2&#34;],[&#34;No&#34;,&#34;Yes&#34;],[131560,2255],[98,2]],&#34;container&#34;:&#34;&lt;table class=\&#34;display\&#34;&gt;\n  &lt;thead&gt;\n    &lt;tr&gt;\n      &lt;th&gt; &lt;\/th&gt;\n      &lt;th&gt;Ok Booking&lt;\/th&gt;\n      &lt;th&gt;Frequency&lt;\/th&gt;\n      &lt;th&gt;Percentage&lt;\/th&gt;\n    &lt;\/tr&gt;\n  &lt;\/thead&gt;\n&lt;\/table&gt;&#34;,&#34;options&#34;:{&#34;dom&#34;:&#34;Bfrtip&#34;,&#34;buttons&#34;:[&#34;copy&#34;,&#34;print&#34;],&#34;columnDefs&#34;:[{&#34;className&#34;:&#34;dt-right&#34;,&#34;targets&#34;:[2,3]},{&#34;orderable&#34;:false,&#34;targets&#34;:0}],&#34;order&#34;:[],&#34;autoWidth&#34;:false,&#34;orderClasses&#34;:false}},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]}&lt;/script&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
+
+## Graph
+summ_graph &amp;lt;- ggplot(summ_tab, aes(x=bookingOk,y=count,fill=bookingOk))+
+              geom_bar(stat = &amp;quot;identity&amp;quot;)+
+              geom_text(aes(label =count),vjust = -0.25, size = 5)+
+              Company_XXX_theme+
+  scale_fill_manual(values = c(Company_XXX_yellow, Company_XXX_blue))+
+              labs(title = &amp;quot;Distribution of Successive Bookings&amp;quot;,x=&amp;quot;&amp;quot;,
+                   y=&amp;quot;Frequency&amp;quot;)
+summ_graph&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;figs/unnamed-chunk-5-2.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;of-those-who-visited-the-website-more-than-once-what-was-the-rate-of-successful-bookings&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;3. Of those who visited the website more than once, what was the rate of successful bookings?&lt;/h4&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;summ_tab &amp;lt;- visit_caseStudy %&amp;gt;% 
+  distinct(tracking_id, session_id,.keep_all = TRUE) %&amp;gt;% 
+  group_by(tracking_id) %&amp;gt;% 
+  mutate(frequency = n()) %&amp;gt;% 
+  filter(frequency!=1) %&amp;gt;% 
+  ungroup() %&amp;gt;% 
+  mutate(bookingOk = ifelse(bookingOk==0,&amp;quot;No&amp;quot;,&amp;quot;Yes&amp;quot;)) %&amp;gt;% 
+  group_by(frequency,bookingOk) %&amp;gt;% 
+  summarise(count = n()) %&amp;gt;% 
+  mutate(perc = round((count/sum(count))*100,0))
+
+
+## Print the table
+
+pr_func(summ_tab,cnames = c(&amp;quot;Number of Log-Ins&amp;quot;,&amp;quot;Ok Booking&amp;quot;,&amp;quot;Frequency&amp;quot;,&amp;quot;Percentage&amp;quot;) )&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;htmlwidget-3&#34; style=&#34;width:100%;height:auto;&#34; class=&#34;datatables html-widget&#34;&gt;&lt;/div&gt;
+&lt;script type=&#34;application/json&#34; data-for=&#34;htmlwidget-3&#34;&gt;{&#34;x&#34;:{&#34;filter&#34;:&#34;none&#34;,&#34;extensions&#34;:[&#34;Buttons&#34;],&#34;data&#34;:[[&#34;1&#34;,&#34;2&#34;,&#34;3&#34;,&#34;4&#34;,&#34;5&#34;,&#34;6&#34;,&#34;7&#34;,&#34;8&#34;,&#34;9&#34;,&#34;10&#34;,&#34;11&#34;,&#34;12&#34;,&#34;13&#34;,&#34;14&#34;,&#34;15&#34;,&#34;16&#34;,&#34;17&#34;,&#34;18&#34;,&#34;19&#34;,&#34;20&#34;,&#34;21&#34;,&#34;22&#34;,&#34;23&#34;,&#34;24&#34;,&#34;25&#34;,&#34;26&#34;,&#34;27&#34;,&#34;28&#34;,&#34;29&#34;,&#34;30&#34;,&#34;31&#34;,&#34;32&#34;,&#34;33&#34;,&#34;34&#34;],[2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10,11,11,12,13,13,14,15,16,16,17,17,18,20,20,30,30],[&#34;No&#34;,&#34;Yes&#34;,&#34;No&#34;,&#34;Yes&#34;,&#34;No&#34;,&#34;Yes&#34;,&#34;No&#34;,&#34;Yes&#34;,&#34;No&#34;,&#34;Yes&#34;,&#34;No&#34;,&#34;Yes&#34;,&#34;No&#34;,&#34;Yes&#34;,&#34;No&#34;,&#34;Yes&#34;,&#34;No&#34;,&#34;Yes&#34;,&#34;No&#34;,&#34;Yes&#34;,&#34;No&#34;,&#34;No&#34;,&#34;Yes&#34;,&#34;No&#34;,&#34;No&#34;,&#34;No&#34;,&#34;Yes&#34;,&#34;No&#34;,&#34;Yes&#34;,&#34;No&#34;,&#34;No&#34;,&#34;Yes&#34;,&#34;No&#34;,&#34;Yes&#34;],[11954,260,4269,75,2657,35,1250,15,876,6,417,3,258,6,176,4,125,5,109,1,48,51,1,14,15,31,1,32,2,36,39,1,59,1],[98,2,98,2,99,1,99,1,99,1,99,1,98,2,98,2,96,4,99,1,100,98,2,100,100,97,3,94,6,100,98,2,98,2]],&#34;container&#34;:&#34;&lt;table class=\&#34;display\&#34;&gt;\n  &lt;thead&gt;\n    &lt;tr&gt;\n      &lt;th&gt; &lt;\/th&gt;\n      &lt;th&gt;Number of Log-Ins&lt;\/th&gt;\n      &lt;th&gt;Ok Booking&lt;\/th&gt;\n      &lt;th&gt;Frequency&lt;\/th&gt;\n      &lt;th&gt;Percentage&lt;\/th&gt;\n    &lt;\/tr&gt;\n  &lt;\/thead&gt;\n&lt;\/table&gt;&#34;,&#34;options&#34;:{&#34;dom&#34;:&#34;Bfrtip&#34;,&#34;buttons&#34;:[&#34;copy&#34;,&#34;print&#34;],&#34;columnDefs&#34;:[{&#34;className&#34;:&#34;dt-right&#34;,&#34;targets&#34;:[1,3,4]},{&#34;orderable&#34;:false,&#34;targets&#34;:0}],&#34;order&#34;:[],&#34;autoWidth&#34;:false,&#34;orderClasses&#34;:false}},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]}&lt;/script&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
+
+## Graph
+summ_graph &amp;lt;- ggplot(summ_tab%&amp;gt;% filter(frequency &amp;lt;6), aes(x=frequency,y=count,color=bookingOk))+
+              geom_line(stat = &amp;quot;identity&amp;quot;)+
+              #geom_text(aes(label =count),vjust = -0.25, size = 5)+
+              Company_XXX_theme+
+              scale_color_manual(values = c(Company_XXX_yellow, Company_XXX_blue))+
+              labs(title = &amp;quot;Distribution of Bookings&amp;quot;,x=&amp;quot;&amp;quot;,
+                   y=&amp;quot;Frequency&amp;quot;)
+summ_graph&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;figs/unnamed-chunk-6-2.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;where-are-most-of-the-website-users-based&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;4. Where are most of the website users based?&lt;/h4&gt;
+&lt;p&gt;A majority of the website users are based in US, followed by IT.
+&lt;br&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;summ_tab &amp;lt;- visit_caseStudy %&amp;gt;% 
+  distinct(tracking_id, session_id,.keep_all = TRUE) %&amp;gt;% 
+  group_by(locale) %&amp;gt;% 
+  summarise(count = n()) %&amp;gt;% 
+  arrange(desc(count)) %&amp;gt;% 
+  mutate(perc = round((count/sum(count))*100,0))
+
+## Print the table
+
+pr_func(summ_tab,cnames = c(&amp;quot;Locale&amp;quot;,&amp;quot;Frequency&amp;quot;,&amp;quot;Percentage&amp;quot;) )&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;htmlwidget-4&#34; style=&#34;width:100%;height:auto;&#34; class=&#34;datatables html-widget&#34;&gt;&lt;/div&gt;
+&lt;script type=&#34;application/json&#34; data-for=&#34;htmlwidget-4&#34;&gt;{&#34;x&#34;:{&#34;filter&#34;:&#34;none&#34;,&#34;extensions&#34;:[&#34;Buttons&#34;],&#34;data&#34;:[[&#34;1&#34;,&#34;2&#34;,&#34;3&#34;,&#34;4&#34;,&#34;5&#34;,&#34;6&#34;,&#34;7&#34;,&#34;8&#34;,&#34;9&#34;,&#34;10&#34;,&#34;11&#34;,&#34;12&#34;,&#34;13&#34;,&#34;14&#34;,&#34;15&#34;,&#34;16&#34;,&#34;17&#34;,&#34;18&#34;,&#34;19&#34;,&#34;20&#34;,&#34;21&#34;,&#34;22&#34;,&#34;23&#34;,&#34;24&#34;,&#34;25&#34;,&#34;26&#34;,&#34;27&#34;,&#34;28&#34;,&#34;29&#34;,&#34;30&#34;,&#34;31&#34;,&#34;32&#34;,&#34;33&#34;,&#34;34&#34;,&#34;35&#34;,&#34;36&#34;,&#34;37&#34;,&#34;38&#34;,&#34;39&#34;,&#34;40&#34;,&#34;41&#34;,&#34;42&#34;,&#34;43&#34;,&#34;44&#34;,&#34;45&#34;],[&#34;US&#34;,&#34;IT&#34;,&#34;DE&#34;,&#34;ES&#34;,&#34;FR&#34;,&#34;GB&#34;,&#34;MX&#34;,&#34;GR&#34;,&#34;PT&#34;,&#34;PL&#34;,&#34;AU&#34;,&#34;TR&#34;,&#34;NL&#34;,&#34;NZ&#34;,&#34;CA&#34;,&#34;BE&#34;,&#34;AT&#34;,&#34;BR&#34;,&#34;RU&#34;,&#34;CH&#34;,&#34;AR&#34;,&#34;SE&#34;,&#34;IE&#34;,&#34;IN&#34;,&#34;FI&#34;,&#34;DK&#34;,&#34;NO&#34;,&#34;CL&#34;,&#34;CO&#34;,&#34;RO&#34;,&#34;AE&#34;,&#34;ZA&#34;,&#34;CZ&#34;,&#34;MY&#34;,&#34;PH&#34;,&#34;UY&#34;,&#34;HK&#34;,&#34;PE&#34;,&#34;SG&#34;,&#34;EC&#34;,&#34;TH&#34;,&#34;AA&#34;,null,&#34;ID&#34;,&#34;EN&#34;],[17472,17417,16478,14681,12388,11990,11132,8123,6107,4999,4712,4634,4297,2793,2599,2486,1606,1510,1406,1228,1090,1055,815,802,706,643,468,460,430,334,305,266,243,228,170,123,108,103,83,77,36,33,8,2,1],[11,11,11,9,8,8,7,5,4,3,3,3,3,2,2,2,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]],&#34;container&#34;:&#34;&lt;table class=\&#34;display\&#34;&gt;\n  &lt;thead&gt;\n    &lt;tr&gt;\n      &lt;th&gt; &lt;\/th&gt;\n      &lt;th&gt;Locale&lt;\/th&gt;\n      &lt;th&gt;Frequency&lt;\/th&gt;\n      &lt;th&gt;Percentage&lt;\/th&gt;\n    &lt;\/tr&gt;\n  &lt;\/thead&gt;\n&lt;\/table&gt;&#34;,&#34;options&#34;:{&#34;dom&#34;:&#34;Bfrtip&#34;,&#34;buttons&#34;:[&#34;copy&#34;,&#34;print&#34;],&#34;columnDefs&#34;:[{&#34;className&#34;:&#34;dt-right&#34;,&#34;targets&#34;:[2,3]},{&#34;orderable&#34;:false,&#34;targets&#34;:0}],&#34;order&#34;:[],&#34;autoWidth&#34;:false,&#34;orderClasses&#34;:false}},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]}&lt;/script&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
+
+## Graph
+summ_graph &amp;lt;- ggplot(summ_tab %&amp;gt;% filter(count&amp;gt;5000), aes(x=locale,y=count))+
+              geom_bar(stat = &amp;quot;identity&amp;quot;,fill = Company_XXX_yellow)+
+              geom_text(aes(label =count),vjust = -0.25, size = 5)+
+              Company_XXX_theme+
+              labs(title = &amp;quot;Distribution of Users \nby\n Locaion&amp;quot;,x=&amp;quot;Hour&amp;quot;,
+                   y=&amp;quot;Frequency&amp;quot;)
+summ_graph&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;figs/unnamed-chunk-7-2.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;is-there-a-trend-in-website-visit-times-do-users-prefer-visiting-the-website-in-the-morning-afternoon-or-evening&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;5. Is there a trend in website visit times? Do users prefer visiting the website in the morning, afternoon or evening?&lt;/h4&gt;
+&lt;p&gt;A majority of users visit the website in the afternoon.
+&lt;br&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;summ_tab &amp;lt;- visit_caseStudy %&amp;gt;% 
+  mutate(hour = hour(date)) %&amp;gt;% 
+  distinct(tracking_id, session_id,.keep_all = TRUE) %&amp;gt;% 
+  group_by(hour) %&amp;gt;% 
+  summarise(frequency = length(unique(session_id))) 
+
+## Print the table
+
+pr_func(summ_tab,cnames = c(&amp;quot;Hour&amp;quot;,&amp;quot;Frequency&amp;quot;) )&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;htmlwidget-5&#34; style=&#34;width:100%;height:auto;&#34; class=&#34;datatables html-widget&#34;&gt;&lt;/div&gt;
+&lt;script type=&#34;application/json&#34; data-for=&#34;htmlwidget-5&#34;&gt;{&#34;x&#34;:{&#34;filter&#34;:&#34;none&#34;,&#34;extensions&#34;:[&#34;Buttons&#34;],&#34;data&#34;:[[&#34;1&#34;,&#34;2&#34;,&#34;3&#34;,&#34;4&#34;,&#34;5&#34;,&#34;6&#34;,&#34;7&#34;,&#34;8&#34;,&#34;9&#34;,&#34;10&#34;,&#34;11&#34;,&#34;12&#34;,&#34;13&#34;,&#34;14&#34;,&#34;15&#34;,&#34;16&#34;,&#34;17&#34;,&#34;18&#34;,&#34;19&#34;,&#34;20&#34;,&#34;21&#34;,&#34;22&#34;,&#34;23&#34;,&#34;24&#34;],[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23],[3607,2862,2774,2721,2645,2992,3780,4939,6100,6957,7059,7269,7558,8348,8575,9321,9678,9898,9790,9994,9662,8686,6571,4853]],&#34;container&#34;:&#34;&lt;table class=\&#34;display\&#34;&gt;\n  &lt;thead&gt;\n    &lt;tr&gt;\n      &lt;th&gt; &lt;\/th&gt;\n      &lt;th&gt;Hour&lt;\/th&gt;\n      &lt;th&gt;Frequency&lt;\/th&gt;\n    &lt;\/tr&gt;\n  &lt;\/thead&gt;\n&lt;\/table&gt;&#34;,&#34;options&#34;:{&#34;dom&#34;:&#34;Bfrtip&#34;,&#34;buttons&#34;:[&#34;copy&#34;,&#34;print&#34;],&#34;columnDefs&#34;:[{&#34;className&#34;:&#34;dt-right&#34;,&#34;targets&#34;:[1,2]},{&#34;orderable&#34;:false,&#34;targets&#34;:0}],&#34;order&#34;:[],&#34;autoWidth&#34;:false,&#34;orderClasses&#34;:false}},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]}&lt;/script&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
+
+## Graph
+summ_graph &amp;lt;- ggplot(summ_tab, aes(x=hour,y=frequency,group=1, color=1))+
+              geom_line(stat = &amp;quot;identity&amp;quot;,color = Company_XXX_yellow)+
+              #geom_text(aes(label =count),vjust = -0.25, size = 5)+
+              Company_XXX_theme+
+              labs(title = &amp;quot;Distribution of Website Visits \n by \n Time of Day &amp;quot;,x=&amp;quot;Hour&amp;quot;,
+                   y=&amp;quot;Frequency&amp;quot;)
+summ_graph&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;figs/unnamed-chunk-8-2.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;generally-what-is-the-length-of-time-between-the-booking-date-and-start-of-travel-date&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;6. Generally, what is the length of time between the booking date and start of travel date?&lt;/h4&gt;
+&lt;p&gt;A majority of users tend to make bookings a few days to the actual travel date.
+&lt;br&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt; summ_tab &amp;lt;- visit_caseStudy %&amp;gt;% 
+  distinct(tracking_id, session_id,.keep_all = TRUE) %&amp;gt;% 
+  mutate(bookingOk = ifelse(bookingOk==0,&amp;quot;No&amp;quot;,&amp;quot;Yes&amp;quot;)) %&amp;gt;% 
+  group_by(tracking_id) %&amp;gt;% 
+  mutate(frequency = n()) %&amp;gt;% 
+  mutate(diff_days = difftime(travelStartDate, as.Date(date), units=&amp;quot;days&amp;quot;)) %&amp;gt;% 
+  group_by(diff_days)%&amp;gt;% 
+  summarise(count = n()) 
+ 
+
+## Graph
+summ_graph &amp;lt;- ggplot(summ_tab, aes(x=diff_days,y=count,group=1, color=1))+
+              geom_line(stat = &amp;quot;identity&amp;quot;,color = Company_XXX_yellow)+
+              #geom_text(aes(label =count),vjust = -0.25, size = 5)+
+              Company_XXX_theme+
+              labs(title = &amp;quot;Length of time \n beween \n Booking Date and Travel Start Date &amp;quot;,x=&amp;quot;Length (days)&amp;quot;,y=&amp;quot;Frequency&amp;quot;)+ylim(c(0,6000))+xlim(c(0,200))
+summ_graph&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;figs/unnamed-chunk-9-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;distribution-of-advertisers&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;7. Distribution of advertisers&lt;/h4&gt;
+&lt;p&gt;A majority of the website site clicks are on advertisers D7A8, followed by CEFA.
+&lt;br&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;summ_tab &amp;lt;- visit_caseStudy %&amp;gt;% 
+  distinct(tracking_id, session_id,.keep_all = TRUE) %&amp;gt;% 
+  group_by(advertiser) %&amp;gt;% 
+  summarise(count = n()) 
+
+
+## Print the table
+pr_func(summ_tab,cnames = c(&amp;quot;Advertiser&amp;quot;,&amp;quot;Frequency&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;htmlwidget-6&#34; style=&#34;width:100%;height:auto;&#34; class=&#34;datatables html-widget&#34;&gt;&lt;/div&gt;
+&lt;script type=&#34;application/json&#34; data-for=&#34;htmlwidget-6&#34;&gt;{&#34;x&#34;:{&#34;filter&#34;:&#34;none&#34;,&#34;extensions&#34;:[&#34;Buttons&#34;],&#34;data&#34;:[[&#34;1&#34;,&#34;2&#34;,&#34;3&#34;,&#34;4&#34;,&#34;5&#34;,&#34;6&#34;,&#34;7&#34;,&#34;8&#34;,&#34;9&#34;,&#34;10&#34;,&#34;11&#34;,&#34;12&#34;,&#34;13&#34;,&#34;14&#34;,&#34;15&#34;,&#34;16&#34;,&#34;17&#34;,&#34;18&#34;,&#34;19&#34;,&#34;20&#34;,&#34;21&#34;,&#34;22&#34;,&#34;23&#34;,&#34;24&#34;,&#34;25&#34;,&#34;26&#34;,&#34;27&#34;,&#34;28&#34;,&#34;29&#34;,&#34;30&#34;,&#34;31&#34;,&#34;32&#34;,&#34;33&#34;,&#34;34&#34;,&#34;35&#34;,&#34;36&#34;,&#34;37&#34;,&#34;38&#34;,&#34;39&#34;,&#34;40&#34;,&#34;41&#34;,&#34;42&#34;,&#34;43&#34;,&#34;44&#34;,&#34;45&#34;,&#34;46&#34;,&#34;47&#34;,&#34;48&#34;,&#34;49&#34;,&#34;50&#34;,&#34;51&#34;,&#34;52&#34;,&#34;53&#34;,&#34;54&#34;,&#34;55&#34;,&#34;56&#34;,&#34;57&#34;,&#34;58&#34;,&#34;59&#34;,&#34;60&#34;,&#34;61&#34;,&#34;62&#34;,&#34;63&#34;,&#34;64&#34;,&#34;65&#34;,&#34;66&#34;,&#34;67&#34;,&#34;68&#34;,&#34;69&#34;,&#34;70&#34;,&#34;71&#34;,&#34;72&#34;,&#34;73&#34;],[&#34;0233&#34;,&#34;0266&#34;,&#34;077E&#34;,&#34;0FF3&#34;,&#34;11D0&#34;,&#34;19F3&#34;,&#34;1CD1&#34;,&#34;20D1&#34;,&#34;2491&#34;,&#34;28B6&#34;,&#34;2A50&#34;,&#34;2CBC&#34;,&#34;2F4F&#34;,&#34;33E7&#34;,&#34;3614&#34;,&#34;3953&#34;,&#34;3C94&#34;,&#34;3CEC&#34;,&#34;3D86&#34;,&#34;4E0C&#34;,&#34;4EBC&#34;,&#34;5055&#34;,&#34;539F&#34;,&#34;555D&#34;,&#34;5938&#34;,&#34;5A14&#34;,&#34;5FA9&#34;,&#34;6244&#34;,&#34;6403&#34;,&#34;6E62&#34;,&#34;6EA2&#34;,&#34;7180&#34;,&#34;71E0&#34;,&#34;735B&#34;,&#34;78F7&#34;,&#34;81B3&#34;,&#34;852C&#34;,&#34;884C&#34;,&#34;8BD3&#34;,&#34;8C30&#34;,&#34;8CB2&#34;,&#34;8E82&#34;,&#34;9431&#34;,&#34;952C&#34;,&#34;9B04&#34;,&#34;A29D&#34;,&#34;A6EA&#34;,&#34;A784&#34;,&#34;AB23&#34;,&#34;AD71&#34;,&#34;B1A5&#34;,&#34;B7A7&#34;,&#34;B9D4&#34;,&#34;BE53&#34;,&#34;C429&#34;,&#34;C59B&#34;,&#34;CBB6&#34;,&#34;CEFA&#34;,&#34;CFA0&#34;,&#34;CFCD&#34;,&#34;D7A8&#34;,&#34;D89F&#34;,&#34;D964&#34;,&#34;DB9E&#34;,&#34;DCF6&#34;,&#34;E165&#34;,&#34;EDA8&#34;,&#34;EE8F&#34;,&#34;F3D9&#34;,&#34;F473&#34;,&#34;F61D&#34;,&#34;F708&#34;,&#34;FE13&#34;],[4860,5501,242,82,6,2527,3127,200,2863,8,2330,1134,2259,3,630,54,8,2016,3827,906,1299,47,5765,833,354,2571,1,2824,90,98,36,552,44,662,1856,195,1437,8,16,29,12436,2646,2,205,134,1,243,1697,4,15770,360,198,4739,167,2,3595,32,16881,468,8,22822,5,196,970,2365,1614,3537,440,59,12863,107,724,57]],&#34;container&#34;:&#34;&lt;table class=\&#34;display\&#34;&gt;\n  &lt;thead&gt;\n    &lt;tr&gt;\n      &lt;th&gt; &lt;\/th&gt;\n      &lt;th&gt;Advertiser&lt;\/th&gt;\n      &lt;th&gt;Frequency&lt;\/th&gt;\n    &lt;\/tr&gt;\n  &lt;\/thead&gt;\n&lt;\/table&gt;&#34;,&#34;options&#34;:{&#34;dom&#34;:&#34;Bfrtip&#34;,&#34;buttons&#34;:[&#34;copy&#34;,&#34;print&#34;],&#34;columnDefs&#34;:[{&#34;className&#34;:&#34;dt-right&#34;,&#34;targets&#34;:2},{&#34;orderable&#34;:false,&#34;targets&#34;:0}],&#34;order&#34;:[],&#34;autoWidth&#34;:false,&#34;orderClasses&#34;:false}},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]}&lt;/script&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
+## Graph
+summ_graph &amp;lt;- ggplot(summ_tab %&amp;gt;%filter(count&amp;gt;5000), aes(x=advertiser,y=count))+
+              geom_bar(stat = &amp;quot;identity&amp;quot;,fill = Company_XXX_yellow)+
+              geom_text(aes(label =count),vjust = -0.25, size = 5)+
+              Company_XXX_theme+
+              labs(title = &amp;quot;Distribution of advertisers&amp;quot;,x=&amp;quot;Advertisers&amp;quot;,
+                   y=&amp;quot;Frequency&amp;quot;)
+summ_graph&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;figs/unnamed-chunk-10-2.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;which-advertiser-results-into-a-majority-of-booking-errors&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;8. Which advertiser results into a majority of booking errors&lt;/h4&gt;
+&lt;p&gt;The top 5 advertisers that result into booking errors are 539F, 555D, 5A14,78F7 and 8E82.&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;summ_tab &amp;lt;- visit_caseStudy %&amp;gt;% 
+  distinct(tracking_id, session_id,.keep_all = TRUE) %&amp;gt;% 
+  group_by(advertiser) %&amp;gt;% 
+  summarise(count = n(),
+            sum_errors = round(sum(bookingError!=0)/count*1000,1),
+            sum_oks = round(sum(bookingOk!=0)/count*1000,1)) 
+
+
+## Print the table
+pr_func(summ_tab,cnames = c(&amp;quot;Advertiser&amp;quot;,&amp;quot;Frequency&amp;quot;,&amp;quot;Error Rate&amp;quot;,&amp;quot;Success Rate&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;htmlwidget-7&#34; style=&#34;width:100%;height:auto;&#34; class=&#34;datatables html-widget&#34;&gt;&lt;/div&gt;
+&lt;script type=&#34;application/json&#34; data-for=&#34;htmlwidget-7&#34;&gt;{&#34;x&#34;:{&#34;filter&#34;:&#34;none&#34;,&#34;extensions&#34;:[&#34;Buttons&#34;],&#34;data&#34;:[[&#34;1&#34;,&#34;2&#34;,&#34;3&#34;,&#34;4&#34;,&#34;5&#34;,&#34;6&#34;,&#34;7&#34;,&#34;8&#34;,&#34;9&#34;,&#34;10&#34;,&#34;11&#34;,&#34;12&#34;,&#34;13&#34;,&#34;14&#34;,&#34;15&#34;,&#34;16&#34;,&#34;17&#34;,&#34;18&#34;,&#34;19&#34;,&#34;20&#34;,&#34;21&#34;,&#34;22&#34;,&#34;23&#34;,&#34;24&#34;,&#34;25&#34;,&#34;26&#34;,&#34;27&#34;,&#34;28&#34;,&#34;29&#34;,&#34;30&#34;,&#34;31&#34;,&#34;32&#34;,&#34;33&#34;,&#34;34&#34;,&#34;35&#34;,&#34;36&#34;,&#34;37&#34;,&#34;38&#34;,&#34;39&#34;,&#34;40&#34;,&#34;41&#34;,&#34;42&#34;,&#34;43&#34;,&#34;44&#34;,&#34;45&#34;,&#34;46&#34;,&#34;47&#34;,&#34;48&#34;,&#34;49&#34;,&#34;50&#34;,&#34;51&#34;,&#34;52&#34;,&#34;53&#34;,&#34;54&#34;,&#34;55&#34;,&#34;56&#34;,&#34;57&#34;,&#34;58&#34;,&#34;59&#34;,&#34;60&#34;,&#34;61&#34;,&#34;62&#34;,&#34;63&#34;,&#34;64&#34;,&#34;65&#34;,&#34;66&#34;,&#34;67&#34;,&#34;68&#34;,&#34;69&#34;,&#34;70&#34;,&#34;71&#34;,&#34;72&#34;,&#34;73&#34;],[&#34;0233&#34;,&#34;0266&#34;,&#34;077E&#34;,&#34;0FF3&#34;,&#34;11D0&#34;,&#34;19F3&#34;,&#34;1CD1&#34;,&#34;20D1&#34;,&#34;2491&#34;,&#34;28B6&#34;,&#34;2A50&#34;,&#34;2CBC&#34;,&#34;2F4F&#34;,&#34;33E7&#34;,&#34;3614&#34;,&#34;3953&#34;,&#34;3C94&#34;,&#34;3CEC&#34;,&#34;3D86&#34;,&#34;4E0C&#34;,&#34;4EBC&#34;,&#34;5055&#34;,&#34;539F&#34;,&#34;555D&#34;,&#34;5938&#34;,&#34;5A14&#34;,&#34;5FA9&#34;,&#34;6244&#34;,&#34;6403&#34;,&#34;6E62&#34;,&#34;6EA2&#34;,&#34;7180&#34;,&#34;71E0&#34;,&#34;735B&#34;,&#34;78F7&#34;,&#34;81B3&#34;,&#34;852C&#34;,&#34;884C&#34;,&#34;8BD3&#34;,&#34;8C30&#34;,&#34;8CB2&#34;,&#34;8E82&#34;,&#34;9431&#34;,&#34;952C&#34;,&#34;9B04&#34;,&#34;A29D&#34;,&#34;A6EA&#34;,&#34;A784&#34;,&#34;AB23&#34;,&#34;AD71&#34;,&#34;B1A5&#34;,&#34;B7A7&#34;,&#34;B9D4&#34;,&#34;BE53&#34;,&#34;C429&#34;,&#34;C59B&#34;,&#34;CBB6&#34;,&#34;CEFA&#34;,&#34;CFA0&#34;,&#34;CFCD&#34;,&#34;D7A8&#34;,&#34;D89F&#34;,&#34;D964&#34;,&#34;DB9E&#34;,&#34;DCF6&#34;,&#34;E165&#34;,&#34;EDA8&#34;,&#34;EE8F&#34;,&#34;F3D9&#34;,&#34;F473&#34;,&#34;F61D&#34;,&#34;F708&#34;,&#34;FE13&#34;],[4860,5501,242,82,6,2527,3127,200,2863,8,2330,1134,2259,3,630,54,8,2016,3827,906,1299,47,5765,833,354,2571,1,2824,90,98,36,552,44,662,1856,195,1437,8,16,29,12436,2646,2,205,134,1,243,1697,4,15770,360,198,4739,167,2,3595,32,16881,468,8,22822,5,196,970,2365,1614,3537,440,59,12863,107,724,57],[2.9,6.2,0,0,0,2.4,7.7,0,0.3,0,4.7,0.9,8.4,0,3.2,0,0,2,1.8,7.7,0.8,0,17.7,16.8,0,13.6,0,5.3,0,0,0,0,0,1.5,10.2,0,2.1,0,0,0,2.7,10.2,0,0,0,0,0,1.2,0,6.8,2.8,0,0.4,0,0,2.2,0,1.7,0,0,6.4,0,0,0,0.4,3.1,9.3,0,0,4.5,0,1.4,0],[8.2,25.8,8.3,12.2,0,28.5,10.2,0,25.1,0,26.6,7.1,12.4,0,30.2,18.5,0,23.3,6.3,8.8,2.3,42.6,42.8,38.4,8.5,15.9,0,11.3,44.4,0,27.8,1.8,45.5,9.1,11.3,25.6,11.8,0,0,0,10.5,27.6,0,24.4,7.5,0,4.1,5.3,0,10.5,36.1,0,9.1,6,0,9.5,31.2,24.5,8.5,0,12.9,0,15.3,9.3,14,29.1,18.9,6.8,0,26,9.3,9.7,35.1]],&#34;container&#34;:&#34;&lt;table class=\&#34;display\&#34;&gt;\n  &lt;thead&gt;\n    &lt;tr&gt;\n      &lt;th&gt; &lt;\/th&gt;\n      &lt;th&gt;Advertiser&lt;\/th&gt;\n      &lt;th&gt;Frequency&lt;\/th&gt;\n      &lt;th&gt;Error Rate&lt;\/th&gt;\n      &lt;th&gt;Success Rate&lt;\/th&gt;\n    &lt;\/tr&gt;\n  &lt;\/thead&gt;\n&lt;\/table&gt;&#34;,&#34;options&#34;:{&#34;dom&#34;:&#34;Bfrtip&#34;,&#34;buttons&#34;:[&#34;copy&#34;,&#34;print&#34;],&#34;columnDefs&#34;:[{&#34;className&#34;:&#34;dt-right&#34;,&#34;targets&#34;:[2,3,4]},{&#34;orderable&#34;:false,&#34;targets&#34;:0}],&#34;order&#34;:[],&#34;autoWidth&#34;:false,&#34;orderClasses&#34;:false}},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]}&lt;/script&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
+## Graph
+summ_graph &amp;lt;- ggplot(summ_tab %&amp;gt;%filter(sum_errors&amp;gt;5), 
+                     aes(x=advertiser,y=sum_errors,group=1))+
+  geom_line(stat = &amp;quot;identity&amp;quot;,color = Company_XXX_yellow)+
+              geom_text(aes(label =sum_errors),vjust = -0.25, size = 5,color = Company_XXX_blue)+
+              Company_XXX_theme+
+              labs(title = &amp;quot;Booking Error Rates&amp;quot;,x=&amp;quot;Advertisers&amp;quot;,
+                   y=&amp;quot;Booking error rate (in 000s)&amp;quot;)
+
+summ_graph&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;figs/unnamed-chunk-11-2.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
+## Graph
+summ_graph2 &amp;lt;- ggplot(summ_tab %&amp;gt;%filter(sum_oks&amp;gt;25), 
+                     aes(x=advertiser,y=sum_oks,group=1))+
+  geom_line(stat = &amp;quot;identity&amp;quot;,color = Company_XXX_yellow)+
+              geom_text(aes(label =sum_oks),vjust = -0.25, size = 5,color = Company_XXX_blue)+
+              Company_XXX_theme+
+              labs(title = &amp;quot;Booking Success Rates&amp;quot;,x=&amp;quot;Advertisers&amp;quot;,
+                   y=&amp;quot;Booking success rate (in 000s)&amp;quot;)
+
+summ_graph2&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;figs/unnamed-chunk-11-3.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;for-those-who-only-visit-the-website-once-and-never-succeed-in-booking-how-far-along-is-the-travel-date-from-the-booking-date-is-it-that-they-do-not-log-in-again-because-the-trip-is-not-that-urgent&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;9. For those who only visit the website once and never succeed in booking, how far along is the travel date from the booking date? Is it that they do not log in again because the trip is not that urgent?&lt;/h4&gt;
+&lt;p&gt;A majority of users will mostly visit the website when their travel date is a few days away from the booking date.&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt; summ_tab &amp;lt;- visit_caseStudy %&amp;gt;% 
+  distinct(tracking_id, session_id,.keep_all = TRUE) %&amp;gt;% 
+  mutate(bookingOk = ifelse(bookingOk==0,&amp;quot;No&amp;quot;,&amp;quot;Yes&amp;quot;)) %&amp;gt;% 
+  group_by(tracking_id) %&amp;gt;% 
+  mutate(frequency = n()) %&amp;gt;% 
+  filter(frequency==1 &amp;amp; bookingOk !=&amp;quot;Yes&amp;quot;) %&amp;gt;% 
+  mutate(diff_days = difftime(travelStartDate, as.Date(date), units=&amp;quot;days&amp;quot;)) %&amp;gt;% 
+  group_by(diff_days)%&amp;gt;% 
+  summarise(count = n()) 
+
+
+## Graph
+summ_graph &amp;lt;- ggplot(summ_tab, aes(x=diff_days,y=count,group=1, color=1))+
+              geom_line(stat = &amp;quot;identity&amp;quot;,color = Company_XXX_yellow)+
+              #geom_text(aes(label =count),vjust = -0.25, size = 5)+
+              Company_XXX_theme+
+              labs(title = &amp;quot;Length of time \n beween \nBooking Date and Travel Start Date &amp;quot;,x=&amp;quot;Length (days)&amp;quot;,y=&amp;quot;Frequency&amp;quot;)+ylim(c(0,6000))+xlim(c(0,200))
+summ_graph&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;figs/unnamed-chunk-12-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;for-those-who-visited-the-website-more-than-once-what-is-the-average-length-of-time-between-the-first-visit-and-second-visit&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;10. For those who visited the website more than once, what is the average length of time between the first visit and second visit?&lt;/h4&gt;
+&lt;p&gt;A majority of them revisit the website in an hour’s time.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt; summ_tab &amp;lt;- visit_caseStudy %&amp;gt;% 
+  distinct(tracking_id, session_id,.keep_all = TRUE) %&amp;gt;% 
+  mutate(bookingOk = ifelse(bookingOk==0,&amp;quot;No&amp;quot;,&amp;quot;Yes&amp;quot;)) %&amp;gt;% 
+  group_by(tracking_id) %&amp;gt;% 
+  mutate(frequency = n()) %&amp;gt;% 
+  filter(frequency &amp;gt;1) %&amp;gt;% 
+  group_by(tracking_id) %&amp;gt;% 
+  arrange(date) %&amp;gt;% 
+  mutate(diff_hours = zoo::na.locf0(round(difftime(lead(date), date, units=&amp;quot;hours&amp;quot;),0)))%&amp;gt;% 
+  distinct(tracking_id, diff_hours) %&amp;gt;% 
+  mutate(seq = seq_along(tracking_id)) %&amp;gt;% 
+  filter(seq == 1) %&amp;gt;% 
+  ungroup() %&amp;gt;% 
+  group_by(diff_hours) %&amp;gt;% 
+  summarise(count = n())%&amp;gt;% 
+  mutate(perc = round((count/sum(count))*100,0)) %&amp;gt;% 
+  ungroup() %&amp;gt;% mutate(diff_hours = as.factor(diff_hours))
+
+## Print the table
+pr_func(summ_tab,cnames = c(&amp;quot;Difference in time (hours)&amp;quot;,&amp;quot;Frequency&amp;quot;,&amp;quot;Percentage&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;htmlwidget-8&#34; style=&#34;width:100%;height:auto;&#34; class=&#34;datatables html-widget&#34;&gt;&lt;/div&gt;
+&lt;script type=&#34;application/json&#34; data-for=&#34;htmlwidget-8&#34;&gt;{&#34;x&#34;:{&#34;filter&#34;:&#34;none&#34;,&#34;extensions&#34;:[&#34;Buttons&#34;],&#34;data&#34;:[[&#34;1&#34;,&#34;2&#34;,&#34;3&#34;,&#34;4&#34;,&#34;5&#34;,&#34;6&#34;,&#34;7&#34;,&#34;8&#34;,&#34;9&#34;,&#34;10&#34;,&#34;11&#34;,&#34;12&#34;,&#34;13&#34;,&#34;14&#34;,&#34;15&#34;,&#34;16&#34;,&#34;17&#34;,&#34;18&#34;,&#34;19&#34;,&#34;20&#34;,&#34;21&#34;,&#34;22&#34;,&#34;23&#34;,&#34;24&#34;,&#34;25&#34;],[&#34;0&#34;,&#34;1&#34;,&#34;2&#34;,&#34;3&#34;,&#34;4&#34;,&#34;5&#34;,&#34;6&#34;,&#34;7&#34;,&#34;8&#34;,&#34;9&#34;,&#34;10&#34;,&#34;11&#34;,&#34;12&#34;,&#34;13&#34;,&#34;14&#34;,&#34;15&#34;,&#34;16&#34;,&#34;17&#34;,&#34;18&#34;,&#34;19&#34;,&#34;20&#34;,&#34;21&#34;,&#34;22&#34;,&#34;23&#34;,&#34;24&#34;],[4079,1189,688,517,405,305,231,233,193,187,142,105,115,81,71,45,56,28,21,24,22,18,16,12,1],[46,14,8,6,5,3,3,3,2,2,2,1,1,1,1,1,1,0,0,0,0,0,0,0,0]],&#34;container&#34;:&#34;&lt;table class=\&#34;display\&#34;&gt;\n  &lt;thead&gt;\n    &lt;tr&gt;\n      &lt;th&gt; &lt;\/th&gt;\n      &lt;th&gt;Difference in time (hours)&lt;\/th&gt;\n      &lt;th&gt;Frequency&lt;\/th&gt;\n      &lt;th&gt;Percentage&lt;\/th&gt;\n    &lt;\/tr&gt;\n  &lt;\/thead&gt;\n&lt;\/table&gt;&#34;,&#34;options&#34;:{&#34;dom&#34;:&#34;Bfrtip&#34;,&#34;buttons&#34;:[&#34;copy&#34;,&#34;print&#34;],&#34;columnDefs&#34;:[{&#34;className&#34;:&#34;dt-right&#34;,&#34;targets&#34;:[2,3]},{&#34;orderable&#34;:false,&#34;targets&#34;:0}],&#34;order&#34;:[],&#34;autoWidth&#34;:false,&#34;orderClasses&#34;:false}},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]}&lt;/script&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
+
+## Graph
+summ_graph &amp;lt;- ggplot(summ_tab %&amp;gt;%filter(perc&amp;gt;3), aes(x=diff_hours,y=perc))+
+              geom_bar(stat = &amp;quot;identity&amp;quot;,fill = Company_XXX_yellow)+
+              geom_text(aes(label =perc),vjust = -0.25, size = 5)+
+              Company_XXX_theme+
+              labs(title = &amp;quot;&amp;quot;,x=&amp;quot;Difference in time (hours)&amp;quot;,
+                   y=&amp;quot;Percentage&amp;quot;)
+summ_graph&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;figs/unnamed-chunk-13-2.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;for-those-who-re-visit-the-website-within-one-hour-after-how-many-minutes-do-they-do-so&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;11. For those who re-visit the website within one hour, after how many minutes do they do so?&lt;/h4&gt;
+&lt;p&gt;A majority of them revisit the website within the same minute.
+&lt;br&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt; summ_tab &amp;lt;- visit_caseStudy %&amp;gt;% 
+  distinct(tracking_id, session_id,.keep_all = TRUE) %&amp;gt;% 
+  mutate(bookingOk = ifelse(bookingOk==0,&amp;quot;No&amp;quot;,&amp;quot;Yes&amp;quot;)) %&amp;gt;% 
+  group_by(tracking_id) %&amp;gt;% 
+  mutate(frequency = n()) %&amp;gt;% 
+  filter(frequency &amp;gt;1) %&amp;gt;% 
+  group_by(tracking_id) %&amp;gt;% 
+  arrange(date) %&amp;gt;% 
+  mutate(diff_hours = zoo::na.locf0(round(difftime(lead(date), date, units=&amp;quot;hours&amp;quot;),0)),
+         diff_mins = zoo::na.locf0(round(difftime(lead(date), date, units=&amp;quot;min&amp;quot;),0)))%&amp;gt;% 
+  distinct(tracking_id, diff_hours,diff_mins) %&amp;gt;% 
+  mutate(seq = seq_along(tracking_id)) %&amp;gt;% 
+  filter(seq == 1) %&amp;gt;% 
+  filter(diff_hours == 0) %&amp;gt;% 
+  ungroup() %&amp;gt;% 
+  group_by(diff_mins) %&amp;gt;% 
+  summarise(count = n())%&amp;gt;% 
+  mutate(perc = round((count/sum(count))*100,0)) %&amp;gt;% 
+  ungroup() %&amp;gt;% mutate(diff_mins = as.factor(diff_mins))
+
+## Print the table
+pr_func(summ_tab,cnames = c(&amp;quot;Difference in time (mins)&amp;quot;,&amp;quot;Frequency&amp;quot;,&amp;quot;Percentage&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;htmlwidget-9&#34; style=&#34;width:100%;height:auto;&#34; class=&#34;datatables html-widget&#34;&gt;&lt;/div&gt;
+&lt;script type=&#34;application/json&#34; data-for=&#34;htmlwidget-9&#34;&gt;{&#34;x&#34;:{&#34;filter&#34;:&#34;none&#34;,&#34;extensions&#34;:[&#34;Buttons&#34;],&#34;data&#34;:[[&#34;1&#34;,&#34;2&#34;,&#34;3&#34;,&#34;4&#34;,&#34;5&#34;,&#34;6&#34;,&#34;7&#34;,&#34;8&#34;,&#34;9&#34;,&#34;10&#34;,&#34;11&#34;,&#34;12&#34;,&#34;13&#34;,&#34;14&#34;,&#34;15&#34;,&#34;16&#34;,&#34;17&#34;,&#34;18&#34;,&#34;19&#34;,&#34;20&#34;,&#34;21&#34;,&#34;22&#34;,&#34;23&#34;,&#34;24&#34;,&#34;25&#34;,&#34;26&#34;,&#34;27&#34;,&#34;28&#34;,&#34;29&#34;,&#34;30&#34;,&#34;31&#34;],[&#34;0&#34;,&#34;1&#34;,&#34;2&#34;,&#34;3&#34;,&#34;4&#34;,&#34;5&#34;,&#34;6&#34;,&#34;7&#34;,&#34;8&#34;,&#34;9&#34;,&#34;10&#34;,&#34;11&#34;,&#34;12&#34;,&#34;13&#34;,&#34;14&#34;,&#34;15&#34;,&#34;16&#34;,&#34;17&#34;,&#34;18&#34;,&#34;19&#34;,&#34;20&#34;,&#34;21&#34;,&#34;22&#34;,&#34;23&#34;,&#34;24&#34;,&#34;25&#34;,&#34;26&#34;,&#34;27&#34;,&#34;28&#34;,&#34;29&#34;,&#34;30&#34;],[936,638,389,260,207,155,136,118,103,97,80,65,83,64,52,59,52,52,46,50,49,52,37,35,43,46,50,38,35,36,16],[23,16,10,6,5,4,3,3,3,2,2,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0]],&#34;container&#34;:&#34;&lt;table class=\&#34;display\&#34;&gt;\n  &lt;thead&gt;\n    &lt;tr&gt;\n      &lt;th&gt; &lt;\/th&gt;\n      &lt;th&gt;Difference in time (mins)&lt;\/th&gt;\n      &lt;th&gt;Frequency&lt;\/th&gt;\n      &lt;th&gt;Percentage&lt;\/th&gt;\n    &lt;\/tr&gt;\n  &lt;\/thead&gt;\n&lt;\/table&gt;&#34;,&#34;options&#34;:{&#34;dom&#34;:&#34;Bfrtip&#34;,&#34;buttons&#34;:[&#34;copy&#34;,&#34;print&#34;],&#34;columnDefs&#34;:[{&#34;className&#34;:&#34;dt-right&#34;,&#34;targets&#34;:[2,3]},{&#34;orderable&#34;:false,&#34;targets&#34;:0}],&#34;order&#34;:[],&#34;autoWidth&#34;:false,&#34;orderClasses&#34;:false}},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]}&lt;/script&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
+
+## Graph
+summ_graph &amp;lt;- ggplot(summ_tab %&amp;gt;%filter(perc&amp;gt;3), aes(x=diff_mins,y=perc))+
+              geom_bar(stat = &amp;quot;identity&amp;quot;,fill = Company_XXX_yellow)+
+              geom_text(aes(label =perc),vjust = -0.25, size = 5)+
+              Company_XXX_theme+
+              labs(title = &amp;quot;&amp;quot;,x=&amp;quot;Difference in time (mins)&amp;quot;,
+                   y=&amp;quot;Percentage&amp;quot;)
+summ_graph&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;figs/unnamed-chunk-14-2.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;for-those-who-visited-the-website-more-than-once-and-were-not-successful-in-making-a-booking-in-the-first-instance-after-how-many-trials-sessions-were-they-successful&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;12. For those who visited the website more than once and were not successful in making a booking in the first instance, after how many trials (sessions) were they successful?&lt;/h4&gt;
+&lt;p&gt;&lt;br&gt;
+A majority of the users succeed in making a booking after the second trial.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt; summ_tab &amp;lt;- visit_caseStudy %&amp;gt;% 
+  distinct(tracking_id, session_id,.keep_all = TRUE) %&amp;gt;% 
+  mutate(bookingOk = ifelse(bookingOk==0,&amp;quot;No&amp;quot;,&amp;quot;Yes&amp;quot;)) %&amp;gt;% 
+  group_by(tracking_id) %&amp;gt;% 
+  mutate(frequency = n()) %&amp;gt;% 
+  filter(frequency &amp;gt;1) %&amp;gt;% 
+  group_by(tracking_id) %&amp;gt;% 
+  arrange(date) %&amp;gt;% 
+  distinct(tracking_id, session_id, bookingPriceTotal) %&amp;gt;% 
+  mutate(seq = seq_along(bookingPriceTotal)) %&amp;gt;% 
+  mutate(Trials = ifelse(sum(bookingPriceTotal)==0,0,NA)) %&amp;gt;% 
+  mutate(Trials = ifelse(bookingPriceTotal!=0,seq,Trials)) %&amp;gt;% 
+  arrange(tracking_id) %&amp;gt;% 
+  distinct(tracking_id, Trials) %&amp;gt;% 
+  filter(!is.na(Trials)) %&amp;gt;% 
+  distinct(tracking_id, .keep_all = T) %&amp;gt;% ungroup() %&amp;gt;% 
+  group_by(Trials) %&amp;gt;% 
+  summarise(count = n())%&amp;gt;% 
+  mutate(perc = round((count/sum(count))*100,0))
+  
+ ## Print the table
+pr_func(summ_tab,cnames = c(&amp;quot;Number of trials&amp;quot;,&amp;quot;Frequency&amp;quot;,&amp;quot;Percentage&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;htmlwidget-10&#34; style=&#34;width:100%;height:auto;&#34; class=&#34;datatables html-widget&#34;&gt;&lt;/div&gt;
+&lt;script type=&#34;application/json&#34; data-for=&#34;htmlwidget-10&#34;&gt;{&#34;x&#34;:{&#34;filter&#34;:&#34;none&#34;,&#34;extensions&#34;:[&#34;Buttons&#34;],&#34;data&#34;:[[&#34;1&#34;,&#34;2&#34;,&#34;3&#34;,&#34;4&#34;,&#34;5&#34;,&#34;6&#34;,&#34;7&#34;,&#34;8&#34;,&#34;9&#34;,&#34;10&#34;,&#34;11&#34;,&#34;12&#34;,&#34;13&#34;,&#34;14&#34;,&#34;15&#34;],[0,1,2,3,4,5,6,7,8,9,10,11,16,19,29],[8381,129,180,46,21,8,7,2,4,1,1,1,1,1,1],[95,1,2,1,0,0,0,0,0,0,0,0,0,0,0]],&#34;container&#34;:&#34;&lt;table class=\&#34;display\&#34;&gt;\n  &lt;thead&gt;\n    &lt;tr&gt;\n      &lt;th&gt; &lt;\/th&gt;\n      &lt;th&gt;Number of trials&lt;\/th&gt;\n      &lt;th&gt;Frequency&lt;\/th&gt;\n      &lt;th&gt;Percentage&lt;\/th&gt;\n    &lt;\/tr&gt;\n  &lt;\/thead&gt;\n&lt;\/table&gt;&#34;,&#34;options&#34;:{&#34;dom&#34;:&#34;Bfrtip&#34;,&#34;buttons&#34;:[&#34;copy&#34;,&#34;print&#34;],&#34;columnDefs&#34;:[{&#34;className&#34;:&#34;dt-right&#34;,&#34;targets&#34;:[1,2,3]},{&#34;orderable&#34;:false,&#34;targets&#34;:0}],&#34;order&#34;:[],&#34;autoWidth&#34;:false,&#34;orderClasses&#34;:false}},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]}&lt;/script&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt; 
+
+## Graph
+summ_graph &amp;lt;- ggplot(summ_tab %&amp;gt;%filter(count&amp;lt;200), aes(x=Trials,y=count))+
+              geom_bar(stat = &amp;quot;identity&amp;quot;,fill = Company_XXX_yellow)+
+              geom_text(aes(label =count),vjust = -0.25, size = 5)+
+              Company_XXX_theme+
+              labs(title = &amp;quot;Number of Trials before Successful Bookings&amp;quot;,x=&amp;quot;Number of Trials&amp;quot;,
+                   y=&amp;quot;Frequency&amp;quot;)
+summ_graph&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;figs/unnamed-chunk-15-2.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;task-2&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Task 2&lt;/h3&gt;
+&lt;p&gt;The second part of the challenge involved a dataset showing list of actions, of the users in part 1. Each row in the data corresponds to a logged event&lt;/p&gt;
+&lt;p&gt;The questions I sought to answer in this task include:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;What actions are common? Can we think how this relates to the Company_XXX Express Booking?&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;What are the most common final actions for a user? Why is that?&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;How are actions distributed and can we infer anything from that?&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;What might be the action that we consider as a conversion? Is there a feasible way to verify that?&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div id=&#34;what-actions-are-common-can-we-think-how-this-relates-to-the-company_xxx-express-booking&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;1. What actions are common? Can we think how this relates to the Company_XXX Express Booking?&lt;/h4&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
+## Generate a dataset that only contains the page_log_id, tracking_id, session_id and page_id
+task2_data &amp;lt;-page_log %&amp;gt;% distinct(page_log_id, tracking_id, session_id, page_id)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;A majority of the respondents spend most of their time on Page 9020 and Page 9005.&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;## Calculate the number of page_log ids for each user and each page
+summ_tab &amp;lt;- task2_data %&amp;gt;% 
+  group_by(tracking_id, session_id,page_id) %&amp;gt;% 
+  summarise(counter = length(unique(page_log_id))) %&amp;gt;% 
+  group_by(page_id) %&amp;gt;% 
+  summarise(avg_logins = round(mean(counter),1)) %&amp;gt;% ungroup() %&amp;gt;% 
+  mutate(page_id = as.factor(page_id))
+
+ ## Print the table
+pr_func(summ_tab,cnames = c(&amp;quot;Page_ID&amp;quot;,&amp;quot;Average number of Page_log_IDs&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;htmlwidget-11&#34; style=&#34;width:100%;height:auto;&#34; class=&#34;datatables html-widget&#34;&gt;&lt;/div&gt;
+&lt;script type=&#34;application/json&#34; data-for=&#34;htmlwidget-11&#34;&gt;{&#34;x&#34;:{&#34;filter&#34;:&#34;none&#34;,&#34;extensions&#34;:[&#34;Buttons&#34;],&#34;data&#34;:[[&#34;1&#34;,&#34;2&#34;,&#34;3&#34;,&#34;4&#34;,&#34;5&#34;],[&#34;9003&#34;,&#34;9005&#34;,&#34;9006&#34;,&#34;9007&#34;,&#34;9020&#34;],[1.4,6,2.5,1.6,5.1]],&#34;container&#34;:&#34;&lt;table class=\&#34;display\&#34;&gt;\n  &lt;thead&gt;\n    &lt;tr&gt;\n      &lt;th&gt; &lt;\/th&gt;\n      &lt;th&gt;Page_ID&lt;\/th&gt;\n      &lt;th&gt;Average number of Page_log_IDs&lt;\/th&gt;\n    &lt;\/tr&gt;\n  &lt;\/thead&gt;\n&lt;\/table&gt;&#34;,&#34;options&#34;:{&#34;dom&#34;:&#34;Bfrtip&#34;,&#34;buttons&#34;:[&#34;copy&#34;,&#34;print&#34;],&#34;columnDefs&#34;:[{&#34;className&#34;:&#34;dt-right&#34;,&#34;targets&#34;:2},{&#34;orderable&#34;:false,&#34;targets&#34;:0}],&#34;order&#34;:[],&#34;autoWidth&#34;:false,&#34;orderClasses&#34;:false}},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]}&lt;/script&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
+## Graph
+summ_graph &amp;lt;- ggplot(summ_tab, aes(x=page_id,y=avg_logins))+
+              geom_bar(stat = &amp;quot;identity&amp;quot;,fill = Company_XXX_yellow)+
+              geom_text(aes(label =avg_logins),vjust = -0.25, size = 5)+
+              Company_XXX_theme+
+              labs(title = &amp;quot;Average number of Page_log_IDs\n per \n Page ID&amp;quot;,x=&amp;quot;Page ID&amp;quot;,
+                   y=&amp;quot;Average&amp;quot;)
+summ_graph&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;figs/unnamed-chunk-17-2.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;what-are-the-most-common-final-actions-for-a-user-why-is-that&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;2. What are the most common final actions for a user? Why is that?&lt;/h4&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;A majority of sessions end on Page ID 9020.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
+summ_tab &amp;lt;- page_log %&amp;gt;% 
+  group_by(tracking_id, session_id) %&amp;gt;% 
+  arrange(date) %&amp;gt;% 
+  mutate(seq= seq_along(session_id)) %&amp;gt;% 
+  filter(seq == max(seq)) %&amp;gt;% 
+  group_by(page_id) %&amp;gt;% 
+  summarise(count = length(unique(session_id)))%&amp;gt;% 
+  mutate(page_id = as.factor(page_id))%&amp;gt;% 
+  mutate(perc = round((count/sum(count))*100,0))
+  
+ ## Print the table
+pr_func(summ_tab,cnames = c(&amp;quot;Page_ID&amp;quot;,&amp;quot;Frequency&amp;quot;,&amp;quot;Percentage&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;htmlwidget-12&#34; style=&#34;width:100%;height:auto;&#34; class=&#34;datatables html-widget&#34;&gt;&lt;/div&gt;
+&lt;script type=&#34;application/json&#34; data-for=&#34;htmlwidget-12&#34;&gt;{&#34;x&#34;:{&#34;filter&#34;:&#34;none&#34;,&#34;extensions&#34;:[&#34;Buttons&#34;],&#34;data&#34;:[[&#34;1&#34;,&#34;2&#34;,&#34;3&#34;,&#34;4&#34;,&#34;5&#34;],[&#34;9003&#34;,&#34;9005&#34;,&#34;9006&#34;,&#34;9007&#34;,&#34;9020&#34;],[9131,16288,33,2445,125095],[6,11,0,2,82]],&#34;container&#34;:&#34;&lt;table class=\&#34;display\&#34;&gt;\n  &lt;thead&gt;\n    &lt;tr&gt;\n      &lt;th&gt; &lt;\/th&gt;\n      &lt;th&gt;Page_ID&lt;\/th&gt;\n      &lt;th&gt;Frequency&lt;\/th&gt;\n      &lt;th&gt;Percentage&lt;\/th&gt;\n    &lt;\/tr&gt;\n  &lt;\/thead&gt;\n&lt;\/table&gt;&#34;,&#34;options&#34;:{&#34;dom&#34;:&#34;Bfrtip&#34;,&#34;buttons&#34;:[&#34;copy&#34;,&#34;print&#34;],&#34;columnDefs&#34;:[{&#34;className&#34;:&#34;dt-right&#34;,&#34;targets&#34;:[2,3]},{&#34;orderable&#34;:false,&#34;targets&#34;:0}],&#34;order&#34;:[],&#34;autoWidth&#34;:false,&#34;orderClasses&#34;:false}},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]}&lt;/script&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt; 
+## Graph
+summ_graph &amp;lt;- ggplot(summ_tab, aes(x=page_id,y=count))+
+              geom_bar(stat = &amp;quot;identity&amp;quot;,fill = Company_XXX_yellow)+
+              geom_text(aes(label =count),vjust = -0.25, size = 5)+
+              Company_XXX_theme+
+              labs(title = &amp;quot;Number of session ends\n per \n Page ID&amp;quot;,x=&amp;quot;Page ID&amp;quot;,
+                   y=&amp;quot;Frequency&amp;quot;)
+summ_graph&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;figs/unnamed-chunk-18-2.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;how-are-actions-distributed-and-can-you-infer-anything-from-that&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;3. How are actions distributed and can you infer anything from that?&lt;/h4&gt;
+&lt;p&gt;Almost all sessions end at point 993
+&lt;br&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
+summ_tab &amp;lt;- page_log %&amp;gt;% 
+  group_by(tracking_id, session_id) %&amp;gt;% 
+  arrange(date) %&amp;gt;% 
+  mutate(seq= seq_along(session_id)) %&amp;gt;% 
+  filter(seq == max(seq)) %&amp;gt;% 
+  group_by(page_id,type) %&amp;gt;% 
+  summarise(count = length(unique(session_id)))%&amp;gt;% 
+  group_by(page_id) %&amp;gt;% 
+  mutate(perc = round((count/sum(count))*100,0)) %&amp;gt;% ungroup() %&amp;gt;% 
+  mutate(page_id = as.factor(page_id)) 
+  
+ ## Print the table
+pr_func(summ_tab,cnames = c(&amp;quot;Page_ID&amp;quot;,&amp;quot;Type&amp;quot;, &amp;quot;Frequency&amp;quot;,&amp;quot;Percentage&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;htmlwidget-13&#34; style=&#34;width:100%;height:auto;&#34; class=&#34;datatables html-widget&#34;&gt;&lt;/div&gt;
+&lt;script type=&#34;application/json&#34; data-for=&#34;htmlwidget-13&#34;&gt;{&#34;x&#34;:{&#34;filter&#34;:&#34;none&#34;,&#34;extensions&#34;:[&#34;Buttons&#34;],&#34;data&#34;:[[&#34;1&#34;,&#34;2&#34;,&#34;3&#34;,&#34;4&#34;,&#34;5&#34;,&#34;6&#34;,&#34;7&#34;,&#34;8&#34;],[&#34;9003&#34;,&#34;9003&#34;,&#34;9005&#34;,&#34;9006&#34;,&#34;9006&#34;,&#34;9007&#34;,&#34;9020&#34;,&#34;9020&#34;],[901,993,993,993,995,993,923,993],[1,9130,16288,32,1,2445,1,125094],[0,100,100,97,3,100,0,100]],&#34;container&#34;:&#34;&lt;table class=\&#34;display\&#34;&gt;\n  &lt;thead&gt;\n    &lt;tr&gt;\n      &lt;th&gt; &lt;\/th&gt;\n      &lt;th&gt;Page_ID&lt;\/th&gt;\n      &lt;th&gt;Type&lt;\/th&gt;\n      &lt;th&gt;Frequency&lt;\/th&gt;\n      &lt;th&gt;Percentage&lt;\/th&gt;\n    &lt;\/tr&gt;\n  &lt;\/thead&gt;\n&lt;\/table&gt;&#34;,&#34;options&#34;:{&#34;dom&#34;:&#34;Bfrtip&#34;,&#34;buttons&#34;:[&#34;copy&#34;,&#34;print&#34;],&#34;columnDefs&#34;:[{&#34;className&#34;:&#34;dt-right&#34;,&#34;targets&#34;:[2,3,4]},{&#34;orderable&#34;:false,&#34;targets&#34;:0}],&#34;order&#34;:[],&#34;autoWidth&#34;:false,&#34;orderClasses&#34;:false}},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]}&lt;/script&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt; 
+## Graph
+summ_graph &amp;lt;- ggplot(summ_tab%&amp;gt;% filter(type == 993), aes(x=page_id,y=perc))+
+              geom_bar(stat = &amp;quot;identity&amp;quot;,fill = Company_XXX_yellow)+
+              geom_text(aes(label =perc),vjust = -0.25, size = 5)+
+              Company_XXX_theme+
+              labs(title = &amp;quot;Number of session ending with 993\n per \n Page ID&amp;quot;,x=&amp;quot;Page ID&amp;quot;,
+                   y=&amp;quot;Percentage&amp;quot;)
+summ_graph&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;figs/unnamed-chunk-19-2.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;what-might-be-the-action-that-we-consider-as-a-conversion-is-there-a-feasible-way-to-verify-that&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;4. What might be the action that we consider as a conversion? Is there a feasible way to verify that?&lt;/h4&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>A game to measure honesty</title>
+      <link>/project/dishonesty/</link>
+      <pubDate>Sat, 27 Jul 2019 00:00:00 +0000</pubDate>
+      <guid>/project/dishonesty/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Improving Soil testing among small holder farmers.</title>
+      <link>/project/soiltesting/</link>
+      <pubDate>Sat, 27 Jul 2019 00:00:00 +0000</pubDate>
+      <guid>/project/soiltesting/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>The benefits of development with dignity</title>
+      <link>/project/dignity/</link>
+      <pubDate>Sat, 27 Jul 2019 00:00:00 +0000</pubDate>
+      <guid>/project/dignity/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>The Human Account</title>
+      <link>/project/humanaccount/</link>
+      <pubDate>Sat, 27 Jul 2019 00:00:00 +0000</pubDate>
+      <guid>/project/humanaccount/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Understanding agent networks</title>
+      <link>/project/agents/</link>
+      <pubDate>Sat, 27 Jul 2019 00:00:00 +0000</pubDate>
+      <guid>/project/agents/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Rstudio Tidyverse Certified Trainer Preparation Script</title>
+      <link>/codes/passa/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>/codes/passa/</guid>
+      <description>
+
+
+&lt;p&gt;Tidyverse is a collection of R packages designed for data science. The packages that are included in tidyverse include:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;readr: Used for reading in datasets into R.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;dplyr: Used for data manipulation.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;tidyr: Used for cleaning messy datasets.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;ggplot2: Used for generating graphs.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;forcats: Used for manipulating factor variables in R.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;lubridate: Used for working with dates&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;tibble: Creates simple dataframes.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;stringr: Used for manipulating strings.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;purrr: USed for functional programming.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div id=&#34;load-the-packages-required&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Load the packages required&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#install.packages(&amp;quot;tidyverse&amp;quot;)
+library(tidyverse)
+library(rChambua)## Contains the dataset that we will use in this script (Wafanyikazi dataset)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;### 0.1 Install the libraries required
+## Create a vector of packages to be installed
+pkgs &amp;lt;- c(&amp;quot;tidyverse&amp;quot;,&amp;quot;data.table&amp;quot;,&amp;quot;DT&amp;quot;,&amp;quot;lubridate&amp;quot;,&amp;quot;ggthemes&amp;quot;,&amp;quot;randomForest&amp;quot;,&amp;quot;readODS&amp;quot;,&amp;quot;ggcorrplot&amp;quot;)
+
+## Check if there are packages you want to load, that are not already installed. 
+miss_pkgs &amp;lt;- pkgs[!pkgs %in% installed.packages()[,1]] 
+
+## Installing the missing packages
+if(length(miss_pkgs)&amp;gt;0){
+  install.packages(miss_pkgs)
+}
+## Loading all the packages
+invisible(lapply(pkgs,library,character.only=TRUE))
+
+## Remove the objects that are no longer required
+rm(miss_pkgs)
+rm(pkgs)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;read-in-the-wafanyikazi-dataset&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Read in the wafanyikazi dataset&lt;/h2&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
+df &amp;lt;- wafanyikazi
+
+#df &amp;lt;- read_csv(&amp;quot;&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;dplyr&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;1. dplyr&lt;/h2&gt;
+&lt;p&gt;Contains several functions, which we will look at one by one.&lt;/p&gt;
+&lt;div id=&#34;select&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;1.1 select()&lt;/h3&gt;
+&lt;p&gt;Used for picking and dropping variables.
+&lt;br&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
+## Picking variables.
+
+df1 &amp;lt;- df %&amp;gt;% 
+  select(Sid,Gender, Age)
+
+## Dropping variables.
+### When dopping variables, you insert a hyphen in front of the variable name.
+
+df1 &amp;lt;- df %&amp;gt;% 
+  select(-Sid, -Promotion)
+
+## Picking or dropping variables acording to a given pattern.
+
+df1 &amp;lt;- df %&amp;gt;% 
+  select(contains(&amp;quot;f&amp;quot;)) ## Picking variables that contains letter e.
+
+df1 &amp;lt;- df %&amp;gt;% 
+  select(-ends_with(&amp;quot;t&amp;quot;))
+
+## Picking a sequence of variables that appear together.
+
+df1 &amp;lt;- df %&amp;gt;% 
+  select(Sid:Marital_Status)
+
+rm(df1)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;filter&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;1.2 filter()&lt;/h3&gt;
+&lt;p&gt;Used for picking values.&lt;/p&gt;
+&lt;p&gt;filter works with mathematical operators.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;== equality&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;!= non-equality&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&amp;lt; less than&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;blockquote&gt;
+&lt;p&gt;greater than&lt;/p&gt;
+&lt;/blockquote&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&amp;amp; and&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;div class=&#34;line-block&#34;&gt;or&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;In english grammar, filter means removing unwanted material. But in R, we mostly use filter to keep observations, depending on the mathematical operators used.&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;## Dropping obsevations based on the condition of a numeric variable. 
+
+### Let us drop all those who are aged 25 and above
+df2 &amp;lt;- df %&amp;gt;% 
+  filter(Age &amp;lt; 25) ## notice the number is not enclosed in quotes
+
+
+### Let us keep all those who are older than 25, but younger than 40
+df2 &amp;lt;- df %&amp;gt;% 
+  filter(Age &amp;gt;= 25 &amp;amp; Age &amp;lt;40) ## notice the number is not enclosed in quotes
+
+df2 &amp;lt;- df %&amp;gt;% 
+  filter(Age &amp;gt; 30 &amp;amp; Gender == &amp;quot;Female&amp;quot;)
+
+## Dropping obsevations based on the condition of a character/factor variable. 
+### Let us drop all males
+df2 &amp;lt;- df %&amp;gt;% 
+  filter(Gender == &amp;quot;Female&amp;quot;)
+
+df2 &amp;lt;- df %&amp;gt;% 
+  filter(Gender != &amp;quot;Male&amp;quot;)
+
+rm(df2)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;mutate&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;1.3 mutate()&lt;/h3&gt;
+&lt;p&gt;Used for generating variables&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
+## Generating a basic variable.
+df3 &amp;lt;- df %&amp;gt;% 
+  mutate(prop_leavedays = Leave_Days/365)
+
+## Generating a variable, based on the conditions of another variable.
+df3 &amp;lt;- df %&amp;gt;% 
+  mutate(Jinsia = if_else(Gender == &amp;quot;Female&amp;quot;,&amp;quot;Mke&amp;quot;,&amp;quot;Mme&amp;quot;))
+
+rm(df3)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;There are other variations of mutate().
+mutate_all(): Used for implementing the same function on all of the variables.&lt;/p&gt;
+&lt;p&gt;mutate_at(): Used for implementing a function, for specific varibles.
+mutate_if(): Used for implementing a function, on specific variables, if they meet a certain condition.&lt;/p&gt;
+&lt;div id=&#34;mutate_all&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;1.3.1: mutate_all()&lt;/h4&gt;
+&lt;p&gt;The syntax is written as &lt;code&gt;mutate_all(~(function(.)))&lt;/code&gt;. In the function, where a variable name should be inserted, replace that with a “period”, to signify all the variables.
+&lt;br&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;df4 &amp;lt;- df %&amp;gt;% 
+  mutate_all(~paste0(., &amp;quot;_x&amp;quot;))
+
+df4 &amp;lt;- df %&amp;gt;% 
+  mutate_all(tolower)
+
+rm(df4)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;mutate_at&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;1.3.2: mutate_at()&lt;/h4&gt;
+&lt;p&gt;The syntax is written as &lt;code&gt;mutate_at(vars(), funs(.))&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;df4 &amp;lt;- df %&amp;gt;% 
+  mutate_at(vars(Gender, County), tolower)
+
+df4 &amp;lt;- df %&amp;gt;% 
+  mutate_at(vars(Gender, County), funs(paste(.,&amp;quot;x&amp;quot;)))
+
+rm(df4)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;mutate_if&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;1.3.3: mutate_if()&lt;/h4&gt;
+&lt;p&gt;The syntax is written as &lt;code&gt;mutate_if(condition, funs(.))&lt;/code&gt;
+&lt;br&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;df4 &amp;lt;- df %&amp;gt;% 
+  mutate_if(is.numeric, funs(.*100))
+
+df4 &amp;lt;- df %&amp;gt;% 
+  mutate_if(is.character, as.factor)
+
+rm(df4)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;group_by-and-summarise&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;1.4 group_by() and summarise()&lt;/h3&gt;
+&lt;p&gt;Used for generating summary statistics.
+&lt;br&gt;&lt;/p&gt;
+&lt;div id=&#34;summarise&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;1.4.1 summarise()&lt;/h4&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
+tab &amp;lt;- df %&amp;gt;% 
+  group_by(Gender) %&amp;gt;% 
+  count() %&amp;gt;% 
+  rename(Count = n)
+
+tab &amp;lt;- df %&amp;gt;% 
+  group_by(Gender) %&amp;gt;% 
+  summarise(Count = n())
+
+tab &amp;lt;- df %&amp;gt;% 
+  group_by(Department) %&amp;gt;% 
+  summarise(Avg_Income = mean(Income, na.rm = T))
+  &lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;summarise_at&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;1.4.2 summarise_at&lt;/h4&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tab &amp;lt;- df %&amp;gt;% 
+  group_by(County) %&amp;gt;% 
+  summarise_at(vars(Age, Leave_Days, Income), funs(mean(.,na.rm = TRUE)))
+  &lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;summarise_if&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;1.4.3 summarise_if&lt;/h4&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
+tab &amp;lt;- df %&amp;gt;% 
+  group_by(County,Gender) %&amp;gt;% 
+  summarise_if(is.numeric, funs(mean(.,na.rm = TRUE)))&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;arrange&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;1.5 arrange&lt;/h3&gt;
+&lt;p&gt;Used for ordering the data based on certain variables
+&lt;br&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
+df6 &amp;lt;- df %&amp;gt;% 
+  arrange(Gender, Age)
+
+df6 &amp;lt;- df %&amp;gt;% 
+  arrange(Gender, desc(Age))&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;tidyr&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;2. tidyr&lt;/h2&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;## Generatin a dummy dataset
+Year &amp;lt;- c(2010,2011,2012,2013,2014)
+Q1 &amp;lt;-c(1003,1532,954,841,823)
+Q2 &amp;lt;-c(1359,933,992,1434,1034)
+Q3 &amp;lt;-c(1326,904,845,1480,1184)
+Q4 &amp;lt;-c(1122,1479,889,1174,1317)
+
+sales = data.frame(Year,Q1 ,Q2, Q3, Q4)&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;wide-to-long&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;2.1 Wide to long&lt;/h3&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;## Method 1: Using gather()
+
+sales1 &amp;lt;- sales %&amp;gt;% 
+  gather(&amp;quot;Quarters&amp;quot;,&amp;quot;Sales_Values&amp;quot;, -Year, na.rm = TRUE)
+
+## Method 2: Using pivot_longer()
+sales2 &amp;lt;- sales %&amp;gt;% 
+  pivot_longer(-Year, names_to = &amp;quot;Quarters&amp;quot;, values_to = &amp;quot;Sales_Values&amp;quot;,values_drop_na = TRUE)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;long-to-wide&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;2.2 Long to wide&lt;/h3&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
+## Method 1: Using spread()
+sales3 &amp;lt;- sales1 %&amp;gt;% 
+  spread(Quarters, Sales_Values)
+
+## Method 2: Using pivot_wider()
+sales4 &amp;lt;- sales2 %&amp;gt;% 
+  pivot_wider(names_from = &amp;quot;Quarters&amp;quot;, values_from = &amp;quot;Sales_Values&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;ggplot2&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;3. ggplot2&lt;/h2&gt;
+&lt;p&gt;Used for creating beautiful graphs
+&lt;br&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;## Let us create a theme that we will use in this training
+
+training_theme &amp;lt;- theme_hc()+ 
+                  theme(legend.position = &amp;quot;right&amp;quot;, 
+                  legend.direction = &amp;quot;vertical&amp;quot;,
+                  legend.title = element_blank(),
+                  plot.title = element_text( size = rel(1.6), hjust = 0.5),
+                  plot.subtitle = element_text(size = rel(1.5), hjust = 0.5),
+                  axis.text.x = element_text(size =rel(1.5),angle = 0),
+                  axis.text.y = element_text(size =rel(1.5),angle = 0),
+                  axis.title = element_text( size = rel(1.55)),
+                  axis.line.x = element_line(size = 1.5, colour = &amp;quot;black&amp;quot;),
+                  panel.background = element_rect(fill = NA))
+
+rstudio_blue &amp;lt;- &amp;quot;#4AA4DE&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;geom_bar-of-one-variable&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;3.1 geom_bar of one variable&lt;/h3&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
+## Let us generate a graph that sows us the number of individuals per department.
+
+## First come up with the table showing frequencies and percentages.
+
+tab &amp;lt;- df %&amp;gt;% 
+  group_by(Department) %&amp;gt;% 
+  count() %&amp;gt;% 
+  rename(Count = n) %&amp;gt;% 
+  ungroup() %&amp;gt;% 
+  mutate(Percentage = round(Count/ sum(Count) *100,1))
+
+## Generate the graph
+bargraph1 &amp;lt;- ggplot(data = tab, aes(x = Department, y = Percentage))+
+             geom_bar(stat = &amp;quot;identity&amp;quot;, fill = rstudio_blue)+
+             geom_text(aes(label = Percentage), vjust = -0.25, hjust = 0.5, size=4)+
+             training_theme+
+             labs(title = &amp;quot;Distribution of Respondents per Department&amp;quot;, x=&amp;quot;Department&amp;quot;,
+                  y=&amp;quot;Percentage&amp;quot;) 
+
+bargraph1  &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;figs/unnamed-chunk-18-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;geom_bar-of-more-than-one-variable&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;3.2 geom_bar of more than one variable&lt;/h3&gt;
+&lt;p&gt;&lt;br&gt;
+&lt;br&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
+## Let us generate a graph that sows us the number of individuals per department and gender category.
+
+## First come up with the table showing frequencies and percentages.
+
+tab &amp;lt;- df %&amp;gt;% 
+  group_by(Department, Gender) %&amp;gt;% 
+  count() %&amp;gt;% 
+  rename(Count = n) %&amp;gt;% 
+  ungroup() %&amp;gt;% 
+  group_by(Department) %&amp;gt;% 
+  mutate(Percentage = round(Count/ sum(Count) *100,1))
+
+## Generate the graph
+bargraph2 &amp;lt;- ggplot(data = tab, aes(x = Department, y = Percentage, fill=Gender))+
+             geom_bar(stat = &amp;quot;identity&amp;quot;, position = &amp;quot;dodge&amp;quot;)+
+             geom_text(aes(label = Percentage), vjust = -0.25, hjust = 0.5, size=4,position = position_dodge(width = 0.9))+
+             training_theme+
+             scale_fill_brewer(palette = &amp;quot;Blues&amp;quot;)+
+             labs(title = &amp;quot;Distribution of Respondents per Department&amp;quot;, x=&amp;quot;Department&amp;quot;,
+                  y=&amp;quot;Percentage&amp;quot;)
+bargraph2 &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;figs/unnamed-chunk-19-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;geom_line-of-one-variable&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;3.3 geom_line of one variable&lt;/h3&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
+## Let us generate a graph that sows us the average income per department.
+
+## First come up with the table showing frequencies and percentages.
+
+tab &amp;lt;- df %&amp;gt;% 
+  group_by(Department) %&amp;gt;% 
+  summarise(avg_income = round(mean(Income, na.rm = T), 2))
+
+## Generate the graph
+linegraph1 &amp;lt;- ggplot(data = tab, aes(x = Department, y = avg_income, group = 1))+
+             geom_line(stat = &amp;quot;identity&amp;quot;, color = rstudio_blue)+
+             geom_text(aes(label = avg_income), vjust = -0.25, hjust = 0.5, size=4)+
+             training_theme+
+             labs(title = &amp;quot;Distribution of Average Income per Department&amp;quot;, x=&amp;quot;Department&amp;quot;,
+                  y=&amp;quot;Average Income&amp;quot;)
+linegraph1  &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;figs/unnamed-chunk-20-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;geom_line-of-2-variables&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;3.4 geom_line of 2 variables&lt;/h3&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
+## Let us generate a graph that sows us the average income per department and gender.
+
+## First come up with the table showing frequencies and percentages.
+
+tab &amp;lt;- df %&amp;gt;% 
+  group_by(Department, Gender) %&amp;gt;% 
+  summarise(avg_income = round(mean(Income, na.rm = T), 2))
+
+## Generate the graph
+linegraph2 &amp;lt;- ggplot(data = tab, aes(x = Department, y = avg_income, group = Gender, color = Gender))+
+             geom_line(stat = &amp;quot;identity&amp;quot;, size = 2)+
+             training_theme+
+             scale_color_manual(values = c(&amp;quot;Yellow&amp;quot;, &amp;quot;Red&amp;quot;))+
+             labs(title = &amp;quot;Distribution of Average Income per Department&amp;quot;, x=&amp;quot;Department&amp;quot;,
+                  y=&amp;quot;Average Income&amp;quot;)
+linegraph2  &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;figs/unnamed-chunk-21-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;geom_boxplot-of-one-variable&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;3.5 geom_boxplot of one variable&lt;/h3&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
+## Let us generate a graph that sows us the average income per department.
+
+## Generate the graph
+boxplot1 &amp;lt;- ggplot(data = df, aes(x = Department, y = Income))+
+             geom_boxplot( fill = rstudio_blue)+
+             training_theme+
+             labs(title = &amp;quot;Distribution of Average Income per Department&amp;quot;, x=&amp;quot;Department&amp;quot;,
+                  y=&amp;quot;Average Income&amp;quot;)
+boxplot1  &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;figs/unnamed-chunk-22-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;geom_boxplot-of-two-variables&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;3.6 geom_boxplot of two variables&lt;/h3&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
+## Let us generate a graph that sows us the average income per department and gender.
+
+## Generate the graph
+boxplot2 &amp;lt;- ggplot(data = df, aes(x = Department, y = Income, fill = Gender))+
+             geom_boxplot()+
+             training_theme+
+             scale_fill_brewer(palette = &amp;quot;Blues&amp;quot;)+
+             labs(title = &amp;quot;Distribution of Average Income per Department&amp;quot;, x=&amp;quot;Department&amp;quot;,
+                  y=&amp;quot;Average Income&amp;quot;)
+boxplot2  &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;figs/unnamed-chunk-23-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;geom_area-of-one-variable&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;3.7 geom_area of one variable&lt;/h3&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
+## Let us generate a graph that sows us the average income per department and gender.
+
+## Generate the graph
+area1 &amp;lt;- ggplot(data = df, aes(x = Income))+
+             geom_area(stat = &amp;quot;bin&amp;quot;, fill = rstudio_blue)+
+             training_theme+
+             labs(title = &amp;quot;Distribution of Average Income&amp;quot;, x=&amp;quot;Income&amp;quot;,
+                  y=&amp;quot;Count&amp;quot;)
+area1  &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;figs/unnamed-chunk-24-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;geom_area-of-two-variables&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;3.8 geom_area of two variables&lt;/h3&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
+## Let us generate a graph that sows us the average income per department and gender.
+
+## Generate the graph
+area2 &amp;lt;- ggplot(data = df, aes(x = Income, fill = Gender))+
+             geom_area(stat = &amp;quot;bin&amp;quot;)+
+             training_theme+
+             scale_fill_brewer(palette = &amp;quot;Blues&amp;quot;)+
+             labs(title = &amp;quot;Distribution of Average Income&amp;quot;, x=&amp;quot;Income&amp;quot;,
+                  y=&amp;quot;Count&amp;quot;)
+area2  &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;figs/unnamed-chunk-25-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;geom_histogram-of-one-variable&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;3.9 geom_histogram of one variable&lt;/h3&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
+## Let us generate a graph that sows us the average income per department and gender.
+
+## Generate the graph
+hist1 &amp;lt;- ggplot(data = df, aes(x = Income))+
+             geom_histogram(stat = &amp;quot;bin&amp;quot;, fill = rstudio_blue)+
+             training_theme+
+             labs(title = &amp;quot;Distribution of Average Income&amp;quot;, x=&amp;quot;Income&amp;quot;,
+                  y=&amp;quot;Count&amp;quot;)
+hist1  &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;figs/unnamed-chunk-26-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;geom_histogram-of-two-variables&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;3.10 geom_histogram of two variables&lt;/h3&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
+## Let us generate a graph that sows us the average income per department and gender.
+
+## Generate the graph
+hist2 &amp;lt;- ggplot(data = df, aes(x = Income, fill = Gender))+
+             geom_histogram(stat = &amp;quot;bin&amp;quot;)+
+             training_theme+
+             scale_fill_brewer(palette = &amp;quot;Blues&amp;quot;)+
+             labs(title = &amp;quot;Distribution of Average Income&amp;quot;, x=&amp;quot;Income&amp;quot;,
+                  y=&amp;quot;Count&amp;quot;)
+hist2  &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;figs/unnamed-chunk-27-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

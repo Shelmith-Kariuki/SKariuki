@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en-us">
+<!DOCTYPE html><html lang="en-us" >
 
 <head>
 
@@ -21,7 +20,7 @@
   
   
 
-  <meta name="author" content="Shelmith Nyagathiri Kariuki">
+  
 
   
   
@@ -210,6 +209,9 @@
 
 
   
+  
+
+  
   <link rel="alternate" href="/tags/r/index.xml" type="application/rss+xml" title="Shel Kariuki">
   
 
@@ -219,6 +221,8 @@
 
   <link rel="canonical" href="/tags/r/">
 
+  
+  
   
   
   
@@ -247,36 +251,6 @@
 
 
   
-  
-  
-  
-  
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.1/cookieconsent.min.js" integrity="sha256-5VhCqFam2Cn+yjw61zbBNrbHVJ6SRydPeKopYlngbiQ=" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.1/cookieconsent.min.css" integrity="sha256-zQ0LblD/Af8vOppw18+2anxsuaz3pWYyVWi+bTvTH8Q=" crossorigin="anonymous">
-  
-  <script>
-  window.addEventListener("load", function(){
-    window.cookieconsent.initialise({
-      "palette": {
-        "popup": {
-          "background": "#ff3860",
-          "text": "#fff"
-        },
-        "button": {
-          "background": "#fff",
-          "text": "#ff3860"
-        }
-      },
-      "theme": "classic",
-      "content": {
-        "message": "This website uses cookies to ensure you get the best experience on our website.",
-        "dismiss": "Got it!",
-        "link": "Learn more",
-        "href": "/privacy/"
-      }
-    })});
-  </script>
-
 
 
   
@@ -335,6 +309,10 @@
   <div class="container">
 
     
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="/">Shel Kariuki</a>
+    </div>
+    
 
     
     <button type="button" class="navbar-toggler" data-toggle="collapse"
@@ -343,6 +321,10 @@
     </button>
     
 
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="/">Shel Kariuki</a>
+    </div>
     
 
     
@@ -396,16 +378,9 @@
         
         
         
-          
-          
-          
-            
-          
-          
-        
 
         <li class="nav-item">
-          <a class="nav-link " href="/#blog"><span>Blog</span></a>
+          <a class="nav-link " href="/blogspage"><span>Blog</span></a>
         </li>
 
         
@@ -425,103 +400,9 @@
         
         
         
-          
-          
-          
-            
-          
-          
-        
 
         <li class="nav-item">
-          <a class="nav-link " href="/#projects"><span>Projects</span></a>
-        </li>
-
-        
-        
-
-        
-
-        
-        
-        
-          
-        
-
-        
-        
-        
-        
-        
-        
-          
-          
-          
-            
-          
-          
-        
-
-        <li class="nav-item">
-          <a class="nav-link " href="/#posts"><span>Code Work</span></a>
-        </li>
-
-        
-        
-
-        
-
-        
-        
-        
-          
-        
-
-        
-        
-        
-        
-        
-        
-          
-          
-          
-            
-          
-          
-        
-
-        <li class="nav-item">
-          <a class="nav-link " href="/#talks"><span>Talks & Trainings</span></a>
-        </li>
-
-        
-        
-
-        
-
-        
-        
-        
-          
-        
-
-        
-        
-        
-        
-        
-        
-          
-          
-          
-            
-          
-          
-        
-
-        <li class="nav-item">
-          <a class="nav-link " href="/#contact"><span>Contact</span></a>
+          <a class="nav-link " href="/contactpage"><span>Contact</span></a>
         </li>
 
         
@@ -558,13 +439,26 @@
     <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
       
       <li class="nav-item">
-        <a class="nav-link js-search" href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
+        <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
       </li>
       
 
       
-      <li class="nav-item">
-        <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
+      <li class="nav-item dropdown theme-dropdown">
+        <a href="#" class="nav-link js-theme-selector" data-toggle="dropdown" aria-haspopup="true">
+          <i class="fas fa-palette" aria-hidden="true"></i>
+        </a>
+        <div class="dropdown-menu">
+          <a href="#" class="dropdown-item js-set-theme-light">
+            <span>Light</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-dark">
+            <span>Dark</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-auto">
+            <span>Automatic</span>
+          </a>
+        </div>
       </li>
       
 
@@ -615,6 +509,19 @@
     
     
     <div>
+      <h2><a href="/myproject/mi/" >Marketing Intelligence</a></h2>
+      <div class="article-style">
+        
+          Company_XXX is an online company that meets the growing demand for independent travel information. It offers an extensive hotel meta search to travellers.
+The following document details results from the ‘Marketing Intelligence’ data task.
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div>
       <h2><a href="/project/mi/" >Marketing Intelligence</a></h2>
       <div class="article-style">
         
@@ -628,10 +535,37 @@ The following document details results from the ‘Marketing Intelligence’ dat
     
     
     <div>
+      <h2><a href="/myproject/eb/" >Web Analytics</a></h2>
+      <div class="article-style">
+        
+          Company_XXX is an online company that meets the growing demand for independent travel information. it offers an extensive hotel meta search to travellers.
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div>
       <h2><a href="/project/eb/" >Web Analytics</a></h2>
       <div class="article-style">
         
           Company_XXX is an online company that meets the growing demand for independent travel information. it offers an extensive hotel meta search to travellers.
+        
+      </div>
+    </div>
+  
+    
+    
+    
+      
+      
+    
+    <div>
+      <h2><a href="https://medium.com/busara-center-blog/off-the-record-6-a-game-to-measure-honesty-9b4238596f49" target="_blank" rel="noopener">A game to measure honesty</a></h2>
+      <div class="article-style">
+        
+          And the measures which help to decrease lying.
         
       </div>
     </div>
@@ -673,6 +607,21 @@ The following document details results from the ‘Marketing Intelligence’ dat
       
     
     <div>
+      <h2><a href="https://mercycorpsagrifin.org/wp-content/uploads/2019/08/AFA_AgroCares_SoilTestingReport_compressed.pdf" target="_blank" rel="noopener">Improving Soil testing among small holder farmers.</a></h2>
+      <div class="article-style">
+        
+          Data Analytics.
+        
+      </div>
+    </div>
+  
+    
+    
+    
+      
+      
+    
+    <div>
       <h2><a href="https://medium.com/busara-center-blog/off-the-record-9-the-benefits-of-development-with-dignity-1d1bc0e492e2" target="_blank" rel="noopener">The benefits of development with dignity</a></h2>
       <div class="article-style">
         
@@ -688,45 +637,25 @@ The following document details results from the ‘Marketing Intelligence’ dat
       
     
     <div>
-      <h2><a href="https://www.thehumanaccount.com/" target="_blank" rel="noopener">The Human Account</a></h2>
+      <h2><a href="https://medium.com/busara-center-blog/off-the-record-9-the-benefits-of-development-with-dignity-1d1bc0e492e2" target="_blank" rel="noopener">The benefits of development with dignity</a></h2>
       <div class="article-style">
         
-          Understanding customers in emerging markets, through a three-dimensional research framework that reveals the contextual, behavioral, and psychological dimensions of their financial lives.
-        
-      </div>
-    </div>
-  
-    
-    
-    
-      
-      
-    
-    <div>
-      <h2><a href="https://medium.com/busara-center-blog/off-the-record-7-understanding-agent-networks-cc8dab85b711" target="_blank" rel="noopener">Understanding agent networks</a></h2>
-      <div class="article-style">
-        
-          Incentives and Identity.
-        
-      </div>
-    </div>
-  
-    
-    
-    
-    <div>
-      <h2><a href="/post/passa/" >Rstudio Tidyverse Certified Trainer Preparation Script</a></h2>
-      <div class="article-style">
-        
-          Tidyverse is a collection of R packages designed for data science. The packages that are included in tidyverse include:
- readr: Used for reading in datasets into R.
- dplyr: Used for data manipulation.
+          Is disrespectful treatment of participants a pressing problem in aid?.
         
       </div>
     </div>
   
 
   
+<nav>
+  <ul class="pagination justify-content-center">
+    
+    
+    <li class="page-item"><a class="page-link" href="/tags/r/page/2/">&raquo;</a></li>
+    
+  </ul>
+</nav>
+
 
 </div>
 
@@ -735,7 +664,7 @@ The following document details results from the ‘Marketing Intelligence’ dat
     
     
     
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
@@ -780,7 +709,8 @@ The following document details results from the ‘Marketing Intelligence’ dat
         'post': "Posts",
         'project': "Projects",
         'publication' : "Publications",
-        'talk' : "Talks"
+        'talk' : "Talks",
+        'slides' : "Slides"
         };
     </script>
     
@@ -817,6 +747,9 @@ The following document details results from the ‘Marketing Intelligence’ dat
 
     
     
+
+    
+    
     
     
     
@@ -829,7 +762,7 @@ The following document details results from the ‘Marketing Intelligence’ dat
     
     
     
-    <script src="/js/academic.min.c816d323c3a55093dae0829b44ea1ca8.js"></script>
+    <script src="/js/academic.min.37431be2d92d7fb0160054761ab79602.js"></script>
 
     
 
@@ -856,7 +789,17 @@ The following document details results from the ‘Marketing Intelligence’ dat
 
   <p class="powered-by">
     
+  </p>
 
+  
+  
+
+
+
+
+
+
+  <p class="powered-by">
     Powered by the
     <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
     <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.

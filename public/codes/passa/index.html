@@ -1,0 +1,1482 @@
+<!DOCTYPE html><html lang="en-us" >
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.8.0">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  
+
+  
+  
+  
+    
+  
+  <meta name="description" content="Tidyverse is a collection of R packages designed for data science. The packages that are included in tidyverse include:
+ readr: Used for reading in datasets into R.
+ dplyr: Used for data manipulation.">
+
+  
+  <link rel="alternate" hreflang="en-us" href="/codes/passa/">
+
+  
+
+
+  
+  
+  
+  <meta name="theme-color" content="#ff3860">
+  
+
+  
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-1/css/all.min.css" integrity="sha256-4w9DunooKSr3MFXHXWyFER38WmPdm361bQS/2KUWZbU=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/github.min.css" crossorigin="anonymous" title="hl-light">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+        
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.css" integrity="sha256-SHMGCYmST46SoyGgo4YR/9AlK1vf3ff84Aq9yK4hdqM=" crossorigin="anonymous">
+    
+
+    
+
+    
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js" integrity="sha256-Md1qLToewPeKjfAHU1zyPwOutccPAm5tahnaw7Osw0A=" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+        
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cutive+Mono%7CLora:400,700%7CRoboto:400,700&display=swap">
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/academic.css">
+
+  
+
+
+
+
+  
+
+
+  
+  
+
+  
+
+  <link rel="manifest" href="/index.webmanifest">
+  <link rel="icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_2.png">
+  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_2.png">
+
+  <link rel="canonical" href="/codes/passa/">
+
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  <meta property="twitter:card" content="summary_large_image">
+  
+  <meta property="twitter:site" content="@Shel_Kariuki">
+  <meta property="twitter:creator" content="@Shel_Kariuki">
+  
+  <meta property="og:site_name" content="Shel Kariuki">
+  <meta property="og:url" content="/codes/passa/">
+  <meta property="og:title" content="Rstudio Tidyverse Certified Trainer Preparation Script | Shel Kariuki">
+  <meta property="og:description" content="Tidyverse is a collection of R packages designed for data science. The packages that are included in tidyverse include:
+ readr: Used for reading in datasets into R.
+ dplyr: Used for data manipulation."><meta property="og:image" content="img/avatar.jpg">
+  <meta property="twitter:image" content="img/avatar.jpg"><meta property="og:locale" content="en-us">
+  
+    
+    
+  
+
+  
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+  <title>Rstudio Tidyverse Certified Trainer Preparation Script | Shel Kariuki</title>
+
+</head>
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" >
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="/">Shel Kariuki</a>
+    </div>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="/">Shel Kariuki</a>
+    </div>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-end" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about"><span>About</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/blogspage"><span>Blog</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/contactpage"><span>Contact</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/files/cv.pdf"><span>CV</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      <li class="nav-item dropdown theme-dropdown">
+        <a href="#" class="nav-link js-theme-selector" data-toggle="dropdown" aria-haspopup="true">
+          <i class="fas fa-palette" aria-hidden="true"></i>
+        </a>
+        <div class="dropdown-menu">
+          <a href="#" class="dropdown-item js-set-theme-light">
+            <span>Light</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-dark">
+            <span>Dark</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-auto">
+            <span>Automatic</span>
+          </a>
+        </div>
+      </li>
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1>Rstudio Tidyverse Certified Trainer Preparation Script</h1>
+
+  
+
+  
+    
+
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    Jan 1, 0001
+  </span>
+  
+
+  
+
+  
+
+  
+  
+  
+
+  
+  
+
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      
+
+
+<p>Tidyverse is a collection of R packages designed for data science. The packages that are included in tidyverse include:</p>
+<ul>
+<li><p>readr: Used for reading in datasets into R.</p></li>
+<li><p>dplyr: Used for data manipulation.</p></li>
+<li><p>tidyr: Used for cleaning messy datasets.</p></li>
+<li><p>ggplot2: Used for generating graphs.</p></li>
+<li><p>forcats: Used for manipulating factor variables in R.</p></li>
+<li><p>lubridate: Used for working with dates</p></li>
+<li><p>tibble: Creates simple dataframes.</p></li>
+<li><p>stringr: Used for manipulating strings.</p></li>
+<li><p>purrr: USed for functional programming.</p></li>
+</ul>
+<div id="load-the-packages-required" class="section level2">
+<h2>Load the packages required</h2>
+<pre class="r"><code>#install.packages(&quot;tidyverse&quot;)
+library(tidyverse)
+library(rChambua)## Contains the dataset that we will use in this script (Wafanyikazi dataset)</code></pre>
+<p><br></p>
+<pre class="r"><code>### 0.1 Install the libraries required
+## Create a vector of packages to be installed
+pkgs &lt;- c(&quot;tidyverse&quot;,&quot;data.table&quot;,&quot;DT&quot;,&quot;lubridate&quot;,&quot;ggthemes&quot;,&quot;randomForest&quot;,&quot;readODS&quot;,&quot;ggcorrplot&quot;)
+
+## Check if there are packages you want to load, that are not already installed. 
+miss_pkgs &lt;- pkgs[!pkgs %in% installed.packages()[,1]] 
+
+## Installing the missing packages
+if(length(miss_pkgs)&gt;0){
+  install.packages(miss_pkgs)
+}
+## Loading all the packages
+invisible(lapply(pkgs,library,character.only=TRUE))
+
+## Remove the objects that are no longer required
+rm(miss_pkgs)
+rm(pkgs)</code></pre>
+</div>
+<div id="read-in-the-wafanyikazi-dataset" class="section level2">
+<h2>Read in the wafanyikazi dataset</h2>
+<p><br></p>
+<pre class="r"><code>
+df &lt;- wafanyikazi
+
+#df &lt;- read_csv(&quot;&quot;)</code></pre>
+</div>
+<div id="dplyr" class="section level2">
+<h2>1. dplyr</h2>
+<p>Contains several functions, which we will look at one by one.</p>
+<div id="select" class="section level3">
+<h3>1.1 select()</h3>
+<p>Used for picking and dropping variables.
+<br></p>
+<pre class="r"><code>
+## Picking variables.
+
+df1 &lt;- df %&gt;% 
+  select(Sid,Gender, Age)
+
+## Dropping variables.
+### When dopping variables, you insert a hyphen in front of the variable name.
+
+df1 &lt;- df %&gt;% 
+  select(-Sid, -Promotion)
+
+## Picking or dropping variables acording to a given pattern.
+
+df1 &lt;- df %&gt;% 
+  select(contains(&quot;f&quot;)) ## Picking variables that contains letter e.
+
+df1 &lt;- df %&gt;% 
+  select(-ends_with(&quot;t&quot;))
+
+## Picking a sequence of variables that appear together.
+
+df1 &lt;- df %&gt;% 
+  select(Sid:Marital_Status)
+
+rm(df1)</code></pre>
+</div>
+<div id="filter" class="section level3">
+<h3>1.2 filter()</h3>
+<p>Used for picking values.</p>
+<p>filter works with mathematical operators.</p>
+<ul>
+<li><p>== equality</p></li>
+<li><p>!= non-equality</p></li>
+<li><p>&lt; less than</p></li>
+<li><blockquote>
+<p>greater than</p>
+</blockquote></li>
+<li><p>&amp; and</p></li>
+<li><div class="line-block">or</div></li>
+</ul>
+<p>In english grammar, filter means removing unwanted material. But in R, we mostly use filter to keep observations, depending on the mathematical operators used.</p>
+<p><br></p>
+<pre class="r"><code>## Dropping obsevations based on the condition of a numeric variable. 
+
+### Let us drop all those who are aged 25 and above
+df2 &lt;- df %&gt;% 
+  filter(Age &lt; 25) ## notice the number is not enclosed in quotes
+
+
+### Let us keep all those who are older than 25, but younger than 40
+df2 &lt;- df %&gt;% 
+  filter(Age &gt;= 25 &amp; Age &lt;40) ## notice the number is not enclosed in quotes
+
+df2 &lt;- df %&gt;% 
+  filter(Age &gt; 30 &amp; Gender == &quot;Female&quot;)
+
+## Dropping obsevations based on the condition of a character/factor variable. 
+### Let us drop all males
+df2 &lt;- df %&gt;% 
+  filter(Gender == &quot;Female&quot;)
+
+df2 &lt;- df %&gt;% 
+  filter(Gender != &quot;Male&quot;)
+
+rm(df2)</code></pre>
+</div>
+<div id="mutate" class="section level3">
+<h3>1.3 mutate()</h3>
+<p>Used for generating variables</p>
+<pre class="r"><code>
+## Generating a basic variable.
+df3 &lt;- df %&gt;% 
+  mutate(prop_leavedays = Leave_Days/365)
+
+## Generating a variable, based on the conditions of another variable.
+df3 &lt;- df %&gt;% 
+  mutate(Jinsia = if_else(Gender == &quot;Female&quot;,&quot;Mke&quot;,&quot;Mme&quot;))
+
+rm(df3)</code></pre>
+<p>There are other variations of mutate().
+mutate_all(): Used for implementing the same function on all of the variables.</p>
+<p>mutate_at(): Used for implementing a function, for specific varibles.
+mutate_if(): Used for implementing a function, on specific variables, if they meet a certain condition.</p>
+<div id="mutate_all" class="section level4">
+<h4>1.3.1: mutate_all()</h4>
+<p>The syntax is written as <code>mutate_all(~(function(.)))</code>. In the function, where a variable name should be inserted, replace that with a “period”, to signify all the variables.
+<br></p>
+<pre class="r"><code>df4 &lt;- df %&gt;% 
+  mutate_all(~paste0(., &quot;_x&quot;))
+
+df4 &lt;- df %&gt;% 
+  mutate_all(tolower)
+
+rm(df4)</code></pre>
+</div>
+<div id="mutate_at" class="section level4">
+<h4>1.3.2: mutate_at()</h4>
+<p>The syntax is written as <code>mutate_at(vars(), funs(.))</code></p>
+<p><br></p>
+<pre class="r"><code>df4 &lt;- df %&gt;% 
+  mutate_at(vars(Gender, County), tolower)
+
+df4 &lt;- df %&gt;% 
+  mutate_at(vars(Gender, County), funs(paste(.,&quot;x&quot;)))
+
+rm(df4)</code></pre>
+<p><br></p>
+</div>
+<div id="mutate_if" class="section level4">
+<h4>1.3.3: mutate_if()</h4>
+<p>The syntax is written as <code>mutate_if(condition, funs(.))</code>
+<br></p>
+<pre class="r"><code>df4 &lt;- df %&gt;% 
+  mutate_if(is.numeric, funs(.*100))
+
+df4 &lt;- df %&gt;% 
+  mutate_if(is.character, as.factor)
+
+rm(df4)</code></pre>
+</div>
+</div>
+<div id="group_by-and-summarise" class="section level3">
+<h3>1.4 group_by() and summarise()</h3>
+<p>Used for generating summary statistics.
+<br></p>
+<div id="summarise" class="section level4">
+<h4>1.4.1 summarise()</h4>
+<pre class="r"><code>
+tab &lt;- df %&gt;% 
+  group_by(Gender) %&gt;% 
+  count() %&gt;% 
+  rename(Count = n)
+
+tab &lt;- df %&gt;% 
+  group_by(Gender) %&gt;% 
+  summarise(Count = n())
+
+tab &lt;- df %&gt;% 
+  group_by(Department) %&gt;% 
+  summarise(Avg_Income = mean(Income, na.rm = T))
+  </code></pre>
+</div>
+<div id="summarise_at" class="section level4">
+<h4>1.4.2 summarise_at</h4>
+<p><br></p>
+<pre class="r"><code>tab &lt;- df %&gt;% 
+  group_by(County) %&gt;% 
+  summarise_at(vars(Age, Leave_Days, Income), funs(mean(.,na.rm = TRUE)))
+  </code></pre>
+</div>
+<div id="summarise_if" class="section level4">
+<h4>1.4.3 summarise_if</h4>
+<p><br></p>
+<pre class="r"><code>
+tab &lt;- df %&gt;% 
+  group_by(County,Gender) %&gt;% 
+  summarise_if(is.numeric, funs(mean(.,na.rm = TRUE)))</code></pre>
+</div>
+</div>
+<div id="arrange" class="section level3">
+<h3>1.5 arrange</h3>
+<p>Used for ordering the data based on certain variables
+<br></p>
+<pre class="r"><code>
+df6 &lt;- df %&gt;% 
+  arrange(Gender, Age)
+
+df6 &lt;- df %&gt;% 
+  arrange(Gender, desc(Age))</code></pre>
+</div>
+</div>
+<div id="tidyr" class="section level2">
+<h2>2. tidyr</h2>
+<p><br></p>
+<pre class="r"><code>## Generatin a dummy dataset
+Year &lt;- c(2010,2011,2012,2013,2014)
+Q1 &lt;-c(1003,1532,954,841,823)
+Q2 &lt;-c(1359,933,992,1434,1034)
+Q3 &lt;-c(1326,904,845,1480,1184)
+Q4 &lt;-c(1122,1479,889,1174,1317)
+
+sales = data.frame(Year,Q1 ,Q2, Q3, Q4)</code></pre>
+<div id="wide-to-long" class="section level3">
+<h3>2.1 Wide to long</h3>
+<p><br></p>
+<pre class="r"><code>## Method 1: Using gather()
+
+sales1 &lt;- sales %&gt;% 
+  gather(&quot;Quarters&quot;,&quot;Sales_Values&quot;, -Year, na.rm = TRUE)
+
+## Method 2: Using pivot_longer()
+sales2 &lt;- sales %&gt;% 
+  pivot_longer(-Year, names_to = &quot;Quarters&quot;, values_to = &quot;Sales_Values&quot;,values_drop_na = TRUE)</code></pre>
+</div>
+<div id="long-to-wide" class="section level3">
+<h3>2.2 Long to wide</h3>
+<p><br></p>
+<pre class="r"><code>
+## Method 1: Using spread()
+sales3 &lt;- sales1 %&gt;% 
+  spread(Quarters, Sales_Values)
+
+## Method 2: Using pivot_wider()
+sales4 &lt;- sales2 %&gt;% 
+  pivot_wider(names_from = &quot;Quarters&quot;, values_from = &quot;Sales_Values&quot;)</code></pre>
+</div>
+</div>
+<div id="ggplot2" class="section level2">
+<h2>3. ggplot2</h2>
+<p>Used for creating beautiful graphs
+<br></p>
+<pre class="r"><code>## Let us create a theme that we will use in this training
+
+training_theme &lt;- theme_hc()+ 
+                  theme(legend.position = &quot;right&quot;, 
+                  legend.direction = &quot;vertical&quot;,
+                  legend.title = element_blank(),
+                  plot.title = element_text( size = rel(1.6), hjust = 0.5),
+                  plot.subtitle = element_text(size = rel(1.5), hjust = 0.5),
+                  axis.text.x = element_text(size =rel(1.5),angle = 0),
+                  axis.text.y = element_text(size =rel(1.5),angle = 0),
+                  axis.title = element_text( size = rel(1.55)),
+                  axis.line.x = element_line(size = 1.5, colour = &quot;black&quot;),
+                  panel.background = element_rect(fill = NA))
+
+rstudio_blue &lt;- &quot;#4AA4DE&quot;</code></pre>
+<div id="geom_bar-of-one-variable" class="section level3">
+<h3>3.1 geom_bar of one variable</h3>
+<p><br></p>
+<pre class="r"><code>
+## Let us generate a graph that sows us the number of individuals per department.
+
+## First come up with the table showing frequencies and percentages.
+
+tab &lt;- df %&gt;% 
+  group_by(Department) %&gt;% 
+  count() %&gt;% 
+  rename(Count = n) %&gt;% 
+  ungroup() %&gt;% 
+  mutate(Percentage = round(Count/ sum(Count) *100,1))
+
+## Generate the graph
+bargraph1 &lt;- ggplot(data = tab, aes(x = Department, y = Percentage))+
+             geom_bar(stat = &quot;identity&quot;, fill = rstudio_blue)+
+             geom_text(aes(label = Percentage), vjust = -0.25, hjust = 0.5, size=4)+
+             training_theme+
+             labs(title = &quot;Distribution of Respondents per Department&quot;, x=&quot;Department&quot;,
+                  y=&quot;Percentage&quot;) 
+
+bargraph1  </code></pre>
+<p><img src="figs/unnamed-chunk-18-1.png" width="1152" /></p>
+</div>
+<div id="geom_bar-of-more-than-one-variable" class="section level3">
+<h3>3.2 geom_bar of more than one variable</h3>
+<p><br>
+<br></p>
+<pre class="r"><code>
+## Let us generate a graph that sows us the number of individuals per department and gender category.
+
+## First come up with the table showing frequencies and percentages.
+
+tab &lt;- df %&gt;% 
+  group_by(Department, Gender) %&gt;% 
+  count() %&gt;% 
+  rename(Count = n) %&gt;% 
+  ungroup() %&gt;% 
+  group_by(Department) %&gt;% 
+  mutate(Percentage = round(Count/ sum(Count) *100,1))
+
+## Generate the graph
+bargraph2 &lt;- ggplot(data = tab, aes(x = Department, y = Percentage, fill=Gender))+
+             geom_bar(stat = &quot;identity&quot;, position = &quot;dodge&quot;)+
+             geom_text(aes(label = Percentage), vjust = -0.25, hjust = 0.5, size=4,position = position_dodge(width = 0.9))+
+             training_theme+
+             scale_fill_brewer(palette = &quot;Blues&quot;)+
+             labs(title = &quot;Distribution of Respondents per Department&quot;, x=&quot;Department&quot;,
+                  y=&quot;Percentage&quot;)
+bargraph2 </code></pre>
+<p><img src="figs/unnamed-chunk-19-1.png" width="1152" /></p>
+</div>
+<div id="geom_line-of-one-variable" class="section level3">
+<h3>3.3 geom_line of one variable</h3>
+<p><br></p>
+<pre class="r"><code>
+## Let us generate a graph that sows us the average income per department.
+
+## First come up with the table showing frequencies and percentages.
+
+tab &lt;- df %&gt;% 
+  group_by(Department) %&gt;% 
+  summarise(avg_income = round(mean(Income, na.rm = T), 2))
+
+## Generate the graph
+linegraph1 &lt;- ggplot(data = tab, aes(x = Department, y = avg_income, group = 1))+
+             geom_line(stat = &quot;identity&quot;, color = rstudio_blue)+
+             geom_text(aes(label = avg_income), vjust = -0.25, hjust = 0.5, size=4)+
+             training_theme+
+             labs(title = &quot;Distribution of Average Income per Department&quot;, x=&quot;Department&quot;,
+                  y=&quot;Average Income&quot;)
+linegraph1  </code></pre>
+<p><img src="figs/unnamed-chunk-20-1.png" width="1152" /></p>
+</div>
+<div id="geom_line-of-2-variables" class="section level3">
+<h3>3.4 geom_line of 2 variables</h3>
+<p><br></p>
+<pre class="r"><code>
+## Let us generate a graph that sows us the average income per department and gender.
+
+## First come up with the table showing frequencies and percentages.
+
+tab &lt;- df %&gt;% 
+  group_by(Department, Gender) %&gt;% 
+  summarise(avg_income = round(mean(Income, na.rm = T), 2))
+
+## Generate the graph
+linegraph2 &lt;- ggplot(data = tab, aes(x = Department, y = avg_income, group = Gender, color = Gender))+
+             geom_line(stat = &quot;identity&quot;, size = 2)+
+             training_theme+
+             scale_color_manual(values = c(&quot;Yellow&quot;, &quot;Red&quot;))+
+             labs(title = &quot;Distribution of Average Income per Department&quot;, x=&quot;Department&quot;,
+                  y=&quot;Average Income&quot;)
+linegraph2  </code></pre>
+<p><img src="figs/unnamed-chunk-21-1.png" width="1152" /></p>
+</div>
+<div id="geom_boxplot-of-one-variable" class="section level3">
+<h3>3.5 geom_boxplot of one variable</h3>
+<p><br></p>
+<pre class="r"><code>
+## Let us generate a graph that sows us the average income per department.
+
+## Generate the graph
+boxplot1 &lt;- ggplot(data = df, aes(x = Department, y = Income))+
+             geom_boxplot( fill = rstudio_blue)+
+             training_theme+
+             labs(title = &quot;Distribution of Average Income per Department&quot;, x=&quot;Department&quot;,
+                  y=&quot;Average Income&quot;)
+boxplot1  </code></pre>
+<p><img src="figs/unnamed-chunk-22-1.png" width="1152" /></p>
+</div>
+<div id="geom_boxplot-of-two-variables" class="section level3">
+<h3>3.6 geom_boxplot of two variables</h3>
+<p><br></p>
+<pre class="r"><code>
+## Let us generate a graph that sows us the average income per department and gender.
+
+## Generate the graph
+boxplot2 &lt;- ggplot(data = df, aes(x = Department, y = Income, fill = Gender))+
+             geom_boxplot()+
+             training_theme+
+             scale_fill_brewer(palette = &quot;Blues&quot;)+
+             labs(title = &quot;Distribution of Average Income per Department&quot;, x=&quot;Department&quot;,
+                  y=&quot;Average Income&quot;)
+boxplot2  </code></pre>
+<p><img src="figs/unnamed-chunk-23-1.png" width="1152" /></p>
+</div>
+<div id="geom_area-of-one-variable" class="section level3">
+<h3>3.7 geom_area of one variable</h3>
+<p><br></p>
+<pre class="r"><code>
+## Let us generate a graph that sows us the average income per department and gender.
+
+## Generate the graph
+area1 &lt;- ggplot(data = df, aes(x = Income))+
+             geom_area(stat = &quot;bin&quot;, fill = rstudio_blue)+
+             training_theme+
+             labs(title = &quot;Distribution of Average Income&quot;, x=&quot;Income&quot;,
+                  y=&quot;Count&quot;)
+area1  </code></pre>
+<p><img src="figs/unnamed-chunk-24-1.png" width="1152" /></p>
+</div>
+<div id="geom_area-of-two-variables" class="section level3">
+<h3>3.8 geom_area of two variables</h3>
+<p><br></p>
+<pre class="r"><code>
+## Let us generate a graph that sows us the average income per department and gender.
+
+## Generate the graph
+area2 &lt;- ggplot(data = df, aes(x = Income, fill = Gender))+
+             geom_area(stat = &quot;bin&quot;)+
+             training_theme+
+             scale_fill_brewer(palette = &quot;Blues&quot;)+
+             labs(title = &quot;Distribution of Average Income&quot;, x=&quot;Income&quot;,
+                  y=&quot;Count&quot;)
+area2  </code></pre>
+<p><img src="figs/unnamed-chunk-25-1.png" width="1152" /></p>
+</div>
+<div id="geom_histogram-of-one-variable" class="section level3">
+<h3>3.9 geom_histogram of one variable</h3>
+<p><br></p>
+<pre class="r"><code>
+## Let us generate a graph that sows us the average income per department and gender.
+
+## Generate the graph
+hist1 &lt;- ggplot(data = df, aes(x = Income))+
+             geom_histogram(stat = &quot;bin&quot;, fill = rstudio_blue)+
+             training_theme+
+             labs(title = &quot;Distribution of Average Income&quot;, x=&quot;Income&quot;,
+                  y=&quot;Count&quot;)
+hist1  </code></pre>
+<p><img src="figs/unnamed-chunk-26-1.png" width="1152" /></p>
+</div>
+<div id="geom_histogram-of-two-variables" class="section level3">
+<h3>3.10 geom_histogram of two variables</h3>
+<p><br></p>
+<pre class="r"><code>
+## Let us generate a graph that sows us the average income per department and gender.
+
+## Generate the graph
+hist2 &lt;- ggplot(data = df, aes(x = Income, fill = Gender))+
+             geom_histogram(stat = &quot;bin&quot;)+
+             training_theme+
+             scale_fill_brewer(palette = &quot;Blues&quot;)+
+             labs(title = &quot;Distribution of Average Income&quot;, x=&quot;Income&quot;,
+                  y=&quot;Count&quot;)
+hist2  </code></pre>
+<p><img src="figs/unnamed-chunk-27-1.png" width="1152" /></p>
+</div>
+</div>
+
+    </div>
+
+    
+
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tag/r/">R</a>
+  
+</div>
+
+
+
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=/codes/passa/&amp;text=Rstudio%20Tidyverse%20Certified%20Trainer%20Preparation%20Script" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=/codes/passa/&amp;t=Rstudio%20Tidyverse%20Certified%20Trainer%20Preparation%20Script" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=Rstudio%20Tidyverse%20Certified%20Trainer%20Preparation%20Script&amp;body=/codes/passa/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=/codes/passa/&amp;title=Rstudio%20Tidyverse%20Certified%20Trainer%20Preparation%20Script" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="whatsapp://send?text=Rstudio%20Tidyverse%20Certified%20Trainer%20Preparation%20Script%20/codes/passa/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=/codes/passa/&amp;title=Rstudio%20Tidyverse%20Certified%20Trainer%20Preparation%20Script" target="_blank" rel="noopener" class="share-btn-weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+  
+    
+    
+    
+      
+    
+    
+    
+    <div class="media author-card content-widget-hr">
+      
+        
+        <img class="avatar mr-3 avatar-circle" src="/author/avatar_huc2b6f175d529747ed447fd43ad63158b_20155_270x270_fill_q90_lanczos_center.jpg" alt="">
+      
+
+      <div class="media-body">
+        <h5 class="card-title"><a href=""></a></h5>
+        <h6 class="card-subtitle">Senior Data Analyst</h6>
+        
+        <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="/#contact" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://twitter.com/Shel_Kariuki" target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/Shelmith-Kariuki" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+    <li>
+      <a href="live:kariukishelmith" >
+        <i class="fab fa-skype"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://www.linkedin.com/in/shelmith-kariuki-44351363/" target="_blank" rel="noopener">
+        <i class="fab fa-linkedin"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="/files/cv.pdf" >
+        <i class="ai ai-cv"></i>
+      </a>
+    </li>
+  
+</ul>
+
+      </div>
+    </div>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+</article>
+
+      
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js" integrity="sha256-eOgo0OtLL4cdq7RdwRUiGKLX9XsIJ7nGhWEKbohmVAQ=" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/r.min.js"></script>
+        
+      
+
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.js" integrity="sha256-EErZamuLefUnbMBQbsEqu1USa+btR2oIlCpBJbyD4/g=" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    <script>const isSiteThemeDark = false;</script>
+    
+
+    
+    
+    
+    
+    
+    
+    <script>
+      const search_config = {"indexURI":"/index.json","minLength":1,"threshold":0.3};
+      const i18n = {"no_results":"No results found","placeholder":"Search...","results":"results found"};
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks",
+        'slides' : "Slides"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/academic.min.37431be2d92d7fb0160054761ab79602.js"></script>
+
+    
+
+
+
+
+
+
+  
+  
+  <div class="container">
+    <footer class="site-footer">
+  
+  <p class="powered-by">
+    
+      <a href="/privacy/">Privacy Policy</a>
+    
+    
+       &middot; 
+      <a href="/terms/">Terms</a>
+    
+  </p>
+  
+
+  <p class="powered-by">
+    ©2020
+  </p>
+
+  
+  
+
+
+
+
+
+
+  <p class="powered-by">
+    Powered by the
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" class="back-to-top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+
+  </div>
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

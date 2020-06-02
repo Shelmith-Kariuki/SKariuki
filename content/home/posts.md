@@ -4,10 +4,10 @@
 
 widget = "pages"  # See https://sourcethemes.com/academic/docs/page-builder/
 headless = true  # This file represents a page section.
-active = true  # Activate this widget? true/false
-weight = 50  # Order that this section will appear.
+active = false  # Activate this widget? true/false
+weight = 60  # Order that this section will appear.
 
-title = "Code Work"
+title = "Recent Posts"
 subtitle = ""
 
 [content]
@@ -15,7 +15,7 @@ subtitle = ""
   page_type = "post"
   
   # Choose how much pages you would like to display (0 = all pages)
-  count = 2
+  count = 5
   
   # Choose how many pages you would like to offset by
   offset = 0
@@ -53,15 +53,11 @@ subtitle = ""
   # gradient_end = "SkyBlue"
   
   # Background image.
-  # image = "code_background.jpg"  # Name of image in `static/img/`.
-  # image_darken = 0.01  # Darken the image? Range 0-1 where 0 is transparent and 1 is opaque.
+  # image = "background.jpg"  # Name of image in `static/img/`.
+  # image_darken = 0.6  # Darken the image? Range 0-1 where 0 is transparent and 1 is opaque.
 
   # Text color (true=light or false=dark).
   # text_color_light = true  
-
-[design.spacing]
-  # Customize the section spacing. Order is top, right, bottom, left.
-  padding = ["0px", "0", "10px", "0"]
   
 [advanced]
  # Custom CSS. 
@@ -70,4 +66,3 @@ subtitle = ""
  # CSS class.
  css_class = ""
 +++
-
