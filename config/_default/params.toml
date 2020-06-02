@@ -49,7 +49,7 @@ org_name = ""
 
 # Description for social sharing and search engines. If undefined, superuser role is used in place.
 description = "Welcome to my personal website."
-favicon = ""
+favicon = "favicon.png"
 logo = ""
 
 ############################
