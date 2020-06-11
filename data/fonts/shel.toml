@@ -1,0 +1,6 @@
+# Font style metadata
+name = "shel"
+
+# Font families
+heading_font = "PTSansNarrow"
+body_font = "PTSansNarrow"

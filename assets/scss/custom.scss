@@ -2,8 +2,9 @@
 
 .dropdown-menu,
 nav#navbar-main li.nav-item {
-  font-size: 30px;
+  font-size: 20px;
   font-weight: bold;
+  font-style: italic;
 }
 
 /* links */
@@ -23,14 +24,14 @@ a:hover {
 
 .navbar {
   box-shadow: none;
-  text-transform: uppercase;
+  text-transform: capitalize;
 	letter-spacing: .1em;
 	font-size: .9em;
 }
 
 .navbar-brand {
-  text-transform: uppercase;
-  font-weight: 700;
+  text-transform: capitalize;
+  font-weight: 300;
 	letter-spacing: .1em;
 }
 
@@ -42,7 +43,7 @@ body {
   min-height: 100px !important;
 }
 h1, h2, h3, h4, h5, h6 {
-	font-weight: 600;
+	font-weight: 400;
   letter-spacing: 0.04em;
   color: #172A3A;
 }

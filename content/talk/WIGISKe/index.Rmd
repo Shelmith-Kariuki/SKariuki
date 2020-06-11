@@ -28,7 +28,7 @@ links:
   name: workshop-material
   url: ../material/rSpatial.zip 
 
-categories:
+categories:  
   - workshop
   - tidyverse
   - rspatial

@@ -15,7 +15,7 @@ subtitle = ""
   page_type = "codes"
   
   # Choose how much pages you would like to display (0 = all pages)
-  count = 2
+  count = 5
   
   # Choose how many pages you would like to offset by
   offset = 0
@@ -46,7 +46,7 @@ subtitle = ""
   #   Any HTML color name or Hex value is valid.
   
   # Background color.
-  # color = "navy"
+  color = "#FDDDE6"
   
   # Background gradient.
   # gradient_start = "DeepSkyBlue"

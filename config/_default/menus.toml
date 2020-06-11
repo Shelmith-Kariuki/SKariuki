@@ -13,6 +13,11 @@
   url = "/BlogsPage"
   weight = 30
 
+[[main]]
+  name = "Codes"
+  url = "/CodeWork"
+  weight = 50
+  
 
 [[main]]
   name = "Contact"

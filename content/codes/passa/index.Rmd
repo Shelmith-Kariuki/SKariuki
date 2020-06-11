@@ -1,5 +1,5 @@
 ---
-title: "Rstudio Tidyverse Certified Trainer Preparation Script"
+title: "Data Manipulation"
 author: "Shelmith"
 date: "2/12/2020"
 tags:
@@ -15,7 +15,7 @@ output:
   blogdown::html_page:
     toc: yes
     number_sections: no
-    toc_depth: 1
+    toc_depth: 5
 ---
 
 

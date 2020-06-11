@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts | Shel Kariuki</title>
+    <title>Pieces of Code | Shel Kariuki</title>
     <link>/codes/</link>
       <atom:link href="/codes/index.xml" rel="self" type="application/rss+xml" />
-    <description>Posts</description>
+    <description>Pieces of Code</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>©2020</copyright><lastBuildDate>Wed, 15 Jan 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>img/favicon.png</url>
-      <title>Posts</title>
+      <title>Pieces of Code</title>
       <link>/codes/</link>
     </image>
     
@@ -284,12 +284,49 @@ ttest_1samp(volume, 500)
     </item>
     
     <item>
-      <title>Rstudio Tidyverse Certified Trainer Preparation Script</title>
+      <title>Data Manipulation</title>
       <link>/codes/passa/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>/codes/passa/</guid>
       <description>
 
+&lt;div id=&#34;TOC&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#load-the-packages-required&#34;&gt;Load the packages required&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#read-in-the-wafanyikazi-dataset&#34;&gt;Read in the wafanyikazi dataset&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#dplyr&#34;&gt;1. dplyr&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#select&#34;&gt;1.1 select()&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#filter&#34;&gt;1.2 filter()&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#mutate&#34;&gt;1.3 mutate()&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#mutate_all&#34;&gt;1.3.1: mutate_all()&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#mutate_at&#34;&gt;1.3.2: mutate_at()&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#mutate_if&#34;&gt;1.3.3: mutate_if()&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#group_by-and-summarise&#34;&gt;1.4 group_by() and summarise()&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#summarise&#34;&gt;1.4.1 summarise()&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#summarise_at&#34;&gt;1.4.2 summarise_at&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#summarise_if&#34;&gt;1.4.3 summarise_if&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#arrange&#34;&gt;1.5 arrange&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#tidyr&#34;&gt;2. tidyr&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#wide-to-long&#34;&gt;2.1 Wide to long&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#long-to-wide&#34;&gt;2.2 Long to wide&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#ggplot2&#34;&gt;3. ggplot2&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#geom_bar-of-one-variable&#34;&gt;3.1 geom_bar of one variable&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#geom_bar-of-more-than-one-variable&#34;&gt;3.2 geom_bar of more than one variable&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#geom_line-of-one-variable&#34;&gt;3.3 geom_line of one variable&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#geom_line-of-2-variables&#34;&gt;3.4 geom_line of 2 variables&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#geom_boxplot-of-one-variable&#34;&gt;3.5 geom_boxplot of one variable&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#geom_boxplot-of-two-variables&#34;&gt;3.6 geom_boxplot of two variables&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#geom_area-of-one-variable&#34;&gt;3.7 geom_area of one variable&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#geom_area-of-two-variables&#34;&gt;3.8 geom_area of two variables&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#geom_histogram-of-one-variable&#34;&gt;3.9 geom_histogram of one variable&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#geom_histogram-of-two-variables&#34;&gt;3.10 geom_histogram of two variables&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
 
 &lt;p&gt;Tidyverse is a collection of R packages designed for data science. The packages that are included in tidyverse include:&lt;/p&gt;
 &lt;ul&gt;

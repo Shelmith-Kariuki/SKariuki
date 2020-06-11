@@ -27,9 +27,7 @@
   
     
   
-  <meta name="description" content="Tidyverse is a collection of R packages designed for data science. The packages that are included in tidyverse include:
- readr: Used for reading in datasets into R.
- dplyr: Used for data manipulation.">
+  <meta name="description" content="Load the packages required Read in the wafanyikazi dataset 1. dplyr 1.1 select() 1.2 filter() 1.3 mutate() 1.3.1: mutate_all() 1.3.2: mutate_at() 1.3.3: mutate_if()  1.4 group_by() and summarise() 1.">
 
   
   <link rel="alternate" hreflang="en-us" href="/codes/passa/">
@@ -193,8 +191,6 @@
   
   
   
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cutive+Mono%7CLora:400,700%7CRoboto:400,700&display=swap">
-  
 
   
   
@@ -238,10 +234,8 @@
   
   <meta property="og:site_name" content="Shel Kariuki">
   <meta property="og:url" content="/codes/passa/">
-  <meta property="og:title" content="Rstudio Tidyverse Certified Trainer Preparation Script | Shel Kariuki">
-  <meta property="og:description" content="Tidyverse is a collection of R packages designed for data science. The packages that are included in tidyverse include:
- readr: Used for reading in datasets into R.
- dplyr: Used for data manipulation."><meta property="og:image" content="img/favicon.png">
+  <meta property="og:title" content="Data Manipulation | Shel Kariuki">
+  <meta property="og:description" content="Load the packages required Read in the wafanyikazi dataset 1. dplyr 1.1 select() 1.2 filter() 1.3 mutate() 1.3.1: mutate_all() 1.3.2: mutate_at() 1.3.3: mutate_if()  1.4 group_by() and summarise() 1."><meta property="og:image" content="img/favicon.png">
   <meta property="twitter:image" content="img/favicon.png"><meta property="og:locale" content="en-us">
   
     
@@ -264,7 +258,7 @@
 
 
 
-  <title>Rstudio Tidyverse Certified Trainer Preparation Script | Shel Kariuki</title>
+  <title>Data Manipulation | Shel Kariuki</title>
 
 </head>
 
@@ -407,6 +401,28 @@
         
 
         <li class="nav-item">
+          <a class="nav-link " href="/codework"><span>Codes</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
           <a class="nav-link " href="/contactpage"><span>Contact</span></a>
         </li>
 
@@ -496,7 +512,7 @@
   
   
 <div class="article-container pt-3">
-  <h1>Rstudio Tidyverse Certified Trainer Preparation Script</h1>
+  <h1>Data Manipulation</h1>
 
   
 
@@ -557,6 +573,43 @@
     <div class="article-style">
       
 
+<div id="TOC">
+<ul>
+<li><a href="#load-the-packages-required">Load the packages required</a></li>
+<li><a href="#read-in-the-wafanyikazi-dataset">Read in the wafanyikazi dataset</a></li>
+<li><a href="#dplyr">1. dplyr</a><ul>
+<li><a href="#select">1.1 select()</a></li>
+<li><a href="#filter">1.2 filter()</a></li>
+<li><a href="#mutate">1.3 mutate()</a><ul>
+<li><a href="#mutate_all">1.3.1: mutate_all()</a></li>
+<li><a href="#mutate_at">1.3.2: mutate_at()</a></li>
+<li><a href="#mutate_if">1.3.3: mutate_if()</a></li>
+</ul></li>
+<li><a href="#group_by-and-summarise">1.4 group_by() and summarise()</a><ul>
+<li><a href="#summarise">1.4.1 summarise()</a></li>
+<li><a href="#summarise_at">1.4.2 summarise_at</a></li>
+<li><a href="#summarise_if">1.4.3 summarise_if</a></li>
+</ul></li>
+<li><a href="#arrange">1.5 arrange</a></li>
+</ul></li>
+<li><a href="#tidyr">2. tidyr</a><ul>
+<li><a href="#wide-to-long">2.1 Wide to long</a></li>
+<li><a href="#long-to-wide">2.2 Long to wide</a></li>
+</ul></li>
+<li><a href="#ggplot2">3. ggplot2</a><ul>
+<li><a href="#geom_bar-of-one-variable">3.1 geom_bar of one variable</a></li>
+<li><a href="#geom_bar-of-more-than-one-variable">3.2 geom_bar of more than one variable</a></li>
+<li><a href="#geom_line-of-one-variable">3.3 geom_line of one variable</a></li>
+<li><a href="#geom_line-of-2-variables">3.4 geom_line of 2 variables</a></li>
+<li><a href="#geom_boxplot-of-one-variable">3.5 geom_boxplot of one variable</a></li>
+<li><a href="#geom_boxplot-of-two-variables">3.6 geom_boxplot of two variables</a></li>
+<li><a href="#geom_area-of-one-variable">3.7 geom_area of one variable</a></li>
+<li><a href="#geom_area-of-two-variables">3.8 geom_area of two variables</a></li>
+<li><a href="#geom_histogram-of-one-variable">3.9 geom_histogram of one variable</a></li>
+<li><a href="#geom_histogram-of-two-variables">3.10 geom_histogram of two variables</a></li>
+</ul></li>
+</ul>
+</div>
 
 <p>Tidyverse is a collection of R packages designed for data science. The packages that are included in tidyverse include:</p>
 <ul>
@@ -1057,7 +1110,7 @@ hist2  </code></pre>
       
       
       <li>
-        <a href="https://twitter.com/intent/tweet?url=/codes/passa/&amp;text=Rstudio%20Tidyverse%20Certified%20Trainer%20Preparation%20Script" target="_blank" rel="noopener" class="share-btn-twitter">
+        <a href="https://twitter.com/intent/tweet?url=/codes/passa/&amp;text=Data%20Manipulation" target="_blank" rel="noopener" class="share-btn-twitter">
           <i class="fab fa-twitter"></i>
         </a>
       </li>
@@ -1070,7 +1123,7 @@ hist2  </code></pre>
       
       
       <li>
-        <a href="https://www.facebook.com/sharer.php?u=/codes/passa/&amp;t=Rstudio%20Tidyverse%20Certified%20Trainer%20Preparation%20Script" target="_blank" rel="noopener" class="share-btn-facebook">
+        <a href="https://www.facebook.com/sharer.php?u=/codes/passa/&amp;t=Data%20Manipulation" target="_blank" rel="noopener" class="share-btn-facebook">
           <i class="fab fa-facebook"></i>
         </a>
       </li>
@@ -1083,7 +1136,7 @@ hist2  </code></pre>
       
       
       <li>
-        <a href="mailto:?subject=Rstudio%20Tidyverse%20Certified%20Trainer%20Preparation%20Script&amp;body=/codes/passa/" target="_blank" rel="noopener" class="share-btn-email">
+        <a href="mailto:?subject=Data%20Manipulation&amp;body=/codes/passa/" target="_blank" rel="noopener" class="share-btn-email">
           <i class="fas fa-envelope"></i>
         </a>
       </li>
@@ -1096,7 +1149,7 @@ hist2  </code></pre>
       
       
       <li>
-        <a href="https://www.linkedin.com/shareArticle?url=/codes/passa/&amp;title=Rstudio%20Tidyverse%20Certified%20Trainer%20Preparation%20Script" target="_blank" rel="noopener" class="share-btn-linkedin">
+        <a href="https://www.linkedin.com/shareArticle?url=/codes/passa/&amp;title=Data%20Manipulation" target="_blank" rel="noopener" class="share-btn-linkedin">
           <i class="fab fa-linkedin-in"></i>
         </a>
       </li>
@@ -1109,7 +1162,7 @@ hist2  </code></pre>
       
       
       <li>
-        <a href="whatsapp://send?text=Rstudio%20Tidyverse%20Certified%20Trainer%20Preparation%20Script%20/codes/passa/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+        <a href="whatsapp://send?text=Data%20Manipulation%20/codes/passa/" target="_blank" rel="noopener" class="share-btn-whatsapp">
           <i class="fab fa-whatsapp"></i>
         </a>
       </li>
@@ -1122,7 +1175,7 @@ hist2  </code></pre>
       
       
       <li>
-        <a href="https://service.weibo.com/share/share.php?url=/codes/passa/&amp;title=Rstudio%20Tidyverse%20Certified%20Trainer%20Preparation%20Script" target="_blank" rel="noopener" class="share-btn-weibo">
+        <a href="https://service.weibo.com/share/share.php?url=/codes/passa/&amp;title=Data%20Manipulation" target="_blank" rel="noopener" class="share-btn-weibo">
           <i class="fab fa-weibo"></i>
         </a>
       </li>
