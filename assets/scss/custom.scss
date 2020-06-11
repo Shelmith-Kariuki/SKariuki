@@ -20,4 +20,28 @@ h1, h2, h3, h4, h5, h6 {
   color: #172A3A;
 }
 
+.page-link {
+	color: #004346;
+	background-color: #F0F7FA;
+	border: 1px solid #004346;
+  border-radius: 0px; /*undo rounded corners*/
+
+}
+
+.page-link:hover {
+	color: #fff;
+	background-color: #004346;
+	border-color: #004346;
+}
+img {
+	margin-bottom: 1.5rem;
+	overflow: hidden;
+	background: #fff;
+	box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
+}
+
+iframe {
+	border: 0;
+}
+
 
