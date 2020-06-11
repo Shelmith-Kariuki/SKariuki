@@ -1,5 +1,5 @@
 ---
-title: "Introducing rCensusKenya" 
+title: "Introducing rKenyaCensus" 
 author: "Shelmith Kariuki"
 date: 2020-04-27
 categories: ["blog"]
@@ -52,7 +52,7 @@ Each table has been scrapped and given a unique identifier, e.g V1.T2.3 is the d
 <p><img src="img/mutisodark.png" width="3200" /></p>
 <p>The process of creating this package was amazing. I used the tabulizer R package to scrap the data from the different pdfs, though I faced a small glitch while trying to scrap two or three of the datasets. For those tables, I used data that had already been scrapped, and was readily available on the internet, even though I had to clean it further. I used the <em>usethis</em> package to “attach” the data onto the package.</p>
 <p>I decided to come up with the package for a host of reasons. To begin with, I believe that people prefer working with data when it is in an “easy to use” format, as opposed to it being in pdf format. The data has been simplified so that data analysts can play around with it, without having to go through the “dirty” process themselves. I am hoping that people can use the data to practise data visualizations, and come up with amazing graphs (or better still, amazing shiny dashboards).</p>
-<p>I have also always wanted to learn package development through a real life project. I am glad that I can now use the <em>usethis::use_data(xxx, overwrite = T)</em> command, and I know what <em>“r cmd-check”</em> is (thanks to <a href="https://twitter.com/JennyBryan">Jenny Bryan</a> for creating and maintaining the package). I also needed to work on a project that I could showcase, during my next interview, incase they ask how I spent my time during the Covid19 pandemic (yes, I am job hunting 😢, 😢, 😢, 😢).</p>
+<p>I have also always wanted to learn package development through a real life project. I am glad that I can now use the <em>usethis::use_data(xxx, overwrite = T)</em> command, and I know what <em>“r cmd-check”</em> is (thanks to <a href="https://twitter.com/JennyBryan">Jenny Bryan</a> for creating and maintaining the package). I also needed to work on a project that I could showcase, during my next interview, incase they ask how I spent my time during the Covid19 pandemic (yes, I am job hunting 😿, 😿, 😿, 😿).</p>
 <p>Most of the datasets are exactly as they appear in the pdf files, but for some, I tried manipulating them a little bit so that people could easily use them.</p>
 <p><img src="img/countymerge.png" width="675" /></p>
 <p>I also got shapefiles of Kenya County boundaries from a friend (thanks <a href="https://twitter.com/Akothcarole">Carole</a>), but unfortunately, I was not able to include them in the package. They can be downloaded <a href="https://data.humdata.org/dataset/47-counties-of-kenya">from this site</a>. I hope that spatial data analysts could use this data to develop awesome maps (I can’t wait to see what you all come up with 💃, 💃, 💃).</p>
