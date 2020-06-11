@@ -6,6 +6,33 @@ nav#navbar-main li.nav-item {
   font-weight: bold;
 }
 
+/* links */
+
+a:active, 
+a:focus, 
+a:hover {
+  color: #004346;
+}
+
+/* nav */
+
+.navbar .navbar-nav .nav-link:hover,
+.navbar .navbar-nav .nav-link:focus {
+	color: #06805E;
+}
+
+.navbar {
+  box-shadow: none;
+  text-transform: uppercase;
+	letter-spacing: .1em;
+	font-size: .9em;
+}
+
+.navbar-brand {
+  text-transform: uppercase;
+  font-weight: 700;
+	letter-spacing: .1em;
+}
 
 body {
   margin-top: 100px !important;
@@ -66,3 +93,41 @@ iframe {
   padding: 25px 0 50px 0; 
 }
 
+/* buttons */
+
+.btn.btn-sm, .btn-group-sm > .btn {
+  border-radius: 0rem; /*undo rounded corners*/
+  font-size: 0.8rem;
+}
+
+.btn.btn-outline-primary.my-1.mr-1 {
+  border-radius: 0px; /*undo rounded corners*/
+  font-size: 0.8rem;
+}
+
+.btn {
+  font-family: Lora;
+  text-transform: lowercase;
+  font-style: italic;
+  border-radius: 0px;
+}
+
+.btn-toolbar .btn:first-child {
+  border-radius: 0px;
+}
+
+.btn-toolbar .btn:last-child {
+  border-radius: 0px;
+}
+
+.btn-toolbar {
+  justify-content: center;
+}
+
+/* section headers */
+
+div.universal-wrapper.pt-3 h1 {
+  text-align: center;
+  padding-bottom: 50px;
+  text-transform: capitalize;
+}
