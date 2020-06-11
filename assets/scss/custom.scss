@@ -44,4 +44,25 @@ iframe {
 	border: 0;
 }
 
+/* home page */
+
+.portrait-title h2 {
+  color: #333;
+}
+
+#about .col-12.col-lg-8 {
+  padding-top: 30px !important;
+}
+
+.network-icon li:hover {
+  transform: scale(1.05);
+}
+
+.home-section:first-of-type {
+  padding: 50px 0 50px 0;
+}
+
+.home-section:not(:first-of-type) {
+  padding: 25px 0 50px 0; 
+}
 
