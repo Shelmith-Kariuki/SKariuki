@@ -19,7 +19,14 @@ links:
   icon_pack: fab
   name: Follow
   url: https://twitter.com/Shel_Kariuki
-
+- icon: door-open
+  icon_pack: fas
+  name: slides
+  url: ../slides/WiGIS_IntroToR.pptx
+- icon: file-archive
+  icon_pack: fa
+  name: workshop-material
+  url: ../material/rSpatial.zip 
 
 categories:
   - workshop
@@ -36,5 +43,9 @@ image:
   preview_only: no
 projects: []
 ---
+
+
+
+
 
 

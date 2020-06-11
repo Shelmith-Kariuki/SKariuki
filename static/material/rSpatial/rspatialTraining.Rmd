@@ -1,0 +1,304 @@
+---
+title: <center>Exploring R for Spatial Analytics</center>
+subtitle: <center>Introduction to R</center>
+author: <center>Shelmith Kariuki</center>
+date: <center>6/11/2020</center>
+output: 
+  html_document:
+    toc: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      warning = FALSE,
+                      message = FALSE,
+                      fig.height = 6,
+                      fig.width = 6)
+```
+
+## 1. Load the libraries required
+
+```{r}
+#install.packages("tidyverse")
+library(tidyverse) # A family of packages used to clean, process, model, and visualize data
+
+# install.packages("sf")
+library(sf) # Offers Support for simple features, a standardized way to encode spatial vector data. Binds to 'GDAL' for reading and writing data, to 'GEOS' for geometrical operations, and to 'PROJ' for projection conversions and datum transformations.
+
+# install.packages("devtools")
+# devtools::install_github("Shelmith-Kariuki/rKenyaCensus")
+library(rKenyaCensus) # Contains the 2019 Kenya Census data
+
+# install.packages("ggplot2") 
+library(ggplot2) # Used for creating amazing pretty graphs in R
+
+# install.packages("tmap") #Thematic maps are geographical maps in which spatial data distributions are visualized
+library(tmap)
+
+# install.packages("leaflet") # Used for creating interactive maps
+library(leaflet)
+
+```
+
+
+## 2. Read in the Kenya boundaries shapefiles
+
+```{r}
+## Method 1
+# KenyaSHP <- st_read("../Kenya counties/Kenya_counties.shp", quiet = TRUE, 
+#                     stringsAsFactors = FALSE, as_tibble = TRUE)
+
+## Method 2
+KenyaSHP <- read_sf("../Kenya counties/Kenya_counties.shp", quiet = TRUE, 
+                    stringsAsFactors = FALSE, as_tibble = TRUE)
+
+
+## To easily view the shapefile in RStudio View pane, you can drop the geometry column and view the rest of the data.
+
+## View(KenyaSHP %>% st_drop_geometry())
+
+
+```
+
+### 2.1 Inspect a few rows
+
+```{r}
+print(KenyaSHP[6:9], n = 3)
+```
+
+### 2.2 Inspect the column names
+
+```{r}
+colnames(KenyaSHP)
+#names(KenyaSHP)
+```
+
+
+### 2.3 Inspect the class of the shapefile
+
+```{r}
+
+class(KenyaSHP)
+
+```
+### 2.4  Look at the variable data types
+
+```{r}
+
+glimpse(KenyaSHP)
+
+```
+
+### 2.5 View the geometry column
+
+```{r}
+KenyaSHP_geometry <- st_geometry(KenyaSHP)
+
+## View one geometry entry
+KenyaSHP_geometry[[1]]
+
+```
+ 
+### 2.6 Geometry columns have their own class
+
+```{r}
+class(KenyaSHP_geometry) #sfc, the list-column with the geometries for each feature
+
+class(KenyaSHP_geometry[[1]]) #sfg, the feature geometry of an individual simple feature
+
+```
+
+## 3. Change the projection of the shapefiles
+
+```{r}
+## This line is not necessary since the shapefile is already in the WGS 84 projection.
+
+KenyaSHP <- st_transform(KenyaSHP, crs = 4326)
+
+## Inspect the co-ordinate reference system
+st_crs(KenyaSHP)
+```
+
+
+## 4. Load the data that we are going to map
+
+We will use V4_T2.27: Distribution of Persons with Disability by Type of Disability, Sex, Area of Residence, County and Sub County
+
+```{r}
+
+Disability_df <- V4_T2.27
+
+```
+
+
+
+## 5. Clean the data, so that the counties match those in the shapefile.
+
+
+```{r}
+
+## Inspect the county names of the disability data
+counties_Disability_df <- unique(Disability_df$County)
+
+## Inspect the county names of the shape file
+counties_KenyaSHP <- KenyaSHP %>% 
+  st_drop_geometry() %>% 
+  select(COUNTY) %>% 
+  pull() %>%
+  unique()
+
+## Convert the disability county names to title case
+Disability_df <- Disability_df %>% 
+  ungroup() %>% 
+  mutate(County = tools::toTitleCase(tolower(County)))
+
+## Inspect the county names of the disability data again 
+counties_Disability_df <- unique(Disability_df$County)
+
+## Inspect the county names that are different in each of the datasets
+unique(Disability_df$County)[which(!unique(Disability_df$County) %in% counties_KenyaSHP)]
+
+## Clean the county names so that they match in both datasets
+Disability_df <- Disability_df %>% 
+  mutate(County = ifelse(County == "Taita/Taveta", "Taita Taveta",
+                  ifelse(County == "Tharaka-Nithi", "Tharaka",
+                  ifelse(County == "Elgeyo/Marakwet", "Keiyo-Marakwet",
+                  ifelse(County == "Nairobi City", "Nairobi", County)))))
+
+
+## Inspect the county names again to ensure that they now match.
+unique(Disability_df$County)[which(!unique(Disability_df$County) %in% counties_KenyaSHP)]
+
+```
+
+
+## 6. Carry out some transformations on the data
+
+```{r}
+Disability_df2 <- Disability_df %>% 
+  filter(AdminArea == "County") %>% 
+  select(-AdminArea, -SubCounty)
+
+## unique(Disability_df2$County)[which(!unique(Disability_df2$County) %in% counties_KenyaSHP)]
+
+## counties_KenyaSHP[which(!counties_KenyaSHP  %in% unique(Disability_df2$County))]
+```
+
+## 7. Join the shapefile and the data
+
+```{r}
+## Rename the COUNTY variable, to match the variable name in the shapefile data
+Disability_df2 <- Disability_df2 %>% 
+  rename(COUNTY = County)
+
+## Ensure that there are no leading or trailing spaces in the county variable
+KenyaSHP$COUNTY <- trimws(KenyaSHP$COUNTY)
+Disability_df2$COUNTY <- trimws(Disability_df2$COUNTY)
+
+## Merge the data
+merged_df <- left_join(KenyaSHP, Disability_df2, by = "COUNTY")
+
+## Sort the data so that the County variable appears first
+merged_df <- merged_df %>% 
+  select(COUNTY, everything())
+
+```
+
+
+## 8. Inspect the merged data
+
+```{r}
+## View the data
+#  View(merged_df)
+#  View(merged_df %>% st_drop_geometry())
+
+## Class of the merged data
+class(merged_df)
+
+## Column names
+colnames(merged_df)
+
+## Variable types
+glimpse(merged_df)
+
+```
+
+
+## 9. Visualise the data
+
+### 9.1 plot()
+
+We are going to plot a base plot / map. 
+
+```{r}
+plot(KenyaSHP$geometry, lty = 3, col = "darkgreen")
+```
+
+### 9.2 ggplot2()
+
+```{r}
+map1 <- ggplot(data = merged_df)+
+          geom_sf(aes(geometry = geometry, fill = Vision_Total))+
+            theme_void()+
+            labs(title = "Distribution of Population with Vision Disability",
+                 caption = "By: @Shel_Kariuki")+
+            theme(plot.title = element_text(family = "URW Palladio L, Italic",size = 16, hjust = 0.5),
+                  legend.title = element_blank(),
+                  plot.caption = element_text(family = "URW Palladio L, Italic",size = 12))+
+  #scale_fill_gradient(low = "darkgreen", high = "red")
+  scale_fill_viridis_c()
+           
+map1
+```
+
+
+### 9.3 tmap()
+
+```{r}
+tmap_mode("view") #Set tmap mode to static plotting or interactive viewing
+
+map2 <- tm_shape(merged_df) +
+  tm_fill("Vision_Total",palette="Greens",
+          title="Distribution of Population with Vision Disability", 
+          id = "COUNTY") +
+  tm_borders(col = "red",lty = 3)+
+  tm_layout(legend.position = c("left", "bottom"))
+map2
+```
+
+
+### 9.4 leaflet()
+
+```{r}
+pal <- colorBin(
+  palette = "YlOrRd",
+  domain = merged_df$Vision_Total
+)
+
+labels <- sprintf(
+  "<strong>%s</strong><br/>%g",
+  merged_df$COUNTY, merged_df$Vision_Total
+) %>% lapply(htmltools::HTML)
+
+leaflet(merged_df) %>%
+  addTiles() %>% 
+  addPolygons(color = "red", weight = 1, dashArray = "3", fillColor = ~pal(Vision_Total),
+              highlight = highlightOptions(
+                weight = 4,
+                color = "red",
+                dashArray = "",
+                bringToFront = TRUE),
+              label = labels,
+              labelOptions = labelOptions(
+                style = list("font-weight" = "normal", padding = "3px 8px"),
+                textsize = "15px",
+                direction = "auto")) %>% 
+  addLegend(position = c("bottomright"),pal = pal, values = ~Vision_Total)
+
+
+```
+
+We are done!!
+
+<img  align="center" src="https://media.giphy.com/media/l4FAPaGGeB7D1LfIA/giphy.gif" alt="...">
+
