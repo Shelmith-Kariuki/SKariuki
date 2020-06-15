@@ -3,11 +3,11 @@
 # This section displays recent blog posts from `content/post/`.
 
 widget = "pages"  # See https://sourcethemes.com/academic/docs/page-builder/
-headless = true  # This file represents a page section.
+headless = false  # This file represents a page section.
 active = true  # Activate this widget? true/false
 weight = 50  # Order that this section will appear.
 
-title = ""
+title = "Codes"
 subtitle = ""
 
 [content]
@@ -61,7 +61,7 @@ subtitle = ""
 
 [design.spacing]
   # Customize the section spacing. Order is top, right, bottom, left.
-  padding = ["0px", "0", "10px", "0"]
+  ppadding = ["70px", "0", "70px", "0"]
   
 [advanced]
  # Custom CSS. 
