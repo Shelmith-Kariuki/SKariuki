@@ -55,10 +55,10 @@
     </item>
     
     <item>
-      <title>Introduction to Machine Learning in the Tidyverse</title>
-      <link>/talk/dsa2020/</link>
-      <pubDate>Tue, 28 Jul 2020 00:00:00 +0000</pubDate>
-      <guid>/talk/dsa2020/</guid>
+      <title>Getting to know ggplot2</title>
+      <link>/talk/mir_ggplot2/</link>
+      <pubDate>Fri, 03 Jul 2020 09:00:00 +0000</pubDate>
+      <guid>/talk/mir_ggplot2/</guid>
       <description>
 
 
@@ -67,10 +67,10 @@
     </item>
     
     <item>
-      <title>Getting to know ggplot2</title>
-      <link>/talk/mir_ggplot2/</link>
-      <pubDate>Fri, 03 Jul 2020 09:00:00 +0000</pubDate>
-      <guid>/talk/mir_ggplot2/</guid>
+      <title>Introduction to Machine Learning in the Tidyverse</title>
+      <link>/talk/dsa2020/</link>
+      <pubDate>Sun, 28 Jun 2020 00:00:00 +0000</pubDate>
+      <guid>/talk/dsa2020/</guid>
       <description>
 
 
@@ -230,18 +230,6 @@ Each table has been scrapped and given a unique identifier, e.g V1.T2.3 is the d
       <link>/post/amandla/</link>
       <pubDate>Tue, 10 Mar 2020 02:20:01 -0700</pubDate>
       <guid>/post/amandla/</guid>
-      <description>
-
-
-&lt;p&gt;Coming Soon&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Testing123</title>
-      <link>/post/myclass/</link>
-      <pubDate>Tue, 10 Mar 2020 02:20:01 -0700</pubDate>
-      <guid>/post/myclass/</guid>
       <description>
 
 
@@ -1601,6 +1589,19 @@ summ_graph&lt;/code&gt;&lt;/pre&gt;
 
 
 &lt;iframe src=&#34;https://www.youtube.com/embed/3ygr4Ju4bek&#34; width=&#34;672&#34; height=&#34;400px&#34;&gt;
+&lt;/iframe&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Data Science Africa (DSA)</title>
+      <link>/talk/dsa/</link>
+      <pubDate>Wed, 05 Jun 2019 09:00:00 +0000</pubDate>
+      <guid>/talk/dsa/</guid>
+      <description>
+
+
+&lt;iframe src=&#34;https://www.youtube.com/embed/LfINGdzoMJE&#34; width=&#34;672&#34; height=&#34;400px&#34;&gt;
 &lt;/iframe&gt;
 </description>
     </item>
