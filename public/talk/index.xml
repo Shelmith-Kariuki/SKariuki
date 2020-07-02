@@ -5,7 +5,7 @@
     <link>/talk/</link>
       <atom:link href="/talk/index.xml" rel="self" type="application/rss+xml" />
     <description>Recent &amp; Upcoming Talks</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>©2020</copyright><lastBuildDate>Sat, 04 Jul 2020 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>©2020</copyright><lastBuildDate>Fri, 03 Jul 2020 09:00:00 +0000</lastBuildDate>
     <image>
       <url>img/trainingpic.jpeg</url>
       <title>Recent &amp; Upcoming Talks</title>
@@ -13,10 +13,10 @@
     </image>
     
     <item>
-      <title>Introduction to Machine Learning in the Tidyverse</title>
-      <link>/talk/dsa2020/</link>
-      <pubDate>Sat, 04 Jul 2020 00:00:00 +0000</pubDate>
-      <guid>/talk/dsa2020/</guid>
+      <title>Getting to know ggplot2</title>
+      <link>/talk/mir_ggplot2/</link>
+      <pubDate>Fri, 03 Jul 2020 09:00:00 +0000</pubDate>
+      <guid>/talk/mir_ggplot2/</guid>
       <description>
 
 
@@ -25,10 +25,10 @@
     </item>
     
     <item>
-      <title>Getting to know ggplot2</title>
-      <link>/talk/mir_ggplot2/</link>
-      <pubDate>Fri, 03 Jul 2020 09:00:00 +0000</pubDate>
-      <guid>/talk/mir_ggplot2/</guid>
+      <title>Introduction to Machine Learning in the Tidyverse</title>
+      <link>/talk/dsa2020/</link>
+      <pubDate>Fri, 03 Jul 2020 00:00:00 +0000</pubDate>
+      <guid>/talk/dsa2020/</guid>
       <description>
 
 
