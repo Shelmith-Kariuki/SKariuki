@@ -49,7 +49,7 @@ library(leaflet)
 #                     stringsAsFactors = FALSE, as_tibble = TRUE)
 
 ## Method 2
-KenyaSHP <- read_sf("../Kenya counties/Kenya_counties.shp", quiet = TRUE, 
+KenyaSHP <- read_sf("Kenya counties/Kenya_counties.shp", quiet = TRUE, 
                     stringsAsFactors = FALSE, as_tibble = TRUE)
 
 
@@ -298,7 +298,5 @@ leaflet(merged_df) %>%
 
 ```
 
-We are done!!
 
-<img  align="center" src="https://media.giphy.com/media/l4FAPaGGeB7D1LfIA/giphy.gif" alt="...">
 

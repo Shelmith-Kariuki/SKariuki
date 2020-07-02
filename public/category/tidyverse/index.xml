@@ -5,12 +5,24 @@
     <link>/category/tidyverse/</link>
       <atom:link href="/category/tidyverse/index.xml" rel="self" type="application/rss+xml" />
     <description>tidyverse</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>©2020</copyright><lastBuildDate>Thu, 11 Jun 2020 03:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>©2020</copyright><lastBuildDate>Fri, 03 Jul 2020 09:00:00 +0000</lastBuildDate>
     <image>
       <url>img/favicon.png</url>
       <title>tidyverse</title>
       <link>/category/tidyverse/</link>
     </image>
+    
+    <item>
+      <title>Getting to know ggplot2</title>
+      <link>/talk/mir_ggplot2/</link>
+      <pubDate>Fri, 03 Jul 2020 09:00:00 +0000</pubDate>
+      <guid>/talk/mir_ggplot2/</guid>
+      <description>
+
+
+
+</description>
+    </item>
     
     <item>
       <title>Exploring R for Spatial Analytics</title>
