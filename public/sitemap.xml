@@ -28,7 +28,17 @@
   </url>
   
   <url>
+    <loc>/talk/dsa2020/</loc>
+    <lastmod>2020-07-03T09:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/talk/</loc>
+    <lastmod>2020-07-03T09:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/category/tidymodels/</loc>
     <lastmod>2020-07-03T09:00:00+00:00</lastmod>
   </url>
   
@@ -40,16 +50,6 @@
   <url>
     <loc>/category/workshop/</loc>
     <lastmod>2020-07-03T09:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/talk/dsa2020/</loc>
-    <lastmod>2020-07-03T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/category/tidymodels/</loc>
-    <lastmod>2020-07-03T00:00:00+00:00</lastmod>
   </url>
   
   <url>
