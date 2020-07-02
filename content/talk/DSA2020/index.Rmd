@@ -1,0 +1,49 @@
+---
+title: Introduction to Machine Learning in the Tidyverse
+subtitle: 
+draft: false
+event: []
+event_url: []
+location: Virtual
+summary: []
+
+# Talk start and end times.
+#   End time can optionally be hidden by prefixing the line with `#`.
+date: "TBA"
+date_end: ""
+all_day: TRUE
+publishdate: "2020-07-28"
+
+links:
+- icon: twitter
+  icon_pack: fab
+  name: Follow
+  url: https://twitter.com/Shel_Kariuki
+  
+- icon: file-archive
+  icon_pack: fa
+  name: workshop-material
+  url:  
+
+categories:  
+  - workshop
+  - tidyverse
+  - tidymodels
+
+tags:
+
+lastmod: ''
+featured: no
+disable_jquery: no
+image: 
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+
+
+
+
+
