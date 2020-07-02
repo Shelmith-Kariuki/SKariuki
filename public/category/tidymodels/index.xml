@@ -5,7 +5,7 @@
     <link>/category/tidymodels/</link>
       <atom:link href="/category/tidymodels/index.xml" rel="self" type="application/rss+xml" />
     <description>tidymodels</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>©2020</copyright><lastBuildDate>Mon, 27 Jul 2020 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>©2020</copyright><lastBuildDate>Sat, 04 Jul 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>img/favicon.png</url>
       <title>tidymodels</title>
@@ -15,7 +15,7 @@
     <item>
       <title>Introduction to Machine Learning in the Tidyverse</title>
       <link>/talk/dsa2020/</link>
-      <pubDate>Mon, 27 Jul 2020 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 04 Jul 2020 00:00:00 +0000</pubDate>
       <guid>/talk/dsa2020/</guid>
       <description>
 
