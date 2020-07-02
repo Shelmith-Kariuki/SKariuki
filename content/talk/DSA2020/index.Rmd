@@ -9,10 +9,10 @@ summary: []
 
 # Talk start and end times.
 #   End time can optionally be hidden by prefixing the line with `#`.
-date: "TBA"
+date: "2020-07-27"
 date_end: ""
 all_day: TRUE
-publishdate: "2020-06-28"
+publishdate: "2020-07-03"
 
 links:
 - icon: twitter
