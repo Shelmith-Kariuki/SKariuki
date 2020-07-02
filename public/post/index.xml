@@ -127,5 +127,17 @@ Each table has been scrapped and given a unique identifier, e.g V1.T2.3 is the d
 </description>
     </item>
     
+    <item>
+      <title>Testing123</title>
+      <link>/post/myclass/</link>
+      <pubDate>Tue, 10 Mar 2020 02:20:01 -0700</pubDate>
+      <guid>/post/myclass/</guid>
+      <description>
+
+
+&lt;p&gt;Coming Soon&lt;/p&gt;
+</description>
+    </item>
+    
   </channel>
 </rss>
