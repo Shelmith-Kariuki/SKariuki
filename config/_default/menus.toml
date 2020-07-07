@@ -11,9 +11,20 @@
 [[main]]
   name = "Blog"
   url = "/BlogsPage"
-  weight = 30
+  weight = 20
 
 [[main]]
+  name = "Projects"
+  url = "/ProjectsPage"
+  weight = 30
+  
+[[main]]
+  name = "Talks"
+  url = "/TalksPage"
+  weight = 40
+ 
+ 
+ [[main]]
   name = "Codes"
   url = "/CodeWork"
   weight = 50
