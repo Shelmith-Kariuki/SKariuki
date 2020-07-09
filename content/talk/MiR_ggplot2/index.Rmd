@@ -25,6 +25,11 @@ links:
   name: workshop-material
   url:  ../material/mirggplot2.zip
 
+- icon: link
+  icon_pack: fa
+  name: youtube presentation
+  url:  https://www.youtube.com/watch?v=gFA_12vJh8k&feature=youtu.be
+
 categories:  
   - workshop
   - tidyverse
