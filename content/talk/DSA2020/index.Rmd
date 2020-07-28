@@ -12,7 +12,7 @@ summary: []
 date: "2020-07-029T9:00:00Z"
 date_end: ""
 all_day: TRUE
-publishdate: "2020-07-29"
+publishdate: "2020-07-27"
 
 links:
 - icon: twitter
