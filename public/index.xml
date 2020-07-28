@@ -5,7 +5,7 @@
     <link>/</link>
       <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     <description>Shel Kariuki</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>©2020</copyright><lastBuildDate>Fri, 03 Jul 2020 09:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>©2020</copyright><lastBuildDate>Wed, 29 Jul 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>img/favicon.png</url>
       <title>Shel Kariuki</title>
@@ -55,22 +55,22 @@
     </item>
     
     <item>
-      <title>Getting to know ggplot2</title>
-      <link>/talk/mir_ggplot2/</link>
-      <pubDate>Fri, 03 Jul 2020 09:00:00 +0000</pubDate>
-      <guid>/talk/mir_ggplot2/</guid>
+      <title>Exploring R for Spatial Analytics</title>
+      <link>/talk/dsa2020/</link>
+      <pubDate>Wed, 29 Jul 2020 00:00:00 +0000</pubDate>
+      <guid>/talk/dsa2020/</guid>
       <description>
-
+&lt;script src=&#34;//rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
 
 
 </description>
     </item>
     
     <item>
-      <title>Introduction to Machine Learning in the Tidyverse</title>
-      <link>/talk/dsa2020/</link>
+      <title>Getting to know ggplot2</title>
+      <link>/talk/mir_ggplot2/</link>
       <pubDate>Fri, 03 Jul 2020 09:00:00 +0000</pubDate>
-      <guid>/talk/dsa2020/</guid>
+      <guid>/talk/mir_ggplot2/</guid>
       <description>
 
 
