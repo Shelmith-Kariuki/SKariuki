@@ -1,18 +1,18 @@
 ---
-title: Exploring R for Spatial Analytics
+title: rKenyaCensus, An R package containing the 2019 Kenya Population and Housing Census data
 subtitle: 
 draft: false
 event: []
 event_url: []
-location:  Data Science Africa 2020
+location: Data Science Africa 2020
 summary: []
 
 # Talk start and end times.
 #   End time can optionally be hidden by prefixing the line with `#`.
-date: "2020-07-029T9:00:00Z"
+date: "2020-08-01T9:00:00Z"
 date_end: ""
 all_day: TRUE
-publishdate: "2020-07-27"
+publishdate: "2020-07-28"
 
 links:
 - icon: twitter
@@ -23,7 +23,7 @@ links:
 - icon: file-archive
   icon_pack: fa
   name: workshop-material
-  url:  ../material/DSA2020.zip
+  url:  
 
 categories:  
   - workshop
