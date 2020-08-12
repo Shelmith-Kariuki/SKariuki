@@ -67,6 +67,14 @@
     </item>
     
     <item>
+      <title>Kenya SDG Tracker</title>
+      <link>/project/kenyasdgs/</link>
+      <pubDate>Wed, 12 Aug 2020 00:00:00 +0000</pubDate>
+      <guid>/project/kenyasdgs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>rKenyaCensus, An R package containing the 2019 Kenya Population and Housing Census data</title>
       <link>/talk/rkenyacensus_talk/</link>
       <pubDate>Sat, 01 Aug 2020 09:00:00 +0000</pubDate>
