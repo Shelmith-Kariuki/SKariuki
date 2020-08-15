@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>packages | Shel Kariuki</title>
+    <link>/category/packages/</link>
+      <atom:link href="/category/packages/index.xml" rel="self" type="application/rss+xml" />
+    <description>packages</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>©2020</copyright><lastBuildDate>Sat, 15 Aug 2020 09:00:00 +0000</lastBuildDate>
+    <image>
+      <url>img/favicon.png</url>
+      <title>packages</title>
+      <link>/category/packages/</link>
+    </image>
+    
+    <item>
+      <title>Introduction to Package Development</title>
+      <link>/talk/packagedevelopment/</link>
+      <pubDate>Sat, 15 Aug 2020 09:00:00 +0000</pubDate>
+      <guid>/talk/packagedevelopment/</guid>
+      <description>
+&lt;script src=&#34;//rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+</description>
+    </item>
+    
+  </channel>
+</rss>
