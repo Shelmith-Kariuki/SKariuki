@@ -18,6 +18,21 @@
   </url>
   
   <url>
+    <loc>/post/adventofcode2020/</loc>
+    <lastmod>2020-12-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/</loc>
+    <lastmod>2020-12-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/</loc>
+    <lastmod>2020-12-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/categories/</loc>
     <lastmod>2020-08-15T09:00:00+00:00</lastmod>
   </url>
@@ -34,11 +49,6 @@
   
   <url>
     <loc>/talk/</loc>
-    <lastmod>2020-08-15T09:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/</loc>
     <lastmod>2020-08-15T09:00:00+00:00</lastmod>
   </url>
   
@@ -129,11 +139,6 @@
   
   <url>
     <loc>/category/blog/</loc>
-    <lastmod>2020-05-13T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/post/</loc>
     <lastmod>2020-05-13T00:00:00+00:00</lastmod>
   </url>
   

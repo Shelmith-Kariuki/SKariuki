@@ -1,5 +1,15 @@
 **20-ish Steps in Package Development**
 
+Packages used: {devtools}, {usethis}, {available}
+
+Source of information: R Packages book by Hadley: https://r-pkgs.org/
+
+What we will not cover today:
+        i) Generating vignettes
+        ii) testing your package
+        iii) Submitting your package to CRAN
+
+*----------------------------------------------------------------------
 Step 1.) Install the packages that are needed:
          a) {devtools}
          b) {usethis}
