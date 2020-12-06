@@ -181,6 +181,14 @@ valid_passwords2 &amp;lt;- df2 %&amp;gt;%
     </item>
     
     <item>
+      <title>My interview with Dataquest (Top Tips for Learning R)</title>
+      <link>/post/dataquest/</link>
+      <pubDate>Thu, 20 Aug 2020 00:00:00 +0000</pubDate>
+      <guid>/post/dataquest/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>The RStudio Certification Process</title>
       <link>/post/certification/</link>
       <pubDate>Wed, 13 May 2020 00:00:00 +0000</pubDate>
