@@ -5,12 +5,28 @@
     <link>/tag/r/</link>
       <atom:link href="/tag/r/index.xml" rel="self" type="application/rss+xml" />
     <description>R</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>©2020</copyright><lastBuildDate>Thu, 20 Aug 2020 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>©2020</copyright><lastBuildDate>Sat, 05 Dec 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>img/favicon.png</url>
       <title>R</title>
       <link>/tag/r/</link>
     </image>
+    
+    <item>
+      <title>Advent of Code 2020</title>
+      <link>/codes/adventofcode2020/</link>
+      <pubDate>Sat, 05 Dec 2020 00:00:00 +0000</pubDate>
+      <guid>/codes/adventofcode2020/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Advent of Code 2020</title>
+      <link>/project/agents/</link>
+      <pubDate>Sat, 05 Dec 2020 00:00:00 +0000</pubDate>
+      <guid>/project/agents/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>My interview with Dataquest (Top Tips for Learning R)</title>
@@ -1090,9 +1106,9 @@ summ_graph&lt;/code&gt;&lt;/pre&gt;
     
     <item>
       <title>Understanding agent networks</title>
-      <link>/project/agents/</link>
+      <link>/post/adventofcode2020/</link>
       <pubDate>Sat, 27 Jul 2019 00:00:00 +0000</pubDate>
-      <guid>/project/agents/</guid>
+      <guid>/post/adventofcode2020/</guid>
       <description></description>
     </item>
     
