@@ -135,13 +135,5 @@ Each table has been scrapped and given a unique identifier, e.g V1.T2.3 is the d
 </description>
     </item>
     
-    <item>
-      <title>Understanding agent networks</title>
-      <link>/post/adventofcode2020/</link>
-      <pubDate>Sat, 27 Jul 2019 00:00:00 +0000</pubDate>
-      <guid>/post/adventofcode2020/</guid>
-      <description></description>
-    </item>
-    
   </channel>
 </rss>
