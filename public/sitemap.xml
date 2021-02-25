@@ -48,7 +48,7 @@
   </url>
   
   <url>
-    <loc>/project/agents/</loc>
+    <loc>/project/adventofcode/</loc>
     <lastmod>2020-12-05T00:00:00+00:00</lastmod>
   </url>
   
@@ -234,6 +234,11 @@
   
   <url>
     <loc>/project/humanaccount/</loc>
+    <lastmod>2019-07-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/project/agents/</loc>
     <lastmod>2019-07-27T00:00:00+00:00</lastmod>
   </url>
   

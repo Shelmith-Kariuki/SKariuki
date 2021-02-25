@@ -14,9 +14,9 @@
     
     <item>
       <title>Advent of Code 2020</title>
-      <link>/project/agents/</link>
+      <link>/project/adventofcode/</link>
       <pubDate>Sat, 05 Dec 2020 00:00:00 +0000</pubDate>
-      <guid>/project/agents/</guid>
+      <guid>/project/adventofcode/</guid>
       <description></description>
     </item>
     
@@ -1085,6 +1085,14 @@ summ_graph&lt;/code&gt;&lt;/pre&gt;
       <link>/project/humanaccount/</link>
       <pubDate>Sat, 27 Jul 2019 00:00:00 +0000</pubDate>
       <guid>/project/humanaccount/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Understanding agent networks</title>
+      <link>/project/agents/</link>
+      <pubDate>Sat, 27 Jul 2019 00:00:00 +0000</pubDate>
+      <guid>/project/agents/</guid>
       <description></description>
     </item>
     

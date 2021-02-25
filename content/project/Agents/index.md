@@ -1,14 +1,14 @@
 ---
-title: Advent of Code 2020
-summary: Advent of Code is an Advent calendar of small programming puzzles for a variety of skill sets and skill levels that can be solved in any programming language you like. People use them as a speed contest, interview prep, company training, university coursework, practice problems, or to challenge each other.
+title: Understanding agent networks
+summary: Incentives and Identity.
 tags:
 - R
-date: "2020-12-05T00:00:00Z"
+date: "2019-07-27T00:00:00Z"
 
 # Optional external URL for project (replaces project detail page).
-external_link: https://github.com/Shelmith-Kariuki/adventofcode2020
+external_link: https://medium.com/busara-center-blog/off-the-record-7-understanding-agent-networks-cc8dab85b711
 
 image:
-  caption: 
+  caption: Photo by Busara
   focal_point: Smart
 ---
