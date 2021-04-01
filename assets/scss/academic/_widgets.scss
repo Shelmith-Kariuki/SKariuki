@@ -261,7 +261,7 @@ a.hero-cta-alt:hover {
 
 #profile {
   text-align: center;
-  padding: 30px 10px;
+  padding: 10px 10px;
   position: relative;
 }
 
@@ -281,11 +281,11 @@ a.hero-cta-alt:hover {
 }
 
 .avatar-circle {
-  border-radius: 50%;
+  border-radius: 40%;
 }
 
 .avatar-square {
-  border-radius: 3px;
+  border-radius: 1px;
 }
 
 .portrait-title h2 {
@@ -299,7 +299,7 @@ a.hero-cta-alt:hover {
   font-size: 1rem;
   font-weight: 300;
   color: rgba(0,0,0, 0.54);
-  margin: 0px 0 10px 0;
+  margin: 20px 0 10px 0;
 }
 
 ul.network-icon {
@@ -313,11 +313,11 @@ ul.network-icon {
 }
 
 #profile .network-icon {
-  margin-top: 30px;
+  margin-top: 20px;
 }
 
 .network-icon li {
-  margin-right: 10px;
+  margin-right: 0px;
 }
 
 .network-icon li:last-of-type {
@@ -342,7 +342,7 @@ ul.ul-edu {
 
 ul.ul-edu li {
   position: relative;
-  padding: 0px 15px 4px 3px;
+  padding: 0;
 }
 
 ul.ul-edu li .description p {
