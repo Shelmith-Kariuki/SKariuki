@@ -6,8 +6,8 @@ Source of information: R Packages book by Hadley: https://r-pkgs.org/
 
 What we will not cover today:
         i) Generating vignettes
-        ii) testing your package
-        iii) Submitting your package to CRAN
+        ii) Unit tests
+        iii) Submitting packages to CRAN
 
 *----------------------------------------------------------------------
 Step 1.) Install the packages that are needed:
@@ -15,7 +15,7 @@ Step 1.) Install the packages that are needed:
          b) {usethis}
          c) {available}
 
-Step 2.) Come up with a package name (naija), and use {available} to check whether the package is
+Step 2.) Come up with a package name (xxx), and use {available} to check whether the package is
         i) valid
         ii) available on CRAN & BIOCONDUCTOR
 
@@ -68,3 +68,4 @@ Read about:
         iii) Submitting your package to CRAN
 
 R Packages book by Hadley: https://r-pkgs.org/
+Creating R Packages with devtools by Keith McNulty and Jiena McLellan: https://keithmcnulty.github.io/r_package_training/#1
