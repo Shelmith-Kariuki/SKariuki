@@ -1,4 +1,4 @@
-**20-ish Steps in Package Development**
+**20 Steps in Package Development**
 
 Packages used: {devtools}, {usethis}, {available}
 
@@ -20,10 +20,13 @@ Step 2.) Come up with a package name (xxx), and use {available} to check whether
         ii) available on CRAN & BIOCONDUCTOR
 
 Step 3.) Create the package: usethis::create_package (path = "xxx"). This generates a new project, with the folowing folders / files.
-        i) R/ folder: this contains R scripts that contain the different functions,
-        that will be contained in the package.
+
+        i) R/ folder: this contains R scripts that contain the different functions,that will be contained in the package.
+
         ii) DESCRIPTION: provides metadata about the package . We will add more beef to this soon.
+
         iii) NAMESPACE: declares the packages that the function exports for external use and external functions the package impors from other packages.
+
         iv) .gitignore and .Rbuildignore files that contain files that should be ignored while pushing the files to github and also while building the package.
 
 Step 4.) Write your first function and save it in the R/ folder with the function name.
@@ -46,17 +49,17 @@ Step 12.) Observe the changes in the NAMESPACE file.
 
 Step 13.) Run devtools::check() again.
 
-Step 14.) Carry out tests on your function using usethis::use_testthat().
+Step 14.) Since we have a minimum viable product now, let’s install the package into our library via devtools::install()
 
-Step 15.) Import functions from the namespaces of other packages using usethis::use_packages().
+Step 15.) Import functions from the namespaces of other packages using usethis::use_package(). This adds an "Imports" section on the description file. Also include the packages as imports in the function. "@import pkg" or "@importFrom pkg fxn"
 
-Step 16.) Push your work to github. usethis::use_git(), usethis::use_github()
+Step 16.) Carry out tests on your function using usethis::use_testthat().
 
-Step 17.) Generate a readme file. usethis::use_readme_rmd() then use devtools::build_readme() to generate a .md version of the readme.
+Step 17.) Push your work to github. usethis::use_git(), usethis::use_github()
 
-Step 18.) Commit the readme to git
+Step 18.) Generate a readme file. usethis::use_readme_rmd() then use devtools::build_readme() to generate a .md version of the readme.
 
-Step 19.) Install the package using devtools::install() or pick the installation link from github.
+Step 19.) Commit the readme to git
 
 Step 20.) Repeat Step 4 to Step 19 with a different function.
 
@@ -67,5 +70,16 @@ Read about:
         ii) testing your package
         iii) Submitting your package to CRAN
 
-R Packages book by Hadley: https://r-pkgs.org/
-Creating R Packages with devtools by Keith McNulty and Jiena McLellan: https://keithmcnulty.github.io/r_package_training/#1
+Resources:
+
++ R Packages book by Hadley:
+https://r-pkgs.org/
+
++ Creating R Packages with devtools by Keith McNulty and Jiena McLellan: https://keithmcnulty.github.io/r_package_training/#1
+
++ Connecting to other packages:
+https://kbroman.org/pkg_primer/pages/depends.html
+
++ user!2019 Package development tutorial:
+https://github.com/jennybc/pkg-dev-tutorial/blob/master/intro-basic-workflow.pdf
+
