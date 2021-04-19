@@ -1,5 +1,5 @@
 ---
-title: "Data Manipulation"
+title: "Data Manipulation using Tidyverse"
 author: "Shelmith"
 date: "2/12/2020"
 tags:
@@ -9,7 +9,7 @@ featured: no
 disable_jquery: no
 image:
   caption: 
-  focal_point: ''
+  focal_point: Smart
   preview_only: no
 output:
   blogdown::html_page:

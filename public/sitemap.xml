@@ -58,7 +58,7 @@
   </url>
   
   <url>
-    <loc>/codes/adventofcode2020/</loc>
+    <loc>/post/adventofcode2020/</loc>
     <lastmod>2020-12-05T00:00:00+00:00</lastmod>
   </url>
   
@@ -68,7 +68,7 @@
   </url>
   
   <url>
-    <loc>/codes/</loc>
+    <loc>/post/</loc>
     <lastmod>2020-12-05T00:00:00+00:00</lastmod>
   </url>
   
@@ -85,11 +85,6 @@
   <url>
     <loc>/tags/</loc>
     <lastmod>2020-12-05T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/post/</loc>
-    <lastmod>2020-08-20T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -198,7 +193,7 @@
   </url>
   
   <url>
-    <loc>/codes/factorvariables/factoringvariables/</loc>
+    <loc>/post/factorvariables/</loc>
     <lastmod>2020-01-15T00:00:00+00:00</lastmod>
   </url>
   
@@ -213,7 +208,7 @@
   </url>
   
   <url>
-    <loc>/codes/ttests/t-tests/</loc>
+    <loc>/post/ttests/</loc>
     <lastmod>2019-08-19T00:00:00+00:00</lastmod>
   </url>
   
@@ -343,7 +338,11 @@
   </url>
   
   <url>
-    <loc>/codes/passa/</loc>
+    <loc>/post/passa/</loc>
+  </url>
+  
+  <url>
+    <loc>/codes/</loc>
   </url>
   
   <url>

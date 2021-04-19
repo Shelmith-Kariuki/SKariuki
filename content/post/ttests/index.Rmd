@@ -4,7 +4,11 @@ author: "Shelmith Kariuki"
 date: 2019-08-19
 categories: ["R"]
 tags: ["R Markdown"]
-images: []
+image:
+  caption: 
+  focal_point: Smart
+  preview_only: no
+  
 output:
   blogdown::html_page:
     toc: true
@@ -17,17 +21,18 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-
 <center><strong><h4>Example 1</h4></strong></center>
+<br>
 
 <p style="text-align:justify;">Consider 20 first year resident female doctors drawn at random from one area, resting systolic blood pressures measured using an electronic gadget were:<br>
 128, 118, 144, 133, 132, 111, 149, 139,136,126, 127,115,142, 140, 131,132,122,119,129,128.<br>
 From previous large studies of women drawn at random from the healthy general public, a resting systolic blood pressure of 120mm was predicted as the population mean, for the relevant age group. Test to see whether there is a difference between the means at 95% level of significance.</p> <br><br>
 
 <h5>Calculations by hand</h5>
+
 ```{r ,comment=NA}
 
-knitr::include_graphics("/img/DSC06212_2.jpg")
+knitr::include_graphics("img/DSC06212_2.jpg")
 ```
 
 
@@ -75,8 +80,8 @@ ttest_1samp(vals_py, 120)
 <h5>Calculations by hand</h5>
 ```{r ,comment=NA}
 
-knitr::include_graphics("/img/DSC06213.JPG")
-knitr::include_graphics("/img/DSC06214.JPG")
+knitr::include_graphics("img/DSC06213.JPG")
+knitr::include_graphics("img/DSC06214.JPG")
 ```
 
 <h5>Execution in R</h5>

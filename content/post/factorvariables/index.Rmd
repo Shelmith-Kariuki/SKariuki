@@ -4,7 +4,11 @@ author: "Shelmith Kariuki"
 date: 2020-01-15
 categories: ["R"]
 tags: ["R Markdown"]
-images: []
+image:
+  caption: 
+  focal_point: Smart
+  preview_only: no
+  
 output:
   blogdown::html_page:
     toc: true

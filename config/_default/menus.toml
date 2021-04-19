@@ -25,19 +25,19 @@
  
  
  [[main]]
-  name = "Codes"
-  url = "/CodeWork"
-  weight = 50
+  #name = "Codes"
+  #url = "/CodeWork"
+  #weight = 50
   
 
 [[main]]
   name = "Contact"
   url = "/ContactPage"
-  weight = 60
+  weight = 70
 
 # Link to a PDF of your resume/CV from the menu.
 # To enable, copy your resume/CV to `static/files/cv.pdf` and uncomment the lines below. 
 [[main]]
-    name = "CV"
-    url = "files/cv.pdf" 
-    weight = 70
+    name = "Resume"
+    url = "files/Shelmith_Kariuki_2021CV.pdf" 
+    weight = 60

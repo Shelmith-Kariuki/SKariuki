@@ -17,7 +17,7 @@ Step 1.) Install the packages that are needed:
 
 Step 2.) Come up with a package name (xxx), and use {available} to check whether the package is
         i) valid
-        ii) available on CRAN & BIOCONDUCTOR
+        ii) available on GITHUB, CRAN OR BIOCONDUCTOR
 
 Step 3.) Create the package: usethis::create_package (path = "xxx"). This generates a new project, with the folowing folders / files.
 

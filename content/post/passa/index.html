@@ -1,5 +1,5 @@
 ---
-title: "Data Manipulation"
+title: "Data Manipulation using Tidyverse"
 author: "Shelmith"
 date: "2/12/2020"
 tags:
@@ -9,7 +9,7 @@ featured: no
 disable_jquery: no
 image:
   caption: 
-  focal_point: ''
+  focal_point: Smart
   preview_only: no
 output:
   blogdown::html_page:
@@ -18,31 +18,39 @@ output:
     toc_depth: 5
 ---
 
+<script src="//rmarkdown-libs/header-attrs/header-attrs.js"></script>
+<link href="//rmarkdown-libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<script src="//rmarkdown-libs/anchor-sections/anchor-sections.js"></script>
 
 <div id="TOC">
 <ul>
 <li><a href="#load-the-packages-required">Load the packages required</a></li>
 <li><a href="#read-in-the-wafanyikazi-dataset">Read in the wafanyikazi dataset</a></li>
-<li><a href="#dplyr">1. dplyr</a><ul>
+<li><a href="#dplyr">1. dplyr</a>
+<ul>
 <li><a href="#select">1.1 select()</a></li>
 <li><a href="#filter">1.2 filter()</a></li>
-<li><a href="#mutate">1.3 mutate()</a><ul>
+<li><a href="#mutate">1.3 mutate()</a>
+<ul>
 <li><a href="#mutate_all">1.3.1: mutate_all()</a></li>
 <li><a href="#mutate_at">1.3.2: mutate_at()</a></li>
 <li><a href="#mutate_if">1.3.3: mutate_if()</a></li>
 </ul></li>
-<li><a href="#group_by-and-summarise">1.4 group_by() and summarise()</a><ul>
+<li><a href="#group_by-and-summarise">1.4 group_by() and summarise()</a>
+<ul>
 <li><a href="#summarise">1.4.1 summarise()</a></li>
 <li><a href="#summarise_at">1.4.2 summarise_at</a></li>
 <li><a href="#summarise_if">1.4.3 summarise_if</a></li>
 </ul></li>
 <li><a href="#arrange">1.5 arrange</a></li>
 </ul></li>
-<li><a href="#tidyr">2. tidyr</a><ul>
+<li><a href="#tidyr">2. tidyr</a>
+<ul>
 <li><a href="#wide-to-long">2.1 Wide to long</a></li>
 <li><a href="#long-to-wide">2.2 Long to wide</a></li>
 </ul></li>
-<li><a href="#ggplot2">3. ggplot2</a><ul>
+<li><a href="#ggplot2">3. ggplot2</a>
+<ul>
 <li><a href="#geom_bar-of-one-variable">3.1 geom_bar of one variable</a></li>
 <li><a href="#geom_bar-of-more-than-one-variable">3.2 geom_bar of more than one variable</a></li>
 <li><a href="#geom_line-of-one-variable">3.3 geom_line of one variable</a></li>

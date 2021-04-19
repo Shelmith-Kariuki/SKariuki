@@ -1,6 +1,6 @@
 +++
 # A Projects section created with the Portfolio widget.
-widget = "portfolio"  # See https://sourcethemes.com/academic/docs/page-builder/
+widget = "pages"  # See https://sourcethemes.com/academic/docs/page-builder/
 headless = true  # This file represents a page section.
 active = true  # Activate this widget? true/false
 weight = 65  # Order that this section will appear.
@@ -58,13 +58,14 @@ subtitle = ""
   # gradient_end = "SkyBlue"
   
   # Background image.
-   #image = "babypink.jpg"  # Name of image in `static/img/`.
+   #image = "projects.jpg"  # Name of image in `static/img/`.
   # image_darken = 0.6  # Darken the image? Range 0-1 where 0 is transparent and 1 is opaque.
 
   # Text color (true=light or false=dark).
   # text_color_light = true  
   
 [advanced]
+padding = ["100px", "200px", "100px", "200px"]
  # Custom CSS. 
  css_style = ""
  
