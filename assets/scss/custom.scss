@@ -72,7 +72,7 @@ a.nav-link:after {
 }
 
 a.nav-link:hover:after {
-  width: 80%;
+  width: 100%;
 }
 
 /* home page */
@@ -281,7 +281,7 @@ iframe {
 
 /* https://github.com/gcushen/hugo-academic/issues/147 */
 .container {
-  max-width: 1100px;
+  max-width: 1000px;
 }
 
 .carousel-indicators li {
