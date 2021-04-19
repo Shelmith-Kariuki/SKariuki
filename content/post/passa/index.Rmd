@@ -10,7 +10,7 @@ disable_jquery: no
 image:
   caption: 
   focal_point: Smart
-  preview_only: yes
+  preview_only: no
 output:
   blogdown::html_page:
     toc: yes

@@ -7,7 +7,7 @@ tags: ["R Markdown"]
 image:
   caption: 
   focal_point: Smart
-  preview_only: yes
+  preview_only: no
   
 output:
   blogdown::html_page:
