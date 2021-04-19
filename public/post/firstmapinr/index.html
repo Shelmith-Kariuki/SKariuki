@@ -27,11 +27,11 @@
   
     
   
-  <meta name="description" content="There are 5 ways (that I know of) in which we can factorise multiple variables in R.
- One by one (an option for beginners). Using a for loop.">
+  <meta name="description" content="Load the packages required   Load the packages required 
+### 0.1 Install the libraries required ## Create a vector of packages to be installed pkgs &lt;- c(&quot;tidyverse&quot;,&quot;rKenyaCensus&quot;, &quot;sf&quot;, &quot;tmap&quot;, &quot;leaflet&quot;, &quot;ggrepel&quot;) ## Check if there are packages you want to load, that are not already installed.">
 
   
-  <link rel="alternate" hreflang="en-us" href="/post/factorvariables/">
+  <link rel="alternate" hreflang="en-us" href="/post/firstmapinr/">
 
   
 
@@ -216,7 +216,7 @@
   <link rel="icon" type="image/png" href="/images/icon_hu30558f93f7e3d0389666c2d677ebedec_445115_32x32_fill_lanczos_center_2.png">
   <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu30558f93f7e3d0389666c2d677ebedec_445115_192x192_fill_lanczos_center_2.png">
 
-  <link rel="canonical" href="/post/factorvariables/">
+  <link rel="canonical" href="/post/firstmapinr/">
 
   
   
@@ -234,16 +234,16 @@
   <meta property="twitter:creator" content="@Shel_Kariuki">
   
   <meta property="og:site_name" content="Shel Kariuki">
-  <meta property="og:url" content="/post/factorvariables/">
-  <meta property="og:title" content="Factorizing variables in R | Shel Kariuki">
-  <meta property="og:description" content="There are 5 ways (that I know of) in which we can factorise multiple variables in R.
- One by one (an option for beginners). Using a for loop."><meta property="og:image" content="/post/factorvariables/featured.jpg">
-  <meta property="twitter:image" content="/post/factorvariables/featured.jpg"><meta property="og:locale" content="en-us">
+  <meta property="og:url" content="/post/firstmapinr/">
+  <meta property="og:title" content="Creating Maps in R | Shel Kariuki">
+  <meta property="og:description" content="Load the packages required   Load the packages required 
+### 0.1 Install the libraries required ## Create a vector of packages to be installed pkgs &lt;- c(&quot;tidyverse&quot;,&quot;rKenyaCensus&quot;, &quot;sf&quot;, &quot;tmap&quot;, &quot;leaflet&quot;, &quot;ggrepel&quot;) ## Check if there are packages you want to load, that are not already installed."><meta property="og:image" content="/post/firstmapinr/featured.png">
+  <meta property="twitter:image" content="/post/firstmapinr/featured.png"><meta property="og:locale" content="en-us">
   
     
-      <meta property="article:published_time" content="2020-01-15T00:00:00&#43;00:00">
+      <meta property="article:published_time" content="2021-04-19T00:00:00&#43;00:00">
     
-    <meta property="article:modified_time" content="2020-01-15T00:00:00&#43;00:00">
+    <meta property="article:modified_time" content="2021-04-19T00:00:00&#43;00:00">
   
 
   
@@ -267,16 +267,16 @@
   "@type": "BlogPosting",
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "/post/factorvariables/"
+    "@id": "/post/firstmapinr/"
   },
-  "headline": "Factorizing variables in R",
+  "headline": "Creating Maps in R",
   
   "image": [
-    "/post/factorvariables/featured.jpg"
+    "/post/firstmapinr/featured.png"
   ],
   
-  "datePublished": "2020-01-15T00:00:00Z",
-  "dateModified": "2020-01-15T00:00:00Z",
+  "datePublished": "2021-04-19T00:00:00Z",
+  "dateModified": "2021-04-19T00:00:00Z",
   
   "publisher": {
     "@type": "Organization",
@@ -286,7 +286,7 @@
       "url": "/images/icon_hu30558f93f7e3d0389666c2d677ebedec_445115_192x192_fill_lanczos_center_2.png"
     }
   },
-  "description": "There are 5 ways (that I know of) in which we can factorise multiple variables in R.\n One by one (an option for beginners). Using a for loop."
+  "description": "Load the packages required   Load the packages required \n### 0.1 Install the libraries required ## Create a vector of packages to be installed pkgs \u0026lt;- c(\u0026quot;tidyverse\u0026quot;,\u0026quot;rKenyaCensus\u0026quot;, \u0026quot;sf\u0026quot;, \u0026quot;tmap\u0026quot;, \u0026quot;leaflet\u0026quot;, \u0026quot;ggrepel\u0026quot;) ## Check if there are packages you want to load, that are not already installed."
 }
 </script>
 
@@ -304,7 +304,7 @@
 
 
 
-  <title>Factorizing variables in R | Shel Kariuki</title>
+  <title>Creating Maps in R | Shel Kariuki</title>
 
 </head>
 
@@ -583,7 +583,7 @@
   
   
 <div class="article-container pt-3">
-  <h1>Factorizing variables in R</h1>
+  <h1>Creating Maps in R</h1>
 
   
 
@@ -602,7 +602,7 @@
     
       
     
-    Jan 15, 2020
+    Apr 19, 2021
   </span>
   
 
@@ -611,7 +611,7 @@
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    3 min read
+    1 min read
   </span>
   
 
@@ -620,10 +620,6 @@
   
 
   
-  
-  <span class="middot-divider"></span>
-  <span class="article-categories">
-    <i class="fas fa-folder mr-1"></i><a href="/category/r/">R</a></span>
   
 
 </div>
@@ -656,154 +652,32 @@
 <link href="//rmarkdown-libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
 <script src="//rmarkdown-libs/anchor-sections/anchor-sections.js"></script>
 
-
-<p>There are 5 ways (that I know of) in which we can factorise multiple variables in R.</p>
+<div id="TOC">
 <ul>
-<li>One by one (an option for beginners).</li>
-<li>Using a for loop.</li>
-<li>lapply()</li>
-<li>forcats::fct_relevel()</li>
-<li>purrr::map()</li>
+<li><a href="#load-the-packages-required">Load the packages required</a></li>
 </ul>
-<div id="load-the-packages-that-we-will-require" class="section level3">
-<h3>0. Load the packages that we will require</h3>
-<p><br></p>
-<pre class="r"><code>## Create a vector of packages that we will need
-pkgs &lt;- c(&quot;dplyr&quot;,&quot;purrr&quot;,&quot;repurrrsive&quot;)
+</div>
 
-## Check if there are variables you want to load, that are not already installed. 
+<div id="load-the-packages-required" class="section level2">
+<h2>Load the packages required</h2>
+<p><br></p>
+<pre class="r"><code>### 0.1 Install the libraries required
+## Create a vector of packages to be installed
+pkgs &lt;- c(&quot;tidyverse&quot;,&quot;rKenyaCensus&quot;, &quot;sf&quot;, &quot;tmap&quot;, &quot;leaflet&quot;, &quot;ggrepel&quot;)
+
+## Check if there are packages you want to load, that are not already installed. 
 miss_pkgs &lt;- pkgs[!pkgs %in% installed.packages()[,1]] 
 
 ## Installing the missing packages
 if(length(miss_pkgs)&gt;0){
   install.packages(miss_pkgs)
 }
-
 ## Loading all the packages
 invisible(lapply(pkgs,library,character.only=TRUE))
 
 ## Remove the objects that are no longer required
 rm(miss_pkgs)
 rm(pkgs)</code></pre>
-<p>Assuming you have a matrix type question (where respondents were asked to rate the questions on a scale of 1 - 5, where 1 represents Strongly Disagree and 5 represents Strongly Agree).
-<br></p>
-<pre class="r"><code>set.seed(2020)
-
-vec &lt;- 1:5
-Questions &lt;- paste0(&quot;Opinion_&quot;,vec)
-opinion_df &lt;- data.frame(matrix(&quot;&quot;, ncol=5, nrow=200))
-names(opinion_df) &lt;- Questions
-
-for(i in 1: length(Questions)){
- opinion_df[,Questions[i]] &lt;- sample(c(&quot;Strongly Agree&quot;, &quot;Agree&quot;,&quot;Neutral&quot;,&quot;Disagree&quot;, &quot;Strongly Disagree&quot;),size = 200,replace = TRUE) 
-}
-
-head(opinion_df, 10)</code></pre>
-<pre><code>##            Opinion_1         Opinion_2         Opinion_3         Opinion_4
-## 1           Disagree          Disagree             Agree          Disagree
-## 2           Disagree             Agree             Agree Strongly Disagree
-## 3     Strongly Agree           Neutral    Strongly Agree           Neutral
-## 4     Strongly Agree Strongly Disagree             Agree           Neutral
-## 5           Disagree           Neutral             Agree    Strongly Agree
-## 6              Agree           Neutral           Neutral           Neutral
-## 7     Strongly Agree           Neutral Strongly Disagree    Strongly Agree
-## 8  Strongly Disagree           Neutral           Neutral    Strongly Agree
-## 9              Agree          Disagree    Strongly Agree             Agree
-## 10             Agree          Disagree             Agree           Neutral
-##            Opinion_5
-## 1              Agree
-## 2           Disagree
-## 3            Neutral
-## 4            Neutral
-## 5           Disagree
-## 6           Disagree
-## 7  Strongly Disagree
-## 8            Neutral
-## 9              Agree
-## 10          Disagree</code></pre>
-</div>
-<div id="factorizing-one-by-one" class="section level3">
-<h3>1. Factorizing one by one</h3>
-<p><br></p>
-<pre class="r"><code>opinion_df2 &lt;- opinion_df
-
-## Opinion_1
-opinion_df2$Opinion_1 &lt;- factor(opinion_df2$Opinion_1,
-                                levels = c(&quot;Strongly Disagree&quot;, &quot;Disagree&quot;,&quot;Neutral&quot;,&quot;Agree&quot;, &quot;Strongly Agree&quot;),
-                                labels = c(&quot;Strongly Disagree&quot;, &quot;Disagree&quot;,&quot;Neutral&quot;,&quot;Agree&quot;, &quot;Strongly Agree&quot;))
-
-## Opinion_2
-opinion_df2$Opinion_2 &lt;- factor(opinion_df2$Opinion_2,
-                                levels = c(&quot;Strongly Disagree&quot;, &quot;Disagree&quot;,&quot;Neutral&quot;,&quot;Agree&quot;, &quot;Strongly Agree&quot;),
-                                labels = c(&quot;Strongly Disagree&quot;, &quot;Disagree&quot;,&quot;Neutral&quot;,&quot;Agree&quot;, &quot;Strongly Agree&quot;))
-
-## Sorry, I cannot continue with this replication</code></pre>
-</div>
-<div id="using-a-for-loop" class="section level3">
-<h3>2. Using a for loop</h3>
-<p><br></p>
-<pre class="r"><code>opinion_df3 &lt;- opinion_df
-
-factor_function &lt;- function(data,var){
-  data[,var] &lt;- factor(data[,var],
-                  levels = c(&quot;Strongly Disagree&quot;, &quot;Disagree&quot;,&quot;Neutral&quot;,&quot;Agree&quot;, &quot;Strongly Agree&quot;),
-                  labels = c(&quot;Strongly Disagree&quot;, &quot;Disagree&quot;,&quot;Neutral&quot;,&quot;Agree&quot;, &quot;Strongly Agree&quot;))
-  
-  return(data[,var])
-}
-
-for( i in 1:length(Questions)){
- opinion_df3[,Questions[i]] &lt;- factor_function(opinion_df3,Questions[i])
- print(levels(opinion_df3[,Questions[i]]))
-}</code></pre>
-<pre><code>## [1] &quot;Strongly Disagree&quot; &quot;Disagree&quot;          &quot;Neutral&quot;          
-## [4] &quot;Agree&quot;             &quot;Strongly Agree&quot;   
-## [1] &quot;Strongly Disagree&quot; &quot;Disagree&quot;          &quot;Neutral&quot;          
-## [4] &quot;Agree&quot;             &quot;Strongly Agree&quot;   
-## [1] &quot;Strongly Disagree&quot; &quot;Disagree&quot;          &quot;Neutral&quot;          
-## [4] &quot;Agree&quot;             &quot;Strongly Agree&quot;   
-## [1] &quot;Strongly Disagree&quot; &quot;Disagree&quot;          &quot;Neutral&quot;          
-## [4] &quot;Agree&quot;             &quot;Strongly Agree&quot;   
-## [1] &quot;Strongly Disagree&quot; &quot;Disagree&quot;          &quot;Neutral&quot;          
-## [4] &quot;Agree&quot;             &quot;Strongly Agree&quot;</code></pre>
-</div>
-<div id="using-lapply." class="section level3">
-<h3>3. Using lapply().</h3>
-<p>sapply() is kind of usually moody at times, and this was one of those days. So I used lapply(), and it works.
-<br></p>
-<pre class="r"><code>opinion_df &lt;- data.frame(opinion_df)
-
-opinion_df4 &lt;- as.data.frame(lapply(opinion_df, function(x) factor(x,
-            levels = c(&quot;Strongly Disagree&quot;, &quot;Disagree&quot;,&quot;Neutral&quot;,&quot;Agree&quot;, &quot;Strongly Agree&quot;),
-            labels = c(&quot;Strongly Disagree&quot;, &quot;Disagree&quot;,&quot;Neutral&quot;,&quot;Agree&quot;, &quot;Strongly Agree&quot;))),check.names = FALSE)
-
-levels(opinion_df3$Opinion_4)</code></pre>
-<pre><code>## [1] &quot;Strongly Disagree&quot; &quot;Disagree&quot;          &quot;Neutral&quot;          
-## [4] &quot;Agree&quot;             &quot;Strongly Agree&quot;</code></pre>
-</div>
-<div id="using-forcatsfct_relevel" class="section level3">
-<h3>4. Using forcats::fct_relevel()</h3>
-<p><br></p>
-<pre class="r"><code>opinion_df5 &lt;- opinion_df %&gt;%
-  dplyr::mutate_all(forcats::fct_relevel, &quot;Strongly Disagree&quot;, &quot;Disagree&quot;, &quot;Neutral&quot;, &quot;Agree&quot;, &quot;Strongly Agree&quot;)
-
-levels(opinion_df5$Opinion_4)</code></pre>
-<pre><code>## [1] &quot;Strongly Disagree&quot; &quot;Disagree&quot;          &quot;Neutral&quot;          
-## [4] &quot;Agree&quot;             &quot;Strongly Agree&quot;</code></pre>
-</div>
-<div id="using-purrrmap" class="section level3">
-<h3>5. Using purrr::map()</h3>
-<p><br>
-The syntax is written as map(.x,.f) i.e for each element of .x, do .f
-<br></p>
-<pre class="r"><code>opinion_df6 &lt;-bind_rows(map(opinion_df, ~factor(.x,
- levels = c(&quot;Strongly Disagree&quot;, &quot;Disagree&quot;,&quot;Neutral&quot;,&quot;Agree&quot;, &quot;Strongly Agree&quot;),
- labels = c(&quot;Strongly Disagree&quot;, &quot;Disagree&quot;,&quot;Neutral&quot;,&quot;Agree&quot;, &quot;Strongly Agree&quot;))))
-
-
-levels(opinion_df6$Opinion_4)</code></pre>
-<pre><code>## [1] &quot;Strongly Disagree&quot; &quot;Disagree&quot;          &quot;Neutral&quot;          
-## [4] &quot;Agree&quot;             &quot;Strongly Agree&quot;</code></pre>
 </div>
 
     </div>
@@ -817,7 +691,7 @@ levels(opinion_df6$Opinion_4)</code></pre>
 
 <div class="article-tags">
   
-  <a class="badge badge-light" href="/tag/r-markdown/">R Markdown</a>
+  <a class="badge badge-light" href="/tag/r/">R</a>
   
 </div>
 
@@ -834,7 +708,7 @@ levels(opinion_df6$Opinion_4)</code></pre>
       
       
       <li>
-        <a href="https://twitter.com/intent/tweet?url=/post/factorvariables/&amp;text=Factorizing%20variables%20in%20R" target="_blank" rel="noopener" class="share-btn-twitter">
+        <a href="https://twitter.com/intent/tweet?url=/post/firstmapinr/&amp;text=Creating%20Maps%20in%20R" target="_blank" rel="noopener" class="share-btn-twitter">
           <i class="fab fa-twitter"></i>
         </a>
       </li>
@@ -847,7 +721,7 @@ levels(opinion_df6$Opinion_4)</code></pre>
       
       
       <li>
-        <a href="https://www.facebook.com/sharer.php?u=/post/factorvariables/&amp;t=Factorizing%20variables%20in%20R" target="_blank" rel="noopener" class="share-btn-facebook">
+        <a href="https://www.facebook.com/sharer.php?u=/post/firstmapinr/&amp;t=Creating%20Maps%20in%20R" target="_blank" rel="noopener" class="share-btn-facebook">
           <i class="fab fa-facebook"></i>
         </a>
       </li>
@@ -860,7 +734,7 @@ levels(opinion_df6$Opinion_4)</code></pre>
       
       
       <li>
-        <a href="mailto:?subject=Factorizing%20variables%20in%20R&amp;body=/post/factorvariables/" target="_blank" rel="noopener" class="share-btn-email">
+        <a href="mailto:?subject=Creating%20Maps%20in%20R&amp;body=/post/firstmapinr/" target="_blank" rel="noopener" class="share-btn-email">
           <i class="fas fa-envelope"></i>
         </a>
       </li>
@@ -873,7 +747,7 @@ levels(opinion_df6$Opinion_4)</code></pre>
       
       
       <li>
-        <a href="https://www.linkedin.com/shareArticle?url=/post/factorvariables/&amp;title=Factorizing%20variables%20in%20R" target="_blank" rel="noopener" class="share-btn-linkedin">
+        <a href="https://www.linkedin.com/shareArticle?url=/post/firstmapinr/&amp;title=Creating%20Maps%20in%20R" target="_blank" rel="noopener" class="share-btn-linkedin">
           <i class="fab fa-linkedin-in"></i>
         </a>
       </li>
@@ -886,7 +760,7 @@ levels(opinion_df6$Opinion_4)</code></pre>
       
       
       <li>
-        <a href="whatsapp://send?text=Factorizing%20variables%20in%20R%20/post/factorvariables/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+        <a href="whatsapp://send?text=Creating%20Maps%20in%20R%20/post/firstmapinr/" target="_blank" rel="noopener" class="share-btn-whatsapp">
           <i class="fab fa-whatsapp"></i>
         </a>
       </li>
@@ -899,7 +773,7 @@ levels(opinion_df6$Opinion_4)</code></pre>
       
       
       <li>
-        <a href="https://service.weibo.com/share/share.php?url=/post/factorvariables/&amp;title=Factorizing%20variables%20in%20R" target="_blank" rel="noopener" class="share-btn-weibo">
+        <a href="https://service.weibo.com/share/share.php?url=/post/firstmapinr/&amp;title=Creating%20Maps%20in%20R" target="_blank" rel="noopener" class="share-btn-weibo">
           <i class="fab fa-weibo"></i>
         </a>
       </li>
@@ -1068,7 +942,15 @@ levels(opinion_df6$Opinion_4)</code></pre>
     <h3>Related</h3>
     <ul>
       
-      <li><a href="/post/ttests/">One sample t-tests</a></li>
+      <li><a href="/project/mi/">Marketing Intelligence</a></li>
+      
+      <li><a href="/project/eb/">Web Analytics</a></li>
+      
+      <li><a href="/post/passa/">Data Manipulation using Tidyverse</a></li>
+      
+      <li><a href="/project/adventofcode/">Advent of Code 2020</a></li>
+      
+      <li><a href="/post/adventofcode2020/">Advent of Code 2020</a></li>
       
     </ul>
   </div>
