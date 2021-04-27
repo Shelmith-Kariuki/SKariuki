@@ -21,11 +21,12 @@ organizations:
 #bio: My research interests include distributed robotics, mobile computing and programmable matter.
 
 interests:
+- Data Analytics
 - Data Science
-- R
-- Python
-- Training
-- Marketing analytics
+- Spatial Analytics
+- Causal Inference
+- Impact Evaluation
+
 
 
 education:
