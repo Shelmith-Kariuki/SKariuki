@@ -140,7 +140,7 @@ df <- df %>%
          trn_dayofweek = wday(trn_date, label = TRUE, abbr = FALSE),
          trn_month = month(trn_date, label = TRUE, abbr = FALSE),
          trn_year = year(trn_date))
-tab_output(df)
+tab_output(df %>% select(-temp))
 ```
 
 #### 2.4 Time (Hour, Minute, Time of day (morning / afternoon)) 
