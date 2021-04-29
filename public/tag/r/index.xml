@@ -5,12 +5,1975 @@
     <link>/tag/r/</link>
       <atom:link href="/tag/r/index.xml" rel="self" type="application/rss+xml" />
     <description>R</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>©2021</copyright><lastBuildDate>Sat, 05 Dec 2020 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>©2021</copyright><lastBuildDate>Wed, 28 Apr 2021 00:00:00 +0000</lastBuildDate>
     <image>
       <url>img/favicon.png</url>
       <title>R</title>
       <link>/tag/r/</link>
     </image>
+    
+    <item>
+      <title>Extracting crucial details from M-Pesa text messages</title>
+      <link>/post/mpesa/</link>
+      <pubDate>Wed, 28 Apr 2021 00:00:00 +0000</pubDate>
+      <guid>/post/mpesa/</guid>
+      <description>
+&lt;script src=&#34;//rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;//rmarkdown-libs/anchor-sections/anchor-sections.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;//rmarkdown-libs/anchor-sections/anchor-sections.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;//rmarkdown-libs/kePrint/kePrint.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;//rmarkdown-libs/lightable/lightable.css&#34; rel=&#34;stylesheet&#34; /&gt;
+
+
+&lt;p&gt;&lt;a href=&#34;https://www.safaricom.co.ke/about&#34;&gt;M-PESA&lt;/a&gt;, operated by &lt;a href=&#34;https://www.safaricom.co.ke/&#34;&gt;Safaricom&lt;/a&gt; is a mobile money transfer service in Kenya. It is one of the best online payment options. One can use M-PESA to buy airtime, send or receive cash on their phones and pay goods and/or services using merchant paybill numbers or till numbers. The following is an example of an M-Pesa text message that one would receive if they paid for goods or services via a till number.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;XXXYYYZZZ10 Confirmed. Ksh700.00 paid to GEL NAIL SHOP. on 17/3/21 at 6:54 PM.New M-PESA balance is Ksh3,646.22. Transaction cost, Ksh0.00. Amount you can transact within the day is 299,300.00.You can now access M-PESA via *334#&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;This script details how one can extract some key details from the message for purposes of data analysis. These details include the transaction code, transaction type (purchase of airtime, cash transfer, cash withdrawal, cash deposit, pay bill payment, merchant payment (Lipa Na Mpesa)), date (including the day, month and year), time (hour, minute and time of day (morning / afternoon)) , transaction amount , and M-Pesa balance.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Note: This data has been anonymized&lt;/em&gt;&lt;/p&gt;
+&lt;div id=&#34;load-the-packages-required&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;0. Load the packages required&lt;/h3&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
+## Create a vector of packages to be installed
+pkgs &amp;lt;- c(&amp;quot;tidyverse&amp;quot;,&amp;quot;lubridate&amp;quot;, &amp;quot;kableExtra&amp;quot;)
+
+## Check if there are packages you want to load, that are not already installed. 
+miss_pkgs &amp;lt;- pkgs[!pkgs %in% installed.packages()[,1]] 
+
+## Installing the missing packages
+if(length(miss_pkgs)&amp;gt;0){
+  install.packages(miss_pkgs)
+}
+## Loading all the packages
+invisible(lapply(pkgs,library,character.only=TRUE))
+
+## Remove the objects that are no longer required
+rm(miss_pkgs)
+rm(pkgs)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;read-in-the-data&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;1. Read in the data&lt;/h3&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;df &amp;lt;- read_csv(&amp;quot;mpesa.csv - Sheet1.csv&amp;quot;)
+#&amp;gt; Parsed with column specification:
+#&amp;gt; cols(
+#&amp;gt;   `Text message` = col_character()
+#&amp;gt; )
+tab_output(df)&lt;/code&gt;&lt;/pre&gt;
+&lt;table class=&#34;table&#34; style=&#34;font-size: 14px; margin-left: auto; margin-right: auto;&#34;&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center;font-weight: bold;color: black !important;background-color: pink !important;&#34;&gt;
+Text message
+&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ1 confirmed.You bought Ksh100.00 of airtime on 27/4/21 at 11:05 AM.New M-PESA balance is Ksh5,350.22. Transaction cost, Ksh0.00. Amount you can transact within the day is 299,900.00. SAFARICOM ONLY CALLS YOU FROM 0722000000. To reverse, forward this message to 456.
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ2 confirmed.You bought Ksh30.00 of airtime on 25/4/21 at 3:45 PM.New M-PESA balance is Ksh5,450.22. Transaction cost, Ksh0.00. Amount you can transact within the day is 299,940.00. SAFARICOM ONLY CALLS YOU FROM 0722000000. To reverse, forward this message to 456.
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ3 Confirmed. Ksh500.00 sent to KPLC PREPAID for account 123456789 on 23/4/21 at 9:57 PM New M-PESA balance is Ksh5,941.22. Transaction cost, Ksh23.00. Amount you can transact within the day is 296,283.00.
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ4 Confirmed. Ksh607.00 paid to SUPERMARKET FULANI HAPO. on 23/4/21 at 3:26 PM.New M-PESA balance is Ksh6,494.22. Transaction cost, Ksh0.00. Amount you can transact within the day is 296,813.00.You can now access M-PESA via *334#
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ5 Confirmed. Ksh1,030.00 sent to MSEE FULANI HAPO +254722222222 on 23/4/21 at 2:38 PM. New M-PESA balance is Ksh7. Transaction cost, Ksh22.00. Amount you can transact within the day is 297,420.00. SAFARICOM ONLY CALLS YOU FROM 0722000000. To reverse, forward this message to 456.
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ6 Confirmed.on 23/4/21 at 12:31 PMWithdraw Ksh1,500.00 from 010000 - Shop fulani hapo New M-PESA balance is Ksh8. Transaction cost, Ksh28.00. Amount you can transact within the day is 298,500.00.
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ9 Confirmed. Ksh80.00 sent to MSEE WA CHIPO 0704444444 on 12/4/21 at 1:57 PM. New M-PESA balance is Ksh 210. Transaction cost, Ksh0.00. Amount you can transact within the day is 296,665.00. SAFARICOM ONLY CALLS YOU FROM 0722000000. To reverse, forward this message to 456.
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ10 Confirmed. Ksh700.00 paid to GEL NAIL SHOP. on 17/3/21 at 6:54 PM.New M-PESA balance is Ksh3,646.22. Transaction cost, Ksh0.00. Amount you can transact within the day is 299,300.00.You can now access M-PESA via *334#
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ11 Confirmed. On 25/7/20 at 3:29 PM Give Ksh2,000.00 cash to Agent fulani New M-PESA balance is Ksh2,100.22.
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div id=&#34;extract-crucial-information-from-the-messages&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;2. Extract crucial information from the messages&lt;/h3&gt;
+&lt;div id=&#34;transaction-code&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;2.1 Transaction code&lt;/h4&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;df &amp;lt;- df %&amp;gt;% 
+      mutate(trn_code = 
+               gsub(&amp;quot;confirmed.*|Confirmed.*&amp;quot;, &amp;quot;&amp;quot;, `Text message`))
+tab_output(df)&lt;/code&gt;&lt;/pre&gt;
+&lt;table class=&#34;table&#34; style=&#34;font-size: 14px; margin-left: auto; margin-right: auto;&#34;&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center;font-weight: bold;color: black !important;background-color: pink !important;&#34;&gt;
+Text message
+&lt;/th&gt;
+&lt;th style=&#34;text-align:center;font-weight: bold;color: black !important;background-color: pink !important;&#34;&gt;
+trn_code
+&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ1 confirmed.You bought Ksh100.00 of airtime on 27/4/21 at 11:05 AM.New M-PESA balance is Ksh5,350.22. Transaction cost, Ksh0.00. Amount you can transact within the day is 299,900.00. SAFARICOM ONLY CALLS YOU FROM 0722000000. To reverse, forward this message to 456.
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ1
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ2 confirmed.You bought Ksh30.00 of airtime on 25/4/21 at 3:45 PM.New M-PESA balance is Ksh5,450.22. Transaction cost, Ksh0.00. Amount you can transact within the day is 299,940.00. SAFARICOM ONLY CALLS YOU FROM 0722000000. To reverse, forward this message to 456.
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ2
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ3 Confirmed. Ksh500.00 sent to KPLC PREPAID for account 123456789 on 23/4/21 at 9:57 PM New M-PESA balance is Ksh5,941.22. Transaction cost, Ksh23.00. Amount you can transact within the day is 296,283.00.
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ3
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ4 Confirmed. Ksh607.00 paid to SUPERMARKET FULANI HAPO. on 23/4/21 at 3:26 PM.New M-PESA balance is Ksh6,494.22. Transaction cost, Ksh0.00. Amount you can transact within the day is 296,813.00.You can now access M-PESA via *334#
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ4
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ5 Confirmed. Ksh1,030.00 sent to MSEE FULANI HAPO +254722222222 on 23/4/21 at 2:38 PM. New M-PESA balance is Ksh7. Transaction cost, Ksh22.00. Amount you can transact within the day is 297,420.00. SAFARICOM ONLY CALLS YOU FROM 0722000000. To reverse, forward this message to 456.
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ5
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ6 Confirmed.on 23/4/21 at 12:31 PMWithdraw Ksh1,500.00 from 010000 - Shop fulani hapo New M-PESA balance is Ksh8. Transaction cost, Ksh28.00. Amount you can transact within the day is 298,500.00.
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ6
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ9 Confirmed. Ksh80.00 sent to MSEE WA CHIPO 0704444444 on 12/4/21 at 1:57 PM. New M-PESA balance is Ksh 210. Transaction cost, Ksh0.00. Amount you can transact within the day is 296,665.00. SAFARICOM ONLY CALLS YOU FROM 0722000000. To reverse, forward this message to 456.
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ9
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ10 Confirmed. Ksh700.00 paid to GEL NAIL SHOP. on 17/3/21 at 6:54 PM.New M-PESA balance is Ksh3,646.22. Transaction cost, Ksh0.00. Amount you can transact within the day is 299,300.00.You can now access M-PESA via *334#
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ10
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ11 Confirmed. On 25/7/20 at 3:29 PM Give Ksh2,000.00 cash to Agent fulani New M-PESA balance is Ksh2,100.22.
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ11
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div id=&#34;transaction-type&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;2.2 Transaction type&lt;/h4&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;df &amp;lt;- df %&amp;gt;% 
+  mutate(trn_type = 
+           ## Purchase of airtime
+           ifelse(`Text message` %in% 
+                    grep(&amp;quot;airtime&amp;quot;, `Text message`,value = TRUE, 
+                         ignore.case = TRUE), &amp;quot;Airtime Purchase&amp;quot;,
+           ## Transfer
+           ifelse(`Text message` %in% 
+                    grep(&amp;quot;sent to&amp;quot;, `Text message`,value = TRUE, 
+                         ignore.case = TRUE) &amp;amp;
+                    !`Text message` %in% 
+                    grep(&amp;quot;for account&amp;quot;, `Text message`,value = TRUE, 
+                         ignore.case = TRUE), &amp;quot;Customer Transfer&amp;quot;, 
+           ## Withdrawal
+           ifelse(`Text message` %in% 
+                    grep(&amp;quot;withdraw&amp;quot;, `Text message`,value = TRUE, 
+                         ignore.case = TRUE), &amp;quot;Withdrawal&amp;quot;,
+           ## Deposit
+           ifelse(`Text message` %in% 
+                    grep(&amp;quot;Give&amp;quot;, `Text message`,value = TRUE, 
+                         ignore.case = TRUE), &amp;quot;Deposit&amp;quot;,         
+           ## Pay Bill Payment
+           ifelse(`Text message` %in% 
+                    grep(&amp;quot;for account&amp;quot;, `Text message`,value = TRUE, 
+                         ignore.case = TRUE), &amp;quot;Pay Bill Payment&amp;quot;,
+           ## Merchant Payment (Lipa Na Mpesa)
+           ifelse(`Text message` %in% 
+                    grep(&amp;quot;paid to&amp;quot;, `Text message`,value = TRUE, 
+                         ignore.case = TRUE), &amp;quot;Merchant Payment&amp;quot;,&amp;quot;&amp;quot;)))))))
+tab_output(df)&lt;/code&gt;&lt;/pre&gt;
+&lt;table class=&#34;table&#34; style=&#34;font-size: 14px; margin-left: auto; margin-right: auto;&#34;&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center;font-weight: bold;color: black !important;background-color: pink !important;&#34;&gt;
+Text message
+&lt;/th&gt;
+&lt;th style=&#34;text-align:center;font-weight: bold;color: black !important;background-color: pink !important;&#34;&gt;
+trn_code
+&lt;/th&gt;
+&lt;th style=&#34;text-align:center;font-weight: bold;color: black !important;background-color: pink !important;&#34;&gt;
+trn_type
+&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ1 confirmed.You bought Ksh100.00 of airtime on 27/4/21 at 11:05 AM.New M-PESA balance is Ksh5,350.22. Transaction cost, Ksh0.00. Amount you can transact within the day is 299,900.00. SAFARICOM ONLY CALLS YOU FROM 0722000000. To reverse, forward this message to 456.
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ1
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Airtime Purchase
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ2 confirmed.You bought Ksh30.00 of airtime on 25/4/21 at 3:45 PM.New M-PESA balance is Ksh5,450.22. Transaction cost, Ksh0.00. Amount you can transact within the day is 299,940.00. SAFARICOM ONLY CALLS YOU FROM 0722000000. To reverse, forward this message to 456.
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ2
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Airtime Purchase
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ3 Confirmed. Ksh500.00 sent to KPLC PREPAID for account 123456789 on 23/4/21 at 9:57 PM New M-PESA balance is Ksh5,941.22. Transaction cost, Ksh23.00. Amount you can transact within the day is 296,283.00.
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ3
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Pay Bill Payment
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ4 Confirmed. Ksh607.00 paid to SUPERMARKET FULANI HAPO. on 23/4/21 at 3:26 PM.New M-PESA balance is Ksh6,494.22. Transaction cost, Ksh0.00. Amount you can transact within the day is 296,813.00.You can now access M-PESA via *334#
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ4
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Merchant Payment
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ5 Confirmed. Ksh1,030.00 sent to MSEE FULANI HAPO +254722222222 on 23/4/21 at 2:38 PM. New M-PESA balance is Ksh7. Transaction cost, Ksh22.00. Amount you can transact within the day is 297,420.00. SAFARICOM ONLY CALLS YOU FROM 0722000000. To reverse, forward this message to 456.
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ5
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Customer Transfer
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ6 Confirmed.on 23/4/21 at 12:31 PMWithdraw Ksh1,500.00 from 010000 - Shop fulani hapo New M-PESA balance is Ksh8. Transaction cost, Ksh28.00. Amount you can transact within the day is 298,500.00.
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ6
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Withdrawal
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ9 Confirmed. Ksh80.00 sent to MSEE WA CHIPO 0704444444 on 12/4/21 at 1:57 PM. New M-PESA balance is Ksh 210. Transaction cost, Ksh0.00. Amount you can transact within the day is 296,665.00. SAFARICOM ONLY CALLS YOU FROM 0722000000. To reverse, forward this message to 456.
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ9
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Customer Transfer
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ10 Confirmed. Ksh700.00 paid to GEL NAIL SHOP. on 17/3/21 at 6:54 PM.New M-PESA balance is Ksh3,646.22. Transaction cost, Ksh0.00. Amount you can transact within the day is 299,300.00.You can now access M-PESA via *334#
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ10
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Merchant Payment
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ11 Confirmed. On 25/7/20 at 3:29 PM Give Ksh2,000.00 cash to Agent fulani New M-PESA balance is Ksh2,100.22.
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ11
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Deposit
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div id=&#34;date-day-month-year&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;2.3 Date (Day, Month, Year)&lt;/h4&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;## Date
+df &amp;lt;- df %&amp;gt;% 
+  mutate(temp = gsub(&amp;quot;.*confirmed|.*Confirmed&amp;quot;, &amp;quot;&amp;quot;, `Text message`)) %&amp;gt;% 
+  mutate(trn_date = str_match(temp, regex(&amp;quot;on\\s*(.*?)\\s*at&amp;quot;, 
+                                          ignore_case = TRUE))[,2],
+         trn_date = as.Date(trn_date, format = &amp;#39;%d/%m/%y&amp;#39;)) 
+
+
+## Day, Month, Year
+df &amp;lt;- df %&amp;gt;% 
+  mutate(trn_day = day(trn_date),
+         trn_dayofweek = wday(trn_date, label = TRUE, abbr = FALSE),
+         trn_month = month(trn_date, label = TRUE, abbr = FALSE),
+         trn_year = year(trn_date))
+tab_output(df)&lt;/code&gt;&lt;/pre&gt;
+&lt;table class=&#34;table&#34; style=&#34;font-size: 14px; margin-left: auto; margin-right: auto;&#34;&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center;font-weight: bold;color: black !important;background-color: pink !important;&#34;&gt;
+Text message
+&lt;/th&gt;
+&lt;th style=&#34;text-align:center;font-weight: bold;color: black !important;background-color: pink !important;&#34;&gt;
+trn_code
+&lt;/th&gt;
+&lt;th style=&#34;text-align:center;font-weight: bold;color: black !important;background-color: pink !important;&#34;&gt;
+trn_type
+&lt;/th&gt;
+&lt;th style=&#34;text-align:center;font-weight: bold;color: black !important;background-color: pink !important;&#34;&gt;
+temp
+&lt;/th&gt;
+&lt;th style=&#34;text-align:center;font-weight: bold;color: black !important;background-color: pink !important;&#34;&gt;
+trn_date
+&lt;/th&gt;
+&lt;th style=&#34;text-align:center;font-weight: bold;color: black !important;background-color: pink !important;&#34;&gt;
+trn_day
+&lt;/th&gt;
+&lt;th style=&#34;text-align:center;font-weight: bold;color: black !important;background-color: pink !important;&#34;&gt;
+trn_dayofweek
+&lt;/th&gt;
+&lt;th style=&#34;text-align:center;font-weight: bold;color: black !important;background-color: pink !important;&#34;&gt;
+trn_month
+&lt;/th&gt;
+&lt;th style=&#34;text-align:center;font-weight: bold;color: black !important;background-color: pink !important;&#34;&gt;
+trn_year
+&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ1 confirmed.You bought Ksh100.00 of airtime on 27/4/21 at 11:05 AM.New M-PESA balance is Ksh5,350.22. Transaction cost, Ksh0.00. Amount you can transact within the day is 299,900.00. SAFARICOM ONLY CALLS YOU FROM 0722000000. To reverse, forward this message to 456.
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ1
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Airtime Purchase
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+.You bought Ksh100.00 of airtime on 27/4/21 at 11:05 AM.New M-PESA balance is Ksh5,350.22. Transaction cost, Ksh0.00. Amount you can transact within the day is 299,900.00. SAFARICOM ONLY CALLS YOU FROM 0722000000. To reverse, forward this message to 456.
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021-04-27
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+27
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Tuesday
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+April
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ2 confirmed.You bought Ksh30.00 of airtime on 25/4/21 at 3:45 PM.New M-PESA balance is Ksh5,450.22. Transaction cost, Ksh0.00. Amount you can transact within the day is 299,940.00. SAFARICOM ONLY CALLS YOU FROM 0722000000. To reverse, forward this message to 456.
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ2
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Airtime Purchase
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+.You bought Ksh30.00 of airtime on 25/4/21 at 3:45 PM.New M-PESA balance is Ksh5,450.22. Transaction cost, Ksh0.00. Amount you can transact within the day is 299,940.00. SAFARICOM ONLY CALLS YOU FROM 0722000000. To reverse, forward this message to 456.
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021-04-25
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+25
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Sunday
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+April
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ3 Confirmed. Ksh500.00 sent to KPLC PREPAID for account 123456789 on 23/4/21 at 9:57 PM New M-PESA balance is Ksh5,941.22. Transaction cost, Ksh23.00. Amount you can transact within the day is 296,283.00.
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ3
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Pay Bill Payment
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+. Ksh500.00 sent to KPLC PREPAID for account 123456789 on 23/4/21 at 9:57 PM New M-PESA balance is Ksh5,941.22. Transaction cost, Ksh23.00. Amount you can transact within the day is 296,283.00.
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021-04-23
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+23
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Friday
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+April
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ4 Confirmed. Ksh607.00 paid to SUPERMARKET FULANI HAPO. on 23/4/21 at 3:26 PM.New M-PESA balance is Ksh6,494.22. Transaction cost, Ksh0.00. Amount you can transact within the day is 296,813.00.You can now access M-PESA via *334#
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ4
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Merchant Payment
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+. Ksh607.00 paid to SUPERMARKET FULANI HAPO. on 23/4/21 at 3:26 PM.New M-PESA balance is Ksh6,494.22. Transaction cost, Ksh0.00. Amount you can transact within the day is 296,813.00.You can now access M-PESA via *334#
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021-04-23
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+23
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Friday
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+April
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ5 Confirmed. Ksh1,030.00 sent to MSEE FULANI HAPO +254722222222 on 23/4/21 at 2:38 PM. New M-PESA balance is Ksh7. Transaction cost, Ksh22.00. Amount you can transact within the day is 297,420.00. SAFARICOM ONLY CALLS YOU FROM 0722000000. To reverse, forward this message to 456.
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ5
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Customer Transfer
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+. Ksh1,030.00 sent to MSEE FULANI HAPO +254722222222 on 23/4/21 at 2:38 PM. New M-PESA balance is Ksh7. Transaction cost, Ksh22.00. Amount you can transact within the day is 297,420.00. SAFARICOM ONLY CALLS YOU FROM 0722000000. To reverse, forward this message to 456.
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021-04-23
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+23
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Friday
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+April
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ6 Confirmed.on 23/4/21 at 12:31 PMWithdraw Ksh1,500.00 from 010000 - Shop fulani hapo New M-PESA balance is Ksh8. Transaction cost, Ksh28.00. Amount you can transact within the day is 298,500.00.
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ6
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Withdrawal
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+.on 23/4/21 at 12:31 PMWithdraw Ksh1,500.00 from 010000 - Shop fulani hapo New M-PESA balance is Ksh8. Transaction cost, Ksh28.00. Amount you can transact within the day is 298,500.00.
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021-04-23
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+23
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Friday
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+April
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ9 Confirmed. Ksh80.00 sent to MSEE WA CHIPO 0704444444 on 12/4/21 at 1:57 PM. New M-PESA balance is Ksh 210. Transaction cost, Ksh0.00. Amount you can transact within the day is 296,665.00. SAFARICOM ONLY CALLS YOU FROM 0722000000. To reverse, forward this message to 456.
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ9
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Customer Transfer
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+. Ksh80.00 sent to MSEE WA CHIPO 0704444444 on 12/4/21 at 1:57 PM. New M-PESA balance is Ksh 210. Transaction cost, Ksh0.00. Amount you can transact within the day is 296,665.00. SAFARICOM ONLY CALLS YOU FROM 0722000000. To reverse, forward this message to 456.
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021-04-12
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+12
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Monday
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+April
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ10 Confirmed. Ksh700.00 paid to GEL NAIL SHOP. on 17/3/21 at 6:54 PM.New M-PESA balance is Ksh3,646.22. Transaction cost, Ksh0.00. Amount you can transact within the day is 299,300.00.You can now access M-PESA via *334#
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ10
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Merchant Payment
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+. Ksh700.00 paid to GEL NAIL SHOP. on 17/3/21 at 6:54 PM.New M-PESA balance is Ksh3,646.22. Transaction cost, Ksh0.00. Amount you can transact within the day is 299,300.00.You can now access M-PESA via *334#
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021-03-17
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+17
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Wednesday
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+March
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ11 Confirmed. On 25/7/20 at 3:29 PM Give Ksh2,000.00 cash to Agent fulani New M-PESA balance is Ksh2,100.22.
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ11
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Deposit
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+. On 25/7/20 at 3:29 PM Give Ksh2,000.00 cash to Agent fulani New M-PESA balance is Ksh2,100.22.
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2020-07-25
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+25
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Saturday
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+July
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2020
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div id=&#34;time-hour-minute-time-of-day-morning-afternoon&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;2.4 Time (Hour, Minute, Time of day (morning / afternoon))&lt;/h4&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;df &amp;lt;- df %&amp;gt;% 
+  mutate(temp = gsub(&amp;quot;.*confirmed|.*Confirmed&amp;quot;, &amp;quot;&amp;quot;, `Text message`))%&amp;gt;%
+  mutate(trn_time = 
+           str_match(temp, regex(&amp;quot;at\\s*(.*?)\\s*New M-PESA balance&amp;quot;, 
+      ignore_case = TRUE))[,2],
+        trn_time = gsub(&amp;quot;Withdraw.*|Give.*|\\.&amp;quot;, &amp;quot;&amp;quot;, trn_time), 
+        trn_time) %&amp;gt;%
+  mutate(trn_timeofday = 
+           ifelse(trn_time %in% grep(&amp;quot;PM&amp;quot;, trn_time,
+                ignore.case = FALSE, value = TRUE), &amp;quot;Afternoon&amp;quot;,
+                ifelse(trn_time %in% grep(&amp;quot;AM&amp;quot;, trn_time, 
+                      ignore.case = FALSE, value = TRUE), &amp;quot;Morning&amp;quot;,&amp;quot;&amp;quot;))) %&amp;gt;% 
+  mutate(trn_time = trimws(gsub(&amp;quot;AM|PM&amp;quot;, &amp;quot;&amp;quot;, trn_time))) %&amp;gt;% 
+  separate(trn_time, into = c(&amp;quot;trn_hour&amp;quot;, &amp;quot;trn_minute&amp;quot;),
+           sep = &amp;quot;:&amp;quot;, remove = FALSE) %&amp;gt;% 
+  mutate(across(c(trn_hour, trn_minute), ~as.numeric(trimws(.)))) %&amp;gt;% 
+  mutate(trn_hour = ifelse(trn_timeofday == &amp;quot;Afternoon&amp;quot;, 
+                           trn_hour + 12, trn_hour)) %&amp;gt;% 
+  select(-temp) 
+
+tab_output(df)&lt;/code&gt;&lt;/pre&gt;
+&lt;table class=&#34;table&#34; style=&#34;font-size: 14px; margin-left: auto; margin-right: auto;&#34;&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center;font-weight: bold;color: black !important;background-color: pink !important;&#34;&gt;
+Text message
+&lt;/th&gt;
+&lt;th style=&#34;text-align:center;font-weight: bold;color: black !important;background-color: pink !important;&#34;&gt;
+trn_code
+&lt;/th&gt;
+&lt;th style=&#34;text-align:center;font-weight: bold;color: black !important;background-color: pink !important;&#34;&gt;
+trn_type
+&lt;/th&gt;
+&lt;th style=&#34;text-align:center;font-weight: bold;color: black !important;background-color: pink !important;&#34;&gt;
+trn_date
+&lt;/th&gt;
+&lt;th style=&#34;text-align:center;font-weight: bold;color: black !important;background-color: pink !important;&#34;&gt;
+trn_day
+&lt;/th&gt;
+&lt;th style=&#34;text-align:center;font-weight: bold;color: black !important;background-color: pink !important;&#34;&gt;
+trn_dayofweek
+&lt;/th&gt;
+&lt;th style=&#34;text-align:center;font-weight: bold;color: black !important;background-color: pink !important;&#34;&gt;
+trn_month
+&lt;/th&gt;
+&lt;th style=&#34;text-align:center;font-weight: bold;color: black !important;background-color: pink !important;&#34;&gt;
+trn_year
+&lt;/th&gt;
+&lt;th style=&#34;text-align:center;font-weight: bold;color: black !important;background-color: pink !important;&#34;&gt;
+trn_time
+&lt;/th&gt;
+&lt;th style=&#34;text-align:center;font-weight: bold;color: black !important;background-color: pink !important;&#34;&gt;
+trn_hour
+&lt;/th&gt;
+&lt;th style=&#34;text-align:center;font-weight: bold;color: black !important;background-color: pink !important;&#34;&gt;
+trn_minute
+&lt;/th&gt;
+&lt;th style=&#34;text-align:center;font-weight: bold;color: black !important;background-color: pink !important;&#34;&gt;
+trn_timeofday
+&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ1 confirmed.You bought Ksh100.00 of airtime on 27/4/21 at 11:05 AM.New M-PESA balance is Ksh5,350.22. Transaction cost, Ksh0.00. Amount you can transact within the day is 299,900.00. SAFARICOM ONLY CALLS YOU FROM 0722000000. To reverse, forward this message to 456.
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ1
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Airtime Purchase
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021-04-27
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+27
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Tuesday
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+April
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+11:05
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+11
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+5
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Morning
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ2 confirmed.You bought Ksh30.00 of airtime on 25/4/21 at 3:45 PM.New M-PESA balance is Ksh5,450.22. Transaction cost, Ksh0.00. Amount you can transact within the day is 299,940.00. SAFARICOM ONLY CALLS YOU FROM 0722000000. To reverse, forward this message to 456.
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ2
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Airtime Purchase
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021-04-25
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+25
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Sunday
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+April
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+3:45
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+15
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+45
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Afternoon
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ3 Confirmed. Ksh500.00 sent to KPLC PREPAID for account 123456789 on 23/4/21 at 9:57 PM New M-PESA balance is Ksh5,941.22. Transaction cost, Ksh23.00. Amount you can transact within the day is 296,283.00.
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ3
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Pay Bill Payment
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021-04-23
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+23
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Friday
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+April
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+9:57
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+21
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+57
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Afternoon
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ4 Confirmed. Ksh607.00 paid to SUPERMARKET FULANI HAPO. on 23/4/21 at 3:26 PM.New M-PESA balance is Ksh6,494.22. Transaction cost, Ksh0.00. Amount you can transact within the day is 296,813.00.You can now access M-PESA via *334#
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ4
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Merchant Payment
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021-04-23
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+23
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Friday
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+April
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+3:26
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+15
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+26
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Afternoon
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ5 Confirmed. Ksh1,030.00 sent to MSEE FULANI HAPO +254722222222 on 23/4/21 at 2:38 PM. New M-PESA balance is Ksh7. Transaction cost, Ksh22.00. Amount you can transact within the day is 297,420.00. SAFARICOM ONLY CALLS YOU FROM 0722000000. To reverse, forward this message to 456.
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ5
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Customer Transfer
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021-04-23
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+23
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Friday
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+April
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2:38
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+14
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+38
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Afternoon
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ6 Confirmed.on 23/4/21 at 12:31 PMWithdraw Ksh1,500.00 from 010000 - Shop fulani hapo New M-PESA balance is Ksh8. Transaction cost, Ksh28.00. Amount you can transact within the day is 298,500.00.
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ6
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Withdrawal
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021-04-23
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+23
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Friday
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+April
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+12:31
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+24
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+31
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Afternoon
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ9 Confirmed. Ksh80.00 sent to MSEE WA CHIPO 0704444444 on 12/4/21 at 1:57 PM. New M-PESA balance is Ksh 210. Transaction cost, Ksh0.00. Amount you can transact within the day is 296,665.00. SAFARICOM ONLY CALLS YOU FROM 0722000000. To reverse, forward this message to 456.
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ9
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Customer Transfer
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021-04-12
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+12
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Monday
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+April
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+1:57
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+13
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+57
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Afternoon
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ10 Confirmed. Ksh700.00 paid to GEL NAIL SHOP. on 17/3/21 at 6:54 PM.New M-PESA balance is Ksh3,646.22. Transaction cost, Ksh0.00. Amount you can transact within the day is 299,300.00.You can now access M-PESA via *334#
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ10
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Merchant Payment
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021-03-17
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+17
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Wednesday
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+March
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+6:54
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+18
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+54
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Afternoon
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ11 Confirmed. On 25/7/20 at 3:29 PM Give Ksh2,000.00 cash to Agent fulani New M-PESA balance is Ksh2,100.22.
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ11
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Deposit
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2020-07-25
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+25
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Saturday
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+July
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2020
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+3:29
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+15
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+29
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Afternoon
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div id=&#34;transaction-amount&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;2.5 Transaction amount&lt;/h4&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;df &amp;lt;- df %&amp;gt;% 
+  mutate(temp = gsub(&amp;quot;New M-PESA balance is.*&amp;quot;, &amp;quot;&amp;quot;, `Text message`)) %&amp;gt;% 
+  mutate(trn_amount = str_extract(temp, &amp;quot;(?&amp;lt;=^| )Ksh.*?(?=$| )&amp;quot;)) %&amp;gt;% 
+  mutate(trn_amount = as.numeric(trimws(gsub(&amp;quot;Ksh|Kshs|,&amp;quot;, &amp;quot;&amp;quot;, 
+                                             trn_amount)))) %&amp;gt;% 
+  select(-temp)
+
+tab_output(df)&lt;/code&gt;&lt;/pre&gt;
+&lt;table class=&#34;table&#34; style=&#34;font-size: 14px; margin-left: auto; margin-right: auto;&#34;&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center;font-weight: bold;color: black !important;background-color: pink !important;&#34;&gt;
+Text message
+&lt;/th&gt;
+&lt;th style=&#34;text-align:center;font-weight: bold;color: black !important;background-color: pink !important;&#34;&gt;
+trn_code
+&lt;/th&gt;
+&lt;th style=&#34;text-align:center;font-weight: bold;color: black !important;background-color: pink !important;&#34;&gt;
+trn_type
+&lt;/th&gt;
+&lt;th style=&#34;text-align:center;font-weight: bold;color: black !important;background-color: pink !important;&#34;&gt;
+trn_date
+&lt;/th&gt;
+&lt;th style=&#34;text-align:center;font-weight: bold;color: black !important;background-color: pink !important;&#34;&gt;
+trn_day
+&lt;/th&gt;
+&lt;th style=&#34;text-align:center;font-weight: bold;color: black !important;background-color: pink !important;&#34;&gt;
+trn_dayofweek
+&lt;/th&gt;
+&lt;th style=&#34;text-align:center;font-weight: bold;color: black !important;background-color: pink !important;&#34;&gt;
+trn_month
+&lt;/th&gt;
+&lt;th style=&#34;text-align:center;font-weight: bold;color: black !important;background-color: pink !important;&#34;&gt;
+trn_year
+&lt;/th&gt;
+&lt;th style=&#34;text-align:center;font-weight: bold;color: black !important;background-color: pink !important;&#34;&gt;
+trn_time
+&lt;/th&gt;
+&lt;th style=&#34;text-align:center;font-weight: bold;color: black !important;background-color: pink !important;&#34;&gt;
+trn_hour
+&lt;/th&gt;
+&lt;th style=&#34;text-align:center;font-weight: bold;color: black !important;background-color: pink !important;&#34;&gt;
+trn_minute
+&lt;/th&gt;
+&lt;th style=&#34;text-align:center;font-weight: bold;color: black !important;background-color: pink !important;&#34;&gt;
+trn_timeofday
+&lt;/th&gt;
+&lt;th style=&#34;text-align:center;font-weight: bold;color: black !important;background-color: pink !important;&#34;&gt;
+trn_amount
+&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ1 confirmed.You bought Ksh100.00 of airtime on 27/4/21 at 11:05 AM.New M-PESA balance is Ksh5,350.22. Transaction cost, Ksh0.00. Amount you can transact within the day is 299,900.00. SAFARICOM ONLY CALLS YOU FROM 0722000000. To reverse, forward this message to 456.
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ1
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Airtime Purchase
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021-04-27
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+27
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Tuesday
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+April
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+11:05
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+11
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+5
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Morning
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+100
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ2 confirmed.You bought Ksh30.00 of airtime on 25/4/21 at 3:45 PM.New M-PESA balance is Ksh5,450.22. Transaction cost, Ksh0.00. Amount you can transact within the day is 299,940.00. SAFARICOM ONLY CALLS YOU FROM 0722000000. To reverse, forward this message to 456.
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ2
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Airtime Purchase
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021-04-25
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+25
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Sunday
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+April
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+3:45
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+15
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+45
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Afternoon
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+30
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ3 Confirmed. Ksh500.00 sent to KPLC PREPAID for account 123456789 on 23/4/21 at 9:57 PM New M-PESA balance is Ksh5,941.22. Transaction cost, Ksh23.00. Amount you can transact within the day is 296,283.00.
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ3
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Pay Bill Payment
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021-04-23
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+23
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Friday
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+April
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+9:57
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+21
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+57
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Afternoon
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+500
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ4 Confirmed. Ksh607.00 paid to SUPERMARKET FULANI HAPO. on 23/4/21 at 3:26 PM.New M-PESA balance is Ksh6,494.22. Transaction cost, Ksh0.00. Amount you can transact within the day is 296,813.00.You can now access M-PESA via *334#
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ4
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Merchant Payment
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021-04-23
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+23
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Friday
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+April
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+3:26
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+15
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+26
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Afternoon
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+607
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ5 Confirmed. Ksh1,030.00 sent to MSEE FULANI HAPO +254722222222 on 23/4/21 at 2:38 PM. New M-PESA balance is Ksh7. Transaction cost, Ksh22.00. Amount you can transact within the day is 297,420.00. SAFARICOM ONLY CALLS YOU FROM 0722000000. To reverse, forward this message to 456.
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ5
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Customer Transfer
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021-04-23
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+23
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Friday
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+April
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2:38
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+14
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+38
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Afternoon
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+1030
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ6 Confirmed.on 23/4/21 at 12:31 PMWithdraw Ksh1,500.00 from 010000 - Shop fulani hapo New M-PESA balance is Ksh8. Transaction cost, Ksh28.00. Amount you can transact within the day is 298,500.00.
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ6
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Withdrawal
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021-04-23
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+23
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Friday
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+April
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+12:31
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+24
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+31
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Afternoon
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+1500
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ9 Confirmed. Ksh80.00 sent to MSEE WA CHIPO 0704444444 on 12/4/21 at 1:57 PM. New M-PESA balance is Ksh 210. Transaction cost, Ksh0.00. Amount you can transact within the day is 296,665.00. SAFARICOM ONLY CALLS YOU FROM 0722000000. To reverse, forward this message to 456.
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ9
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Customer Transfer
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021-04-12
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+12
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Monday
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+April
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+1:57
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+13
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+57
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Afternoon
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+80
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ10 Confirmed. Ksh700.00 paid to GEL NAIL SHOP. on 17/3/21 at 6:54 PM.New M-PESA balance is Ksh3,646.22. Transaction cost, Ksh0.00. Amount you can transact within the day is 299,300.00.You can now access M-PESA via *334#
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ10
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Merchant Payment
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021-03-17
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+17
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Wednesday
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+March
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+6:54
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+18
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+54
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Afternoon
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+700
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ11 Confirmed. On 25/7/20 at 3:29 PM Give Ksh2,000.00 cash to Agent fulani New M-PESA balance is Ksh2,100.22.
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ11
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Deposit
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2020-07-25
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+25
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Saturday
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+July
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2020
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+3:29
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+15
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+29
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Afternoon
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2000
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div id=&#34;m-pesa-balance&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;2.6 M-Pesa balance&lt;/h4&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;df &amp;lt;- df %&amp;gt;% 
+  mutate(temp = gsub(&amp;quot;.*New M-PESA balance is&amp;quot;, &amp;quot;&amp;quot;, `Text message`),
+         temp = gsub(&amp;quot;Transaction cost.*|\\..*&amp;quot;, &amp;quot;&amp;quot;, temp)) %&amp;gt;% 
+  mutate(trn_balance = as.numeric(trimws(gsub(&amp;quot;Ksh|Kshs|,|\\.&amp;quot;, &amp;quot;&amp;quot;, 
+                                              temp)))) %&amp;gt;% 
+  select(-temp)
+
+tab_output(df)&lt;/code&gt;&lt;/pre&gt;
+&lt;table class=&#34;table&#34; style=&#34;font-size: 14px; margin-left: auto; margin-right: auto;&#34;&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center;font-weight: bold;color: black !important;background-color: pink !important;&#34;&gt;
+Text message
+&lt;/th&gt;
+&lt;th style=&#34;text-align:center;font-weight: bold;color: black !important;background-color: pink !important;&#34;&gt;
+trn_code
+&lt;/th&gt;
+&lt;th style=&#34;text-align:center;font-weight: bold;color: black !important;background-color: pink !important;&#34;&gt;
+trn_type
+&lt;/th&gt;
+&lt;th style=&#34;text-align:center;font-weight: bold;color: black !important;background-color: pink !important;&#34;&gt;
+trn_date
+&lt;/th&gt;
+&lt;th style=&#34;text-align:center;font-weight: bold;color: black !important;background-color: pink !important;&#34;&gt;
+trn_day
+&lt;/th&gt;
+&lt;th style=&#34;text-align:center;font-weight: bold;color: black !important;background-color: pink !important;&#34;&gt;
+trn_dayofweek
+&lt;/th&gt;
+&lt;th style=&#34;text-align:center;font-weight: bold;color: black !important;background-color: pink !important;&#34;&gt;
+trn_month
+&lt;/th&gt;
+&lt;th style=&#34;text-align:center;font-weight: bold;color: black !important;background-color: pink !important;&#34;&gt;
+trn_year
+&lt;/th&gt;
+&lt;th style=&#34;text-align:center;font-weight: bold;color: black !important;background-color: pink !important;&#34;&gt;
+trn_time
+&lt;/th&gt;
+&lt;th style=&#34;text-align:center;font-weight: bold;color: black !important;background-color: pink !important;&#34;&gt;
+trn_hour
+&lt;/th&gt;
+&lt;th style=&#34;text-align:center;font-weight: bold;color: black !important;background-color: pink !important;&#34;&gt;
+trn_minute
+&lt;/th&gt;
+&lt;th style=&#34;text-align:center;font-weight: bold;color: black !important;background-color: pink !important;&#34;&gt;
+trn_timeofday
+&lt;/th&gt;
+&lt;th style=&#34;text-align:center;font-weight: bold;color: black !important;background-color: pink !important;&#34;&gt;
+trn_amount
+&lt;/th&gt;
+&lt;th style=&#34;text-align:center;font-weight: bold;color: black !important;background-color: pink !important;&#34;&gt;
+trn_balance
+&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ1 confirmed.You bought Ksh100.00 of airtime on 27/4/21 at 11:05 AM.New M-PESA balance is Ksh5,350.22. Transaction cost, Ksh0.00. Amount you can transact within the day is 299,900.00. SAFARICOM ONLY CALLS YOU FROM 0722000000. To reverse, forward this message to 456.
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ1
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Airtime Purchase
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021-04-27
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+27
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Tuesday
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+April
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+11:05
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+11
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+5
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Morning
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+100
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+5350
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ2 confirmed.You bought Ksh30.00 of airtime on 25/4/21 at 3:45 PM.New M-PESA balance is Ksh5,450.22. Transaction cost, Ksh0.00. Amount you can transact within the day is 299,940.00. SAFARICOM ONLY CALLS YOU FROM 0722000000. To reverse, forward this message to 456.
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ2
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Airtime Purchase
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021-04-25
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+25
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Sunday
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+April
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+3:45
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+15
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+45
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Afternoon
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+30
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+5450
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ3 Confirmed. Ksh500.00 sent to KPLC PREPAID for account 123456789 on 23/4/21 at 9:57 PM New M-PESA balance is Ksh5,941.22. Transaction cost, Ksh23.00. Amount you can transact within the day is 296,283.00.
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ3
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Pay Bill Payment
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021-04-23
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+23
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Friday
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+April
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+9:57
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+21
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+57
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Afternoon
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+500
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+5941
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ4 Confirmed. Ksh607.00 paid to SUPERMARKET FULANI HAPO. on 23/4/21 at 3:26 PM.New M-PESA balance is Ksh6,494.22. Transaction cost, Ksh0.00. Amount you can transact within the day is 296,813.00.You can now access M-PESA via *334#
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ4
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Merchant Payment
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021-04-23
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+23
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Friday
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+April
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+3:26
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+15
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+26
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Afternoon
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+607
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+6494
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ5 Confirmed. Ksh1,030.00 sent to MSEE FULANI HAPO +254722222222 on 23/4/21 at 2:38 PM. New M-PESA balance is Ksh7. Transaction cost, Ksh22.00. Amount you can transact within the day is 297,420.00. SAFARICOM ONLY CALLS YOU FROM 0722000000. To reverse, forward this message to 456.
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ5
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Customer Transfer
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021-04-23
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+23
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Friday
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+April
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2:38
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+14
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+38
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Afternoon
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+1030
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+7
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ6 Confirmed.on 23/4/21 at 12:31 PMWithdraw Ksh1,500.00 from 010000 - Shop fulani hapo New M-PESA balance is Ksh8. Transaction cost, Ksh28.00. Amount you can transact within the day is 298,500.00.
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ6
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Withdrawal
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021-04-23
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+23
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Friday
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+April
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+12:31
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+24
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+31
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Afternoon
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+1500
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+8
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ9 Confirmed. Ksh80.00 sent to MSEE WA CHIPO 0704444444 on 12/4/21 at 1:57 PM. New M-PESA balance is Ksh 210. Transaction cost, Ksh0.00. Amount you can transact within the day is 296,665.00. SAFARICOM ONLY CALLS YOU FROM 0722000000. To reverse, forward this message to 456.
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ9
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Customer Transfer
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021-04-12
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+12
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Monday
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+April
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+1:57
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+13
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+57
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Afternoon
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+80
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+210
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ10 Confirmed. Ksh700.00 paid to GEL NAIL SHOP. on 17/3/21 at 6:54 PM.New M-PESA balance is Ksh3,646.22. Transaction cost, Ksh0.00. Amount you can transact within the day is 299,300.00.You can now access M-PESA via *334#
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ10
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Merchant Payment
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021-03-17
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+17
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Wednesday
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+March
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2021
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+6:54
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+18
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+54
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Afternoon
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+700
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+3646
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ11 Confirmed. On 25/7/20 at 3:29 PM Give Ksh2,000.00 cash to Agent fulani New M-PESA balance is Ksh2,100.22.
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+XXXYYYZZZ11
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Deposit
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2020-07-25
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+25
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Saturday
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+July
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2020
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+3:29
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+15
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+29
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+Afternoon
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2000
+&lt;/td&gt;
+&lt;td style=&#34;text-align:center;&#34;&gt;
+2100
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;style&gt;
+body {text-align: justify}
+&lt;/style&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>Advent of Code 2020</title>

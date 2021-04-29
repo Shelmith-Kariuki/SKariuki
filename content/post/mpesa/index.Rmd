@@ -1,0 +1,201 @@
+---
+title: "Extracting crucial details from M-Pesa text messages"
+author: "Shelmith"
+date: 2021-04-28
+tags:
+  - R
+summary: 
+featured: no
+disable_jquery: no
+image:
+  caption: 
+  focal_point: Smart
+  preview_only: yes
+  
+output:
+  blogdown::html_page:
+    toc: false
+    toc_depth: 6
+    number_sections: false
+    fig_width: 16
+---
+
+[M-PESA](https://www.safaricom.co.ke/about), operated by [Safaricom](https://www.safaricom.co.ke/) is a mobile money transfer service in Kenya. It is one of the best online payment options. One can use M-PESA to buy airtime, send or receive cash on their phones and pay goods and/or services using merchant paybill numbers or till numbers. The following is an example of an M-Pesa text message that one would receive if they paid for goods or services via a till number. 
+
+>XXXYYYZZZ10 Confirmed. Ksh700.00 paid to GEL NAIL SHOP. on 17/3/21 at 6:54 PM.New M-PESA balance is Ksh3,646.22. Transaction cost, Ksh0.00. Amount you can transact within the day is 299,300.00.You can now access M-PESA via *334#
+
+This script details how one can extract some key details from the message for purposes of data analysis. These details include the transaction code, transaction type (purchase of airtime, cash transfer, cash withdrawal, cash deposit, pay bill payment, merchant payment (Lipa Na Mpesa)), date (including the  day, month and year), time (hour, minute and time of day (morning / afternoon)) , transaction amount , and M-Pesa balance. 
+
+_Note: This data has been anonymized_
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(echo = TRUE,
+                      comment = "#>",
+                      fig.path = "figs/",
+                      collapse = TRUE)
+
+```
+
+### 0. Load the packages required
+
+```{r,warning=FALSE, message=FALSE, fig.width =12}
+
+## Create a vector of packages to be installed
+pkgs <- c("tidyverse","lubridate", "kableExtra")
+
+## Check if there are packages you want to load, that are not already installed. 
+miss_pkgs <- pkgs[!pkgs %in% installed.packages()[,1]] 
+
+## Installing the missing packages
+if(length(miss_pkgs)>0){
+  install.packages(miss_pkgs)
+}
+## Loading all the packages
+invisible(lapply(pkgs,library,character.only=TRUE))
+
+## Remove the objects that are no longer required
+rm(miss_pkgs)
+rm(pkgs)
+
+```
+
+```{r, include=FALSE, echo=FALSE}
+tab_output <- function(tab){
+
+kable(tab, booktabs=TRUE, align = "c",table.envir = "capctable") %>%
+  kable_styling(font_size=14) %>%
+  row_spec(0, bold = T, color = "black", background = "pink")
+  
+}
+```
+
+### 1. Read in the data
+
+```{r}
+df <- read_csv("mpesa.csv - Sheet1.csv")
+tab_output(df)
+```
+
+### 2. Extract crucial information from the messages
+
+#### 2.1 Transaction code
+
+```{r}
+df <- df %>% 
+      mutate(trn_code = 
+               gsub("confirmed.*|Confirmed.*", "", `Text message`))
+tab_output(df)
+```
+
+#### 2.2 Transaction type
+
+```{r}
+df <- df %>% 
+  mutate(trn_type = 
+           ## Purchase of airtime
+           ifelse(`Text message` %in% 
+                    grep("airtime", `Text message`,value = TRUE, 
+                         ignore.case = TRUE), "Airtime Purchase",
+           ## Transfer
+           ifelse(`Text message` %in% 
+                    grep("sent to", `Text message`,value = TRUE, 
+                         ignore.case = TRUE) &
+                    !`Text message` %in% 
+                    grep("for account", `Text message`,value = TRUE, 
+                         ignore.case = TRUE), "Customer Transfer", 
+           ## Withdrawal
+           ifelse(`Text message` %in% 
+                    grep("withdraw", `Text message`,value = TRUE, 
+                         ignore.case = TRUE), "Withdrawal",
+           ## Deposit
+           ifelse(`Text message` %in% 
+                    grep("Give", `Text message`,value = TRUE, 
+                         ignore.case = TRUE), "Deposit",         
+           ## Pay Bill Payment
+           ifelse(`Text message` %in% 
+                    grep("for account", `Text message`,value = TRUE, 
+                         ignore.case = TRUE), "Pay Bill Payment",
+           ## Merchant Payment (Lipa Na Mpesa)
+           ifelse(`Text message` %in% 
+                    grep("paid to", `Text message`,value = TRUE, 
+                         ignore.case = TRUE), "Merchant Payment","")))))))
+tab_output(df)
+```
+
+#### 2.3 Date (Day, Month, Year)
+
+```{r}
+## Date
+df <- df %>% 
+  mutate(temp = gsub(".*confirmed|.*Confirmed", "", `Text message`)) %>% 
+  mutate(trn_date = str_match(temp, regex("on\\s*(.*?)\\s*at", 
+                                          ignore_case = TRUE))[,2],
+         trn_date = as.Date(trn_date, format = '%d/%m/%y')) 
+
+
+## Day, Month, Year
+df <- df %>% 
+  mutate(trn_day = day(trn_date),
+         trn_dayofweek = wday(trn_date, label = TRUE, abbr = FALSE),
+         trn_month = month(trn_date, label = TRUE, abbr = FALSE),
+         trn_year = year(trn_date))
+tab_output(df)
+```
+
+#### 2.4 Time (Hour, Minute, Time of day (morning / afternoon)) 
+
+```{r}
+df <- df %>% 
+  mutate(temp = gsub(".*confirmed|.*Confirmed", "", `Text message`))%>%
+  mutate(trn_time = 
+           str_match(temp, regex("at\\s*(.*?)\\s*New M-PESA balance", 
+      ignore_case = TRUE))[,2],
+        trn_time = gsub("Withdraw.*|Give.*|\\.", "", trn_time), 
+        trn_time) %>%
+  mutate(trn_timeofday = 
+           ifelse(trn_time %in% grep("PM", trn_time,
+                ignore.case = FALSE, value = TRUE), "Afternoon",
+                ifelse(trn_time %in% grep("AM", trn_time, 
+                      ignore.case = FALSE, value = TRUE), "Morning",""))) %>% 
+  mutate(trn_time = trimws(gsub("AM|PM", "", trn_time))) %>% 
+  separate(trn_time, into = c("trn_hour", "trn_minute"),
+           sep = ":", remove = FALSE) %>% 
+  mutate(across(c(trn_hour, trn_minute), ~as.numeric(trimws(.)))) %>% 
+  mutate(trn_hour = ifelse(trn_timeofday == "Afternoon", 
+                           trn_hour + 12, trn_hour)) %>% 
+  select(-temp) 
+
+tab_output(df)
+  
+```
+
+#### 2.5 Transaction amount 
+
+```{r}
+df <- df %>% 
+  mutate(temp = gsub("New M-PESA balance is.*", "", `Text message`)) %>% 
+  mutate(trn_amount = str_extract(temp, "(?<=^| )Ksh.*?(?=$| )")) %>% 
+  mutate(trn_amount = as.numeric(trimws(gsub("Ksh|Kshs|,", "", 
+                                             trn_amount)))) %>% 
+  select(-temp)
+
+tab_output(df)
+```
+
+#### 2.6 M-Pesa balance
+
+```{r}
+df <- df %>% 
+  mutate(temp = gsub(".*New M-PESA balance is", "", `Text message`),
+         temp = gsub("Transaction cost.*|\\..*", "", temp)) %>% 
+  mutate(trn_balance = as.numeric(trimws(gsub("Ksh|Kshs|,|\\.", "", 
+                                              temp)))) %>% 
+  select(-temp)
+
+tab_output(df)
+```
+
+<style>
+body {text-align: justify}
+</style>
