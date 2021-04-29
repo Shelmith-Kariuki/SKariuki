@@ -28,7 +28,6 @@ interests:
 - Impact Evaluation
 
 
-
 education:
   courses:
   - course: Msc in Applied Statistics
@@ -60,9 +59,9 @@ social:
   link: https://www.linkedin.com/in/shelmith-kariuki-44351363/
 # Link to a PDF of your resume/CV from the About widget.
 # To enable, copy your resume/CV to `static/files/cv.pdf` and uncomment the lines below.
-- icon: cv
-  icon_pack: ai
-  link: files/cv.pdf
+# - icon: cv
+#   icon_pack: ai
+#   link: files/cv.pdf
 
 # Enter email to display Gravatar (if Gravatar enabled in Config)
 email: "kariukishelmith@gmail.com"
@@ -78,6 +77,5 @@ user_groups:
 body {text-align: justify}
 </style>
 I am a Senior Data Analyst based in Nairobi, Kenya. I am an [RStudio Certified Tidyverse trainer](https://education.rstudio.com/trainers/), and recently worked as a Research Manager at Geopoll, and as a Data Analyst at Busara Center for Behavioral Economics. I have previously worked as an assistant lecturer in various Kenyan universities, teaching units in Statistics and Actuarial Science. I have a Bsc in Actuarial Science and Msc in Applied Statistics from JKUAT. I have extensive experience in data analysis using R and Python. I co-organize a community of R users in Nairobi [#NairobiR](https://www.linkedin.com/feed/hashtag/nairobir/) and in Africa [#AfricaR](https://twitter.com/AfricaRUsers). One of the missions of my community work is to make sure that we have an increased number of R adopters, in Africa. I am very passionate about training and using data analytics to drive development projects in Africa.
-
 
 
