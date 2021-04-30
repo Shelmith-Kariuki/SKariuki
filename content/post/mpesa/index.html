@@ -27,11 +27,11 @@ output:
 <link href="//rmarkdown-libs/lightable/lightable.css" rel="stylesheet" />
 
 
-<p><a href="https://www.safaricom.co.ke/personal/m-pesa">M-PESA</a>, operated by <a href="https://www.safaricom.co.ke/">Safaricom</a> is a mobile money transfer service in Kenya. It is one of the best online payment options. One can use M-PESA to buy airtime, send or receive cash on their phones and pay goods and/or services using merchant paybill numbers or till numbers. The following is an example of an M-Pesa text message that one would receive if they paid for goods or services via a till number.</p>
+<p><a href="https://www.safaricom.co.ke/personal/m-pesa">M-PESA</a>, operated by <a href="https://www.safaricom.co.ke/">Safaricom</a> is a mobile money transfer service in Kenya. It is one of the best mobile payment options. One can use M-PESA to buy airtime, send or receive cash on their phones and pay goods and/or services using merchant paybill numbers or till numbers. The following is an example of an M-Pesa text message that one would receive if they paid for goods or services via a till number.</p>
 <blockquote>
 <p>XXXYYYZZZ10 Confirmed. Ksh700.00 paid to GEL NAIL SHOP. on 17/3/21 at 6:54 PM.New M-PESA balance is Ksh3,646.22. Transaction cost, Ksh0.00. Amount you can transact within the day is 299,300.00.You can now access M-PESA via *334#</p>
 </blockquote>
-<p>This script details how one can extract some key details from the message for purposes of data analysis. These details include the transaction code, transaction type (purchase of airtime, cash transfer, cash withdrawal, cash deposit, pay bill payment, merchant payment (Lipa Na Mpesa)), date (including the day, month and year), time (hour, minute and time of day (morning / afternoon)) , transaction amount , and M-Pesa balance.</p>
+<p>This script details how one can extract some key details from the message for purposes of data analysis. These details include the transaction code, transaction type (purchase of airtime, cash transfer, cash withdrawal, cash deposit, pay bill payment, merchant payment (Lipa Na Mpesa)), date (including the day, month and year), time (hour, minute and time of day (morning / afternoon)) , transaction amount , transaction cost and M-Pesa balance.</p>
 <p><em>Note: This data has been anonymized</em></p>
 <div id="load-the-packages-required" class="section level3">
 <h3>0. Load the packages required</h3>
@@ -664,9 +664,9 @@ July
   separate(trn_time, into = c(&quot;trn_hour&quot;, &quot;trn_minute&quot;),
            sep = &quot;:&quot;, remove = FALSE) %&gt;% 
   mutate(across(c(trn_hour, trn_minute), ~as.numeric(trimws(.)))) %&gt;% 
-  mutate(trn_hour = ifelse(trn_timeofday == &quot;Afternoon&quot;, 
+  mutate(trn_hour = ifelse(trn_timeofday == &quot;Afternoon&quot; &amp; trn_hour!=12, 
                            trn_hour + 12, trn_hour)) %&gt;% 
-  select(-temp) 
+  select(-temp)
 
 tab_output(df)</code></pre>
 <table class="table" style="font-size: 14px; margin-left: auto; margin-right: auto;">
@@ -930,7 +930,7 @@ April
 12:31
 </td>
 <td style="text-align:center;">
-24
+12
 </td>
 <td style="text-align:center;">
 31
@@ -1345,7 +1345,7 @@ April
 12:31
 </td>
 <td style="text-align:center;">
-24
+12
 </td>
 <td style="text-align:center;">
 31
@@ -1483,15 +1483,13 @@ Afternoon
 </tbody>
 </table>
 </div>
-<div id="m-pesa-balance" class="section level4">
-<h4>2.6 M-Pesa balance</h4>
+<div id="transaction-cost" class="section level4">
+<h4>2.6 Transaction cost</h4>
 <pre class="r"><code>df &lt;- df %&gt;% 
-  mutate(temp = gsub(&quot;.*New M-PESA balance is&quot;, &quot;&quot;, `Text message`),
-         temp = gsub(&quot;Transaction cost.*|\\..*&quot;, &quot;&quot;, temp)) %&gt;% 
-  mutate(trn_balance = as.numeric(trimws(gsub(&quot;Ksh|Kshs|,|\\.&quot;, &quot;&quot;, 
-                                              temp)))) %&gt;% 
-  select(-temp)
-
+  mutate(trn_cost = ifelse(trn_type == &quot;Deposit&quot;,&quot;0.00&quot;,
+                       gsub(&quot;.*Transaction cost|. Amount you can transact.*|,|Ksh|\\.$&quot;, &quot;&quot;,
+                            `Text message`))) %&gt;% 
+  mutate(trn_cost = as.numeric(trimws(trn_cost))) 
 tab_output(df)</code></pre>
 <table class="table" style="font-size: 14px; margin-left: auto; margin-right: auto;">
 <thead>
@@ -1534,6 +1532,464 @@ trn_timeofday
 </th>
 <th style="text-align:center;font-weight: bold;color: black !important;background-color: pink !important;">
 trn_amount
+</th>
+<th style="text-align:center;font-weight: bold;color: black !important;background-color: pink !important;">
+trn_cost
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+XXXYYYZZZ1 confirmed.You bought Ksh100.00 of airtime on 27/4/21 at 11:05 AM.New M-PESA balance is Ksh5,350.22. Transaction cost, Ksh0.00. Amount you can transact within the day is 299,900.00. SAFARICOM ONLY CALLS YOU FROM 0722000000. To reverse, forward this message to 456.
+</td>
+<td style="text-align:center;">
+XXXYYYZZZ1
+</td>
+<td style="text-align:center;">
+Airtime Purchase
+</td>
+<td style="text-align:center;">
+2021-04-27
+</td>
+<td style="text-align:center;">
+27
+</td>
+<td style="text-align:center;">
+Tuesday
+</td>
+<td style="text-align:center;">
+April
+</td>
+<td style="text-align:center;">
+2021
+</td>
+<td style="text-align:center;">
+11:05
+</td>
+<td style="text-align:center;">
+11
+</td>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+Morning
+</td>
+<td style="text-align:center;">
+100
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+XXXYYYZZZ2 confirmed.You bought Ksh30.00 of airtime on 25/4/21 at 3:45 PM.New M-PESA balance is Ksh5,450.22. Transaction cost, Ksh0.00. Amount you can transact within the day is 299,940.00. SAFARICOM ONLY CALLS YOU FROM 0722000000. To reverse, forward this message to 456.
+</td>
+<td style="text-align:center;">
+XXXYYYZZZ2
+</td>
+<td style="text-align:center;">
+Airtime Purchase
+</td>
+<td style="text-align:center;">
+2021-04-25
+</td>
+<td style="text-align:center;">
+25
+</td>
+<td style="text-align:center;">
+Sunday
+</td>
+<td style="text-align:center;">
+April
+</td>
+<td style="text-align:center;">
+2021
+</td>
+<td style="text-align:center;">
+3:45
+</td>
+<td style="text-align:center;">
+15
+</td>
+<td style="text-align:center;">
+45
+</td>
+<td style="text-align:center;">
+Afternoon
+</td>
+<td style="text-align:center;">
+30
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+XXXYYYZZZ3 Confirmed. Ksh500.00 sent to KPLC PREPAID for account 123456789 on 23/4/21 at 9:57 PM New M-PESA balance is Ksh5,941.22. Transaction cost, Ksh23.00. Amount you can transact within the day is 296,283.00.
+</td>
+<td style="text-align:center;">
+XXXYYYZZZ3
+</td>
+<td style="text-align:center;">
+Pay Bill Payment
+</td>
+<td style="text-align:center;">
+2021-04-23
+</td>
+<td style="text-align:center;">
+23
+</td>
+<td style="text-align:center;">
+Friday
+</td>
+<td style="text-align:center;">
+April
+</td>
+<td style="text-align:center;">
+2021
+</td>
+<td style="text-align:center;">
+9:57
+</td>
+<td style="text-align:center;">
+21
+</td>
+<td style="text-align:center;">
+57
+</td>
+<td style="text-align:center;">
+Afternoon
+</td>
+<td style="text-align:center;">
+500
+</td>
+<td style="text-align:center;">
+23
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+XXXYYYZZZ4 Confirmed. Ksh607.00 paid to SUPERMARKET FULANI HAPO. on 23/4/21 at 3:26 PM.New M-PESA balance is Ksh6,494.22. Transaction cost, Ksh0.00. Amount you can transact within the day is 296,813.00.You can now access M-PESA via *334#
+</td>
+<td style="text-align:center;">
+XXXYYYZZZ4
+</td>
+<td style="text-align:center;">
+Merchant Payment
+</td>
+<td style="text-align:center;">
+2021-04-23
+</td>
+<td style="text-align:center;">
+23
+</td>
+<td style="text-align:center;">
+Friday
+</td>
+<td style="text-align:center;">
+April
+</td>
+<td style="text-align:center;">
+2021
+</td>
+<td style="text-align:center;">
+3:26
+</td>
+<td style="text-align:center;">
+15
+</td>
+<td style="text-align:center;">
+26
+</td>
+<td style="text-align:center;">
+Afternoon
+</td>
+<td style="text-align:center;">
+607
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+XXXYYYZZZ5 Confirmed. Ksh1,030.00 sent to MSEE FULANI HAPO +254722222222 on 23/4/21 at 2:38 PM. New M-PESA balance is Ksh7. Transaction cost, Ksh22.00. Amount you can transact within the day is 297,420.00. SAFARICOM ONLY CALLS YOU FROM 0722000000. To reverse, forward this message to 456.
+</td>
+<td style="text-align:center;">
+XXXYYYZZZ5
+</td>
+<td style="text-align:center;">
+Customer Transfer
+</td>
+<td style="text-align:center;">
+2021-04-23
+</td>
+<td style="text-align:center;">
+23
+</td>
+<td style="text-align:center;">
+Friday
+</td>
+<td style="text-align:center;">
+April
+</td>
+<td style="text-align:center;">
+2021
+</td>
+<td style="text-align:center;">
+2:38
+</td>
+<td style="text-align:center;">
+14
+</td>
+<td style="text-align:center;">
+38
+</td>
+<td style="text-align:center;">
+Afternoon
+</td>
+<td style="text-align:center;">
+1030
+</td>
+<td style="text-align:center;">
+22
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+XXXYYYZZZ6 Confirmed.on 23/4/21 at 12:31 PMWithdraw Ksh1,500.00 from 010000 - Shop fulani hapo New M-PESA balance is Ksh8. Transaction cost, Ksh28.00. Amount you can transact within the day is 298,500.00.
+</td>
+<td style="text-align:center;">
+XXXYYYZZZ6
+</td>
+<td style="text-align:center;">
+Withdrawal
+</td>
+<td style="text-align:center;">
+2021-04-23
+</td>
+<td style="text-align:center;">
+23
+</td>
+<td style="text-align:center;">
+Friday
+</td>
+<td style="text-align:center;">
+April
+</td>
+<td style="text-align:center;">
+2021
+</td>
+<td style="text-align:center;">
+12:31
+</td>
+<td style="text-align:center;">
+12
+</td>
+<td style="text-align:center;">
+31
+</td>
+<td style="text-align:center;">
+Afternoon
+</td>
+<td style="text-align:center;">
+1500
+</td>
+<td style="text-align:center;">
+28
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+XXXYYYZZZ9 Confirmed. Ksh80.00 sent to MSEE WA CHIPO 0704444444 on 12/4/21 at 1:57 PM. New M-PESA balance is Ksh 210. Transaction cost, Ksh0.00. Amount you can transact within the day is 296,665.00. SAFARICOM ONLY CALLS YOU FROM 0722000000. To reverse, forward this message to 456.
+</td>
+<td style="text-align:center;">
+XXXYYYZZZ9
+</td>
+<td style="text-align:center;">
+Customer Transfer
+</td>
+<td style="text-align:center;">
+2021-04-12
+</td>
+<td style="text-align:center;">
+12
+</td>
+<td style="text-align:center;">
+Monday
+</td>
+<td style="text-align:center;">
+April
+</td>
+<td style="text-align:center;">
+2021
+</td>
+<td style="text-align:center;">
+1:57
+</td>
+<td style="text-align:center;">
+13
+</td>
+<td style="text-align:center;">
+57
+</td>
+<td style="text-align:center;">
+Afternoon
+</td>
+<td style="text-align:center;">
+80
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+XXXYYYZZZ10 Confirmed. Ksh700.00 paid to GEL NAIL SHOP. on 17/3/21 at 6:54 PM.New M-PESA balance is Ksh3,646.22. Transaction cost, Ksh0.00. Amount you can transact within the day is 299,300.00.You can now access M-PESA via *334#
+</td>
+<td style="text-align:center;">
+XXXYYYZZZ10
+</td>
+<td style="text-align:center;">
+Merchant Payment
+</td>
+<td style="text-align:center;">
+2021-03-17
+</td>
+<td style="text-align:center;">
+17
+</td>
+<td style="text-align:center;">
+Wednesday
+</td>
+<td style="text-align:center;">
+March
+</td>
+<td style="text-align:center;">
+2021
+</td>
+<td style="text-align:center;">
+6:54
+</td>
+<td style="text-align:center;">
+18
+</td>
+<td style="text-align:center;">
+54
+</td>
+<td style="text-align:center;">
+Afternoon
+</td>
+<td style="text-align:center;">
+700
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+XXXYYYZZZ11 Confirmed. On 25/7/20 at 3:29 PM Give Ksh2,000.00 cash to Agent fulani New M-PESA balance is Ksh2,100.22.
+</td>
+<td style="text-align:center;">
+XXXYYYZZZ11
+</td>
+<td style="text-align:center;">
+Deposit
+</td>
+<td style="text-align:center;">
+2020-07-25
+</td>
+<td style="text-align:center;">
+25
+</td>
+<td style="text-align:center;">
+Saturday
+</td>
+<td style="text-align:center;">
+July
+</td>
+<td style="text-align:center;">
+2020
+</td>
+<td style="text-align:center;">
+3:29
+</td>
+<td style="text-align:center;">
+15
+</td>
+<td style="text-align:center;">
+29
+</td>
+<td style="text-align:center;">
+Afternoon
+</td>
+<td style="text-align:center;">
+2000
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="m-pesa-balance" class="section level4">
+<h4>2.7 M-Pesa balance</h4>
+<pre class="r"><code>df &lt;- df %&gt;% 
+  mutate(temp = gsub(&quot;.*New M-PESA balance is&quot;, &quot;&quot;, `Text message`),
+         temp = gsub(&quot;Transaction cost.*|\\..*&quot;, &quot;&quot;, temp)) %&gt;% 
+  mutate(trn_balance = as.numeric(trimws(gsub(&quot;Ksh|Kshs|,|\\.&quot;, &quot;&quot;, temp)))) %&gt;% 
+  select(-temp)
+tab_output(df)</code></pre>
+<table class="table" style="font-size: 14px; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:center;font-weight: bold;color: black !important;background-color: pink !important;">
+Text message
+</th>
+<th style="text-align:center;font-weight: bold;color: black !important;background-color: pink !important;">
+trn_code
+</th>
+<th style="text-align:center;font-weight: bold;color: black !important;background-color: pink !important;">
+trn_type
+</th>
+<th style="text-align:center;font-weight: bold;color: black !important;background-color: pink !important;">
+trn_date
+</th>
+<th style="text-align:center;font-weight: bold;color: black !important;background-color: pink !important;">
+trn_day
+</th>
+<th style="text-align:center;font-weight: bold;color: black !important;background-color: pink !important;">
+trn_dayofweek
+</th>
+<th style="text-align:center;font-weight: bold;color: black !important;background-color: pink !important;">
+trn_month
+</th>
+<th style="text-align:center;font-weight: bold;color: black !important;background-color: pink !important;">
+trn_year
+</th>
+<th style="text-align:center;font-weight: bold;color: black !important;background-color: pink !important;">
+trn_time
+</th>
+<th style="text-align:center;font-weight: bold;color: black !important;background-color: pink !important;">
+trn_hour
+</th>
+<th style="text-align:center;font-weight: bold;color: black !important;background-color: pink !important;">
+trn_minute
+</th>
+<th style="text-align:center;font-weight: bold;color: black !important;background-color: pink !important;">
+trn_timeofday
+</th>
+<th style="text-align:center;font-weight: bold;color: black !important;background-color: pink !important;">
+trn_amount
+</th>
+<th style="text-align:center;font-weight: bold;color: black !important;background-color: pink !important;">
+trn_cost
 </th>
 <th style="text-align:center;font-weight: bold;color: black !important;background-color: pink !important;">
 trn_balance
@@ -1582,6 +2038,9 @@ Morning
 100
 </td>
 <td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
 5350
 </td>
 </tr>
@@ -1624,6 +2083,9 @@ Afternoon
 </td>
 <td style="text-align:center;">
 30
+</td>
+<td style="text-align:center;">
+0
 </td>
 <td style="text-align:center;">
 5450
@@ -1670,6 +2132,9 @@ Afternoon
 500
 </td>
 <td style="text-align:center;">
+23
+</td>
+<td style="text-align:center;">
 5941
 </td>
 </tr>
@@ -1712,6 +2177,9 @@ Afternoon
 </td>
 <td style="text-align:center;">
 607
+</td>
+<td style="text-align:center;">
+0
 </td>
 <td style="text-align:center;">
 6494
@@ -1758,6 +2226,9 @@ Afternoon
 1030
 </td>
 <td style="text-align:center;">
+22
+</td>
+<td style="text-align:center;">
 7
 </td>
 </tr>
@@ -1790,7 +2261,7 @@ April
 12:31
 </td>
 <td style="text-align:center;">
-24
+12
 </td>
 <td style="text-align:center;">
 31
@@ -1800,6 +2271,9 @@ Afternoon
 </td>
 <td style="text-align:center;">
 1500
+</td>
+<td style="text-align:center;">
+28
 </td>
 <td style="text-align:center;">
 8
@@ -1846,6 +2320,9 @@ Afternoon
 80
 </td>
 <td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
 210
 </td>
 </tr>
@@ -1890,6 +2367,9 @@ Afternoon
 700
 </td>
 <td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
 3646
 </td>
 </tr>
@@ -1932,6 +2412,9 @@ Afternoon
 </td>
 <td style="text-align:center;">
 2000
+</td>
+<td style="text-align:center;">
+0
 </td>
 <td style="text-align:center;">
 2100

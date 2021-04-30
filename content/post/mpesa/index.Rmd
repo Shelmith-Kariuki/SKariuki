@@ -20,11 +20,11 @@ output:
     fig_width: 16
 ---
 
-[M-PESA](https://www.safaricom.co.ke/personal/m-pesa), operated by [Safaricom](https://www.safaricom.co.ke/) is a mobile money transfer service in Kenya. It is one of the best online payment options. One can use M-PESA to buy airtime, send or receive cash on their phones and pay goods and/or services using merchant paybill numbers or till numbers. The following is an example of an M-Pesa text message that one would receive if they paid for goods or services via a till number. 
+[M-PESA](https://www.safaricom.co.ke/personal/m-pesa), operated by [Safaricom](https://www.safaricom.co.ke/) is a mobile money transfer service in Kenya. It is one of the best mobile payment options. One can use M-PESA to buy airtime, send or receive cash on their phones and pay goods and/or services using merchant paybill numbers or till numbers. The following is an example of an M-Pesa text message that one would receive if they paid for goods or services via a till number. 
 
 >XXXYYYZZZ10 Confirmed. Ksh700.00 paid to GEL NAIL SHOP. on 17/3/21 at 6:54 PM.New M-PESA balance is Ksh3,646.22. Transaction cost, Ksh0.00. Amount you can transact within the day is 299,300.00.You can now access M-PESA via *334#
 
-This script details how one can extract some key details from the message for purposes of data analysis. These details include the transaction code, transaction type (purchase of airtime, cash transfer, cash withdrawal, cash deposit, pay bill payment, merchant payment (Lipa Na Mpesa)), date (including the  day, month and year), time (hour, minute and time of day (morning / afternoon)) , transaction amount , and M-Pesa balance. 
+This script details how one can extract some key details from the message for purposes of data analysis. These details include the transaction code, transaction type (purchase of airtime, cash transfer, cash withdrawal, cash deposit, pay bill payment, merchant payment (Lipa Na Mpesa)), date (including the  day, month and year), time (hour, minute and time of day (morning / afternoon)) , transaction amount , transaction cost and M-Pesa balance. 
 
 _Note: This data has been anonymized_
 
@@ -162,9 +162,9 @@ df <- df %>%
   separate(trn_time, into = c("trn_hour", "trn_minute"),
            sep = ":", remove = FALSE) %>% 
   mutate(across(c(trn_hour, trn_minute), ~as.numeric(trimws(.)))) %>% 
-  mutate(trn_hour = ifelse(trn_timeofday == "Afternoon", 
+  mutate(trn_hour = ifelse(trn_timeofday == "Afternoon" & trn_hour!=12, 
                            trn_hour + 12, trn_hour)) %>% 
-  select(-temp) 
+  select(-temp)
 
 tab_output(df)
   
@@ -183,18 +183,28 @@ df <- df %>%
 tab_output(df)
 ```
 
-#### 2.6 M-Pesa balance
+#### 2.6 Transaction cost
+
+```{r}
+df <- df %>% 
+  mutate(trn_cost = ifelse(trn_type == "Deposit","0.00",
+                       gsub(".*Transaction cost|. Amount you can transact.*|,|Ksh|\\.$", "",
+                            `Text message`))) %>% 
+  mutate(trn_cost = as.numeric(trimws(trn_cost))) 
+tab_output(df)
+```
+
+#### 2.7 M-Pesa balance
 
 ```{r}
 df <- df %>% 
   mutate(temp = gsub(".*New M-PESA balance is", "", `Text message`),
          temp = gsub("Transaction cost.*|\\..*", "", temp)) %>% 
-  mutate(trn_balance = as.numeric(trimws(gsub("Ksh|Kshs|,|\\.", "", 
-                                              temp)))) %>% 
+  mutate(trn_balance = as.numeric(trimws(gsub("Ksh|Kshs|,|\\.", "", temp)))) %>% 
   select(-temp)
-
 tab_output(df)
 ```
+
 
 <style>
 body {text-align: justify}
