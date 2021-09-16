@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Shel Kariuki</title>
-    <link>/author/</link>
-      <atom:link href="/author/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://shelkariuki.netlify.com//author/</link>
+      <atom:link href="https://shelkariuki.netlify.com//author/index.xml" rel="self" type="application/rss+xml" />
     <description>Shel Kariuki</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>©2021</copyright><lastBuildDate>Sun, 07 Apr 2019 00:00:00 +0000</lastBuildDate>
     <image>
-      <url>img/favicon.png</url>
+      <url>https://shelkariuki.netlify.com/img/favicon.png</url>
       <title>Shel Kariuki</title>
-      <link>/author/</link>
+      <link>https://shelkariuki.netlify.com//author/</link>
     </image>
     
     <item>
       <title>An example preprint / working paper</title>
-      <link>/publication/preprint/</link>
+      <link>https://shelkariuki.netlify.com//publication/preprint/</link>
       <pubDate>Sun, 07 Apr 2019 00:00:00 +0000</pubDate>
-      <guid>/publication/preprint/</guid>
+      <guid>https://shelkariuki.netlify.com//publication/preprint/</guid>
       <description>&lt;div class=&#34;alert alert-note&#34;&gt;
   &lt;div&gt;
     Click the &lt;em&gt;Slides&lt;/em&gt; button above to demo Academic&amp;rsquo;s Markdown slides feature.
@@ -29,9 +29,9 @@
     
     <item>
       <title>An example journal article</title>
-      <link>/publication/journal-article/</link>
+      <link>https://shelkariuki.netlify.com//publication/journal-article/</link>
       <pubDate>Tue, 01 Sep 2015 00:00:00 +0000</pubDate>
-      <guid>/publication/journal-article/</guid>
+      <guid>https://shelkariuki.netlify.com//publication/journal-article/</guid>
       <description>&lt;div class=&#34;alert alert-note&#34;&gt;
   &lt;div&gt;
     Click the &lt;em&gt;Cite&lt;/em&gt; button above to demo the feature to enable visitors to import publication metadata into their reference management software.
@@ -49,9 +49,9 @@
     
     <item>
       <title>An example conference paper</title>
-      <link>/publication/conference-paper/</link>
+      <link>https://shelkariuki.netlify.com//publication/conference-paper/</link>
       <pubDate>Mon, 01 Jul 2013 00:00:00 +0000</pubDate>
-      <guid>/publication/conference-paper/</guid>
+      <guid>https://shelkariuki.netlify.com//publication/conference-paper/</guid>
       <description>&lt;div class=&#34;alert alert-note&#34;&gt;
   &lt;div&gt;
     Click the &lt;em&gt;Cite&lt;/em&gt; button above to demo the feature to enable visitors to import publication metadata into their reference management software.

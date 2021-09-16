@@ -1,372 +1,221 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  
   <url>
-    <loc>/courses/example/example1/</loc>
+    <loc>https://shelkariuki.netlify.com//courses/example/example1/</loc>
     <lastmod>2019-05-05T00:00:00+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/courses/example/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//courses/example/</loc>
     <lastmod>2018-09-09T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/courses/example/example2/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//courses/example/example2/</loc>
     <lastmod>2019-05-05T00:00:00+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/post/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//post/</loc>
     <lastmod>2021-04-28T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/post/mpesa/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//post/mpesa/</loc>
     <lastmod>2021-04-28T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tag/r/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//tag/r/</loc>
     <lastmod>2021-04-28T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//</loc>
     <lastmod>2021-04-28T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//tags/</loc>
     <lastmod>2021-04-28T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/categories/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//categories/</loc>
     <lastmod>2021-04-19T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/post/firstmap/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//post/firstmap/</loc>
     <lastmod>2021-04-19T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/category/r/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//category/r/</loc>
     <lastmod>2021-04-19T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tag/r-markdown/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//tag/r-markdown/</loc>
     <lastmod>2021-04-19T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/talk/nairobir_pkgdev/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//talk/nairobir_pkgdev/</loc>
     <lastmod>2021-04-10T09:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/category/packages/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//category/packages/</loc>
     <lastmod>2021-04-10T09:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/talk/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//talk/</loc>
     <lastmod>2021-04-10T09:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/category/tidyverse/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//category/tidyverse/</loc>
     <lastmod>2021-04-10T09:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/category/workshop/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//category/workshop/</loc>
     <lastmod>2021-04-10T09:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/talk/rstudioglobal/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//talk/rstudioglobal/</loc>
     <lastmod>2021-01-22T03:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/post/adventofcode2020/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//post/adventofcode2020/</loc>
     <lastmod>2020-12-05T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/project/adventofcode/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//project/adventofcode/</loc>
     <lastmod>2020-12-05T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/project/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//project/</loc>
     <lastmod>2020-12-05T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tag/community/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//tag/community/</loc>
     <lastmod>2020-08-20T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/post/dataquest/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//post/dataquest/</loc>
     <lastmod>2020-08-20T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/talk/packagedevelopment/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//talk/packagedevelopment/</loc>
     <lastmod>2020-08-15T09:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/project/kenyasdgs/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//project/kenyasdgs/</loc>
     <lastmod>2020-08-12T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/talk/rkenyacensus_talk/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//project/wb_wdi/</loc>
+    <lastmod>2020-08-12T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//talk/rkenyacensus_talk/</loc>
     <lastmod>2020-08-01T09:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/category/rspatial/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//category/rspatial/</loc>
     <lastmod>2020-08-01T09:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/talk/dsa2020/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//talk/dsa2020/</loc>
     <lastmod>2020-07-27T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/talk/mir_ggplot2/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//talk/mir_ggplot2/</loc>
     <lastmod>2020-07-03T09:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/talk/wigiske/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//talk/wigiske/</loc>
     <lastmod>2020-06-11T03:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/project/downloadabledata/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//project/downloadabledata/</loc>
     <lastmod>2020-06-08T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/projectspage/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//projectspage/</loc>
     <lastmod>2020-06-07T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/talkspage/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//talkspage/</loc>
     <lastmod>2020-06-07T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/blogspage/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//blogspage/</loc>
     <lastmod>2020-06-02T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/codework/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//codework/</loc>
     <lastmod>2020-06-02T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/contactpage/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//contactpage/</loc>
     <lastmod>2020-06-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/category/blog/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//category/blog/</loc>
     <lastmod>2020-05-13T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/post/certification/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//post/certification/</loc>
     <lastmod>2020-05-13T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/post/rkenyacensus/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//post/rkenyacensus/</loc>
     <lastmod>2020-04-27T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/post/amandla/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//post/amandla/</loc>
     <lastmod>2020-03-10T02:20:01-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/talk/passa/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//talk/passa/</loc>
     <lastmod>2020-03-10T02:20:01-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/project/mi/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//project/mi/</loc>
     <lastmod>2020-01-24T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/post/factorvariables/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//post/factorvariables/</loc>
     <lastmod>2020-01-15T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/post/ttests/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//post/ttests/</loc>
     <lastmod>2019-08-19T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/project/eb/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//project/eb/</loc>
     <lastmod>2019-08-19T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/project/dishonesty/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//project/dishonesty/</loc>
     <lastmod>2019-07-27T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/project/soiltesting/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//project/soiltesting/</loc>
     <lastmod>2019-07-27T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/project/dignity/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//project/dignity/</loc>
     <lastmod>2019-07-27T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/project/humanaccount/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//project/humanaccount/</loc>
     <lastmod>2019-07-27T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/project/agents/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//project/agents/</loc>
     <lastmod>2019-07-27T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/talk/user2019/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//talk/user2019/</loc>
     <lastmod>2020-03-10T02:20:01-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/talk/dsa/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//talk/dsa/</loc>
     <lastmod>2020-03-10T02:20:01-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/courses/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//courses/</loc>
     <lastmod>2019-05-05T00:00:00+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/author/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//author/</loc>
     <lastmod>2019-04-07T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/publication-type/3/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//publication-type/3/</loc>
     <lastmod>2019-04-07T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/publication/preprint/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//publication/preprint/</loc>
     <lastmod>2019-04-07T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/authors/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//authors/</loc>
     <lastmod>2019-04-07T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/publication_types/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//publication_types/</loc>
     <lastmod>2019-04-07T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/publication/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//publication/</loc>
     <lastmod>2019-04-07T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tag/source-themes/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//tag/source-themes/</loc>
     <lastmod>2019-04-07T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/talk/dfk/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//talk/dfk/</loc>
     <lastmod>2019-03-07T03:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/post/dfk/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//post/dfk/</loc>
     <lastmod>2019-03-07T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/slides/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//slides/</loc>
     <lastmod>2019-02-05T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/slides/example/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//slides/example/</loc>
     <lastmod>2019-02-05T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/privacy/</loc>
-    <lastmod>2018-06-28T00:00:00+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/terms/</loc>
-    <lastmod>2018-06-28T00:00:00+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/publication-type/2/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//publication-type/2/</loc>
     <lastmod>2015-09-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/publication/journal-article/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//publication/journal-article/</loc>
     <lastmod>2015-09-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/author/robert-ford/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//author/robert-ford/</loc>
     <lastmod>2015-09-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/publication-type/1/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//publication-type/1/</loc>
     <lastmod>2013-07-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/publication/conference-paper/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//publication/conference-paper/</loc>
     <lastmod>2013-07-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//post/passa/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//codes/</loc>
+  </url><url>
+    <loc>https://shelkariuki.netlify.com//author/%E5%90%B3%E6%81%A9%E9%81%94/</loc>
   </url>
-  
-  <url>
-    <loc>/post/passa/</loc>
-  </url>
-  
-  <url>
-    <loc>/codes/</loc>
-  </url>
-  
-  <url>
-    <loc>/author/%E5%90%B3%E6%81%A9%E9%81%94/</loc>
-  </url>
-  
 </urlset>

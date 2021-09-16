@@ -2,14 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags | Shel Kariuki</title>
-    <link>/tags/</link>
-      <atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://shelkariuki.netlify.com//tags/</link>
+      <atom:link href="https://shelkariuki.netlify.com//tags/index.xml" rel="self" type="application/rss+xml" />
     <description>Tags</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>©2021</copyright><lastBuildDate>Wed, 28 Apr 2021 00:00:00 +0000</lastBuildDate>
     <image>
-      <url>img/favicon.png</url>
+      <url>https://shelkariuki.netlify.com/img/favicon.png</url>
       <title>Tags</title>
-      <link>/tags/</link>
+      <link>https://shelkariuki.netlify.com//tags/</link>
     </image>
     
   </channel>

@@ -2,45 +2,53 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Projects | Shel Kariuki</title>
-    <link>/project/</link>
-      <atom:link href="/project/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://shelkariuki.netlify.com//project/</link>
+      <atom:link href="https://shelkariuki.netlify.com//project/index.xml" rel="self" type="application/rss+xml" />
     <description>Projects</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>©2021</copyright><lastBuildDate>Sat, 05 Dec 2020 00:00:00 +0000</lastBuildDate>
     <image>
-      <url>img/blogimage.jpg</url>
+      <url>https://shelkariuki.netlify.com/img/blogimage.jpg</url>
       <title>Projects</title>
-      <link>/project/</link>
+      <link>https://shelkariuki.netlify.com//project/</link>
     </image>
     
     <item>
       <title>Advent of Code 2020</title>
-      <link>/project/adventofcode/</link>
+      <link>https://shelkariuki.netlify.com//project/adventofcode/</link>
       <pubDate>Sat, 05 Dec 2020 00:00:00 +0000</pubDate>
-      <guid>/project/adventofcode/</guid>
+      <guid>https://shelkariuki.netlify.com//project/adventofcode/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Kenya SDG Tracker Shiny Dashboard</title>
-      <link>/project/kenyasdgs/</link>
+      <link>https://shelkariuki.netlify.com//project/kenyasdgs/</link>
       <pubDate>Wed, 12 Aug 2020 00:00:00 +0000</pubDate>
-      <guid>/project/kenyasdgs/</guid>
+      <guid>https://shelkariuki.netlify.com//project/kenyasdgs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>World Development Indicators (Africa)</title>
+      <link>https://shelkariuki.netlify.com//project/wb_wdi/</link>
+      <pubDate>Wed, 12 Aug 2020 00:00:00 +0000</pubDate>
+      <guid>https://shelkariuki.netlify.com//project/wb_wdi/</guid>
       <description></description>
     </item>
     
     <item>
       <title>2019 Kenya Census Data ShinyApp</title>
-      <link>/project/downloadabledata/</link>
+      <link>https://shelkariuki.netlify.com//project/downloadabledata/</link>
       <pubDate>Mon, 08 Jun 2020 00:00:00 +0000</pubDate>
-      <guid>/project/downloadabledata/</guid>
+      <guid>https://shelkariuki.netlify.com//project/downloadabledata/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Marketing Intelligence</title>
-      <link>/project/mi/</link>
+      <link>https://shelkariuki.netlify.com//project/mi/</link>
       <pubDate>Fri, 24 Jan 2020 00:00:00 +0000</pubDate>
-      <guid>/project/mi/</guid>
+      <guid>https://shelkariuki.netlify.com//project/mi/</guid>
       <description>
 
 
@@ -455,9 +463,9 @@ ggcorrplot(corr_mat,
     
     <item>
       <title>Web Analytics</title>
-      <link>/project/eb/</link>
+      <link>https://shelkariuki.netlify.com//project/eb/</link>
       <pubDate>Mon, 19 Aug 2019 00:00:00 +0000</pubDate>
-      <guid>/project/eb/</guid>
+      <guid>https://shelkariuki.netlify.com//project/eb/</guid>
       <description>
 &lt;script src=&#34;//rmarkdown-libs/htmlwidgets/htmlwidgets.js&#34;&gt;&lt;/script&gt;
 &lt;script src=&#34;//rmarkdown-libs/jquery/jquery.min.js&#34;&gt;&lt;/script&gt;
@@ -1058,41 +1066,41 @@ summ_graph&lt;/code&gt;&lt;/pre&gt;
     
     <item>
       <title>A game to measure honesty</title>
-      <link>/project/dishonesty/</link>
+      <link>https://shelkariuki.netlify.com//project/dishonesty/</link>
       <pubDate>Sat, 27 Jul 2019 00:00:00 +0000</pubDate>
-      <guid>/project/dishonesty/</guid>
+      <guid>https://shelkariuki.netlify.com//project/dishonesty/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Improving Soil testing among small holder farmers.</title>
-      <link>/project/soiltesting/</link>
+      <link>https://shelkariuki.netlify.com//project/soiltesting/</link>
       <pubDate>Sat, 27 Jul 2019 00:00:00 +0000</pubDate>
-      <guid>/project/soiltesting/</guid>
+      <guid>https://shelkariuki.netlify.com//project/soiltesting/</guid>
       <description></description>
     </item>
     
     <item>
       <title>The benefits of development with dignity</title>
-      <link>/project/dignity/</link>
+      <link>https://shelkariuki.netlify.com//project/dignity/</link>
       <pubDate>Sat, 27 Jul 2019 00:00:00 +0000</pubDate>
-      <guid>/project/dignity/</guid>
+      <guid>https://shelkariuki.netlify.com//project/dignity/</guid>
       <description></description>
     </item>
     
     <item>
       <title>The Human Account</title>
-      <link>/project/humanaccount/</link>
+      <link>https://shelkariuki.netlify.com//project/humanaccount/</link>
       <pubDate>Sat, 27 Jul 2019 00:00:00 +0000</pubDate>
-      <guid>/project/humanaccount/</guid>
+      <guid>https://shelkariuki.netlify.com//project/humanaccount/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Understanding agent networks</title>
-      <link>/project/agents/</link>
+      <link>https://shelkariuki.netlify.com//project/agents/</link>
       <pubDate>Sat, 27 Jul 2019 00:00:00 +0000</pubDate>
-      <guid>/project/agents/</guid>
+      <guid>https://shelkariuki.netlify.com//project/agents/</guid>
       <description></description>
     </item>
     

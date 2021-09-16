@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>blog | Shel Kariuki</title>
-    <link>/category/blog/</link>
-      <atom:link href="/category/blog/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://shelkariuki.netlify.com//category/blog/</link>
+      <atom:link href="https://shelkariuki.netlify.com//category/blog/index.xml" rel="self" type="application/rss+xml" />
     <description>blog</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>©2021</copyright><lastBuildDate>Wed, 13 May 2020 00:00:00 +0000</lastBuildDate>
     <image>
-      <url>img/favicon.png</url>
+      <url>https://shelkariuki.netlify.com/img/favicon.png</url>
       <title>blog</title>
-      <link>/category/blog/</link>
+      <link>https://shelkariuki.netlify.com//category/blog/</link>
     </image>
     
     <item>
       <title>The RStudio Certification Process</title>
-      <link>/post/certification/</link>
+      <link>https://shelkariuki.netlify.com//post/certification/</link>
       <pubDate>Wed, 13 May 2020 00:00:00 +0000</pubDate>
-      <guid>/post/certification/</guid>
+      <guid>https://shelkariuki.netlify.com//post/certification/</guid>
       <description>
 
 
@@ -58,9 +58,9 @@ The first step involved delivering a 15 minutes lesson to Greg. I chose to teach
     
     <item>
       <title>Introducing rKenyaCensus</title>
-      <link>/post/rkenyacensus/</link>
+      <link>https://shelkariuki.netlify.com//post/rkenyacensus/</link>
       <pubDate>Mon, 27 Apr 2020 00:00:00 +0000</pubDate>
-      <guid>/post/rkenyacensus/</guid>
+      <guid>https://shelkariuki.netlify.com//post/rkenyacensus/</guid>
       <description>
 
 
@@ -117,9 +117,9 @@ Each table has been scrapped and given a unique identifier, e.g V1.T2.3 is the d
     
     <item>
       <title>Amandla...my new baby</title>
-      <link>/post/amandla/</link>
+      <link>https://shelkariuki.netlify.com//post/amandla/</link>
       <pubDate>Tue, 10 Mar 2020 02:20:01 -0700</pubDate>
-      <guid>/post/amandla/</guid>
+      <guid>https://shelkariuki.netlify.com//post/amandla/</guid>
       <description>
 
 
