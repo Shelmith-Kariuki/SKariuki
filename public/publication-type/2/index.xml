@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>2 | Shel Kariuki</title>
-    <link>https://shelkariuki.netlify.com//publication-type/2/</link>
-      <atom:link href="https://shelkariuki.netlify.com//publication-type/2/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://shelkariukiold.netlify.com/publication-type/2/</link>
+      <atom:link href="https://shelkariukiold.netlify.com/publication-type/2/index.xml" rel="self" type="application/rss+xml" />
     <description>2</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>©2021</copyright><lastBuildDate>Tue, 01 Sep 2015 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>©2024</copyright><lastBuildDate>Tue, 01 Sep 2015 00:00:00 +0000</lastBuildDate>
     <image>
-      <url>https://shelkariuki.netlify.com/img/favicon.png</url>
+      <url>https://shelkariukiold.netlify.com/img/favicon.png</url>
       <title>2</title>
-      <link>https://shelkariuki.netlify.com//publication-type/2/</link>
+      <link>https://shelkariukiold.netlify.com/publication-type/2/</link>
     </image>
     
     <item>
       <title>An example journal article</title>
-      <link>https://shelkariuki.netlify.com//publication/journal-article/</link>
+      <link>https://shelkariukiold.netlify.com/publication/journal-article/</link>
       <pubDate>Tue, 01 Sep 2015 00:00:00 +0000</pubDate>
-      <guid>https://shelkariuki.netlify.com//publication/journal-article/</guid>
+      <guid>https://shelkariukiold.netlify.com/publication/journal-article/</guid>
       <description>&lt;div class=&#34;alert alert-note&#34;&gt;
   &lt;div&gt;
     Click the &lt;em&gt;Cite&lt;/em&gt; button above to demo the feature to enable visitors to import publication metadata into their reference management software.

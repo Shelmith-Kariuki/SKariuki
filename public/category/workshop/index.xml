@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>workshop | Shel Kariuki</title>
-    <link>https://shelkariuki.netlify.com//category/workshop/</link>
-      <atom:link href="https://shelkariuki.netlify.com//category/workshop/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://shelkariukiold.netlify.com/category/workshop/</link>
+      <atom:link href="https://shelkariukiold.netlify.com/category/workshop/index.xml" rel="self" type="application/rss+xml" />
     <description>workshop</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>©2021</copyright><lastBuildDate>Sat, 10 Apr 2021 09:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>©2024</copyright><lastBuildDate>Sat, 10 Apr 2021 09:00:00 +0000</lastBuildDate>
     <image>
-      <url>https://shelkariuki.netlify.com/img/favicon.png</url>
+      <url>https://shelkariukiold.netlify.com/img/favicon.png</url>
       <title>workshop</title>
-      <link>https://shelkariuki.netlify.com//category/workshop/</link>
+      <link>https://shelkariukiold.netlify.com/category/workshop/</link>
     </image>
     
     <item>
       <title>Introduction to Package Development</title>
-      <link>https://shelkariuki.netlify.com//talk/nairobir_pkgdev/</link>
+      <link>https://shelkariukiold.netlify.com/talk/nairobir_pkgdev/</link>
       <pubDate>Sat, 10 Apr 2021 09:00:00 +0000</pubDate>
-      <guid>https://shelkariuki.netlify.com//talk/nairobir_pkgdev/</guid>
+      <guid>https://shelkariukiold.netlify.com/talk/nairobir_pkgdev/</guid>
       <description>
 &lt;script src=&#34;//rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
 &lt;link href=&#34;//rmarkdown-libs/anchor-sections/anchor-sections.css&#34; rel=&#34;stylesheet&#34; /&gt;
@@ -28,9 +28,9 @@
     
     <item>
       <title>Introduction to Package Development</title>
-      <link>https://shelkariuki.netlify.com//talk/packagedevelopment/</link>
+      <link>https://shelkariukiold.netlify.com/talk/packagedevelopment/</link>
       <pubDate>Sat, 15 Aug 2020 09:00:00 +0000</pubDate>
-      <guid>https://shelkariuki.netlify.com//talk/packagedevelopment/</guid>
+      <guid>https://shelkariukiold.netlify.com/talk/packagedevelopment/</guid>
       <description>
 &lt;script src=&#34;//rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
 
@@ -40,9 +40,9 @@
     
     <item>
       <title>rKenyaCensus, An R package containing the 2019 Kenya Population and Housing Census data</title>
-      <link>https://shelkariuki.netlify.com//talk/rkenyacensus_talk/</link>
+      <link>https://shelkariukiold.netlify.com/talk/rkenyacensus_talk/</link>
       <pubDate>Sat, 01 Aug 2020 09:00:00 +0000</pubDate>
-      <guid>https://shelkariuki.netlify.com//talk/rkenyacensus_talk/</guid>
+      <guid>https://shelkariukiold.netlify.com/talk/rkenyacensus_talk/</guid>
       <description>
 &lt;script src=&#34;//rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
 
@@ -52,9 +52,9 @@
     
     <item>
       <title>Exploring R for Spatial Analytics</title>
-      <link>https://shelkariuki.netlify.com//talk/dsa2020/</link>
+      <link>https://shelkariukiold.netlify.com/talk/dsa2020/</link>
       <pubDate>Mon, 27 Jul 2020 00:00:00 +0000</pubDate>
-      <guid>https://shelkariuki.netlify.com//talk/dsa2020/</guid>
+      <guid>https://shelkariukiold.netlify.com/talk/dsa2020/</guid>
       <description>
 &lt;script src=&#34;//rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
 
@@ -64,9 +64,9 @@
     
     <item>
       <title>Getting to know ggplot2</title>
-      <link>https://shelkariuki.netlify.com//talk/mir_ggplot2/</link>
+      <link>https://shelkariukiold.netlify.com/talk/mir_ggplot2/</link>
       <pubDate>Fri, 03 Jul 2020 09:00:00 +0000</pubDate>
-      <guid>https://shelkariuki.netlify.com//talk/mir_ggplot2/</guid>
+      <guid>https://shelkariukiold.netlify.com/talk/mir_ggplot2/</guid>
       <description>
 
 
@@ -76,9 +76,9 @@
     
     <item>
       <title>Exploring R for Spatial Analytics</title>
-      <link>https://shelkariuki.netlify.com//talk/wigiske/</link>
+      <link>https://shelkariukiold.netlify.com/talk/wigiske/</link>
       <pubDate>Thu, 11 Jun 2020 03:00:00 +0000</pubDate>
-      <guid>https://shelkariuki.netlify.com//talk/wigiske/</guid>
+      <guid>https://shelkariukiold.netlify.com/talk/wigiske/</guid>
       <description>
 
 
@@ -88,9 +88,9 @@
     
     <item>
       <title>Kisii University Introduction to Tidyverse</title>
-      <link>https://shelkariuki.netlify.com//talk/passa/</link>
+      <link>https://shelkariukiold.netlify.com/talk/passa/</link>
       <pubDate>Tue, 18 Feb 2020 09:00:00 +0000</pubDate>
-      <guid>https://shelkariuki.netlify.com//talk/passa/</guid>
+      <guid>https://shelkariukiold.netlify.com/talk/passa/</guid>
       <description>
 
 
@@ -100,9 +100,9 @@
     
     <item>
       <title>AfricaR</title>
-      <link>https://shelkariuki.netlify.com//talk/user2019/</link>
+      <link>https://shelkariukiold.netlify.com/talk/user2019/</link>
       <pubDate>Tue, 09 Jul 2019 09:00:00 +0000</pubDate>
-      <guid>https://shelkariuki.netlify.com//talk/user2019/</guid>
+      <guid>https://shelkariukiold.netlify.com/talk/user2019/</guid>
       <description>
 
 
@@ -113,9 +113,9 @@
     
     <item>
       <title>Data Science Africa (DSA)</title>
-      <link>https://shelkariuki.netlify.com//talk/dsa/</link>
+      <link>https://shelkariukiold.netlify.com/talk/dsa/</link>
       <pubDate>Wed, 05 Jun 2019 09:00:00 +0000</pubDate>
-      <guid>https://shelkariuki.netlify.com//talk/dsa/</guid>
+      <guid>https://shelkariukiold.netlify.com/talk/dsa/</guid>
       <description>
 
 
@@ -126,9 +126,9 @@
     
     <item>
       <title>Data Fest Kampala (R Training)</title>
-      <link>https://shelkariuki.netlify.com//talk/dfk/</link>
+      <link>https://shelkariukiold.netlify.com/talk/dfk/</link>
       <pubDate>Thu, 07 Mar 2019 03:00:00 +0000</pubDate>
-      <guid>https://shelkariuki.netlify.com//talk/dfk/</guid>
+      <guid>https://shelkariukiold.netlify.com/talk/dfk/</guid>
       <description>
 &lt;script src=&#34;//rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
 &lt;link href=&#34;//rmarkdown-libs/anchor-sections/anchor-sections.css&#34; rel=&#34;stylesheet&#34; /&gt;

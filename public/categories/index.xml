@@ -2,14 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories | Shel Kariuki</title>
-    <link>https://shelkariuki.netlify.com//categories/</link>
-      <atom:link href="https://shelkariuki.netlify.com//categories/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://shelkariukiold.netlify.com/categories/</link>
+      <atom:link href="https://shelkariukiold.netlify.com/categories/index.xml" rel="self" type="application/rss+xml" />
     <description>Categories</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>©2021</copyright><lastBuildDate>Mon, 19 Apr 2021 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>©2024</copyright><lastBuildDate>Mon, 19 Apr 2021 00:00:00 +0000</lastBuildDate>
     <image>
-      <url>https://shelkariuki.netlify.com/img/favicon.png</url>
+      <url>https://shelkariukiold.netlify.com/img/favicon.png</url>
       <title>Categories</title>
-      <link>https://shelkariuki.netlify.com//categories/</link>
+      <link>https://shelkariukiold.netlify.com/categories/</link>
     </image>
     
   </channel>
