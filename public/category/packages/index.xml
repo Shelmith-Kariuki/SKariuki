@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>packages | Shel Kariuki</title>
-    <link>https://shelkariukiold.netlify.com/category/packages/</link>
-      <atom:link href="https://shelkariukiold.netlify.com/category/packages/index.xml" rel="self" type="application/rss+xml" />
-    <description>packages</description>
+    <title>Packages | Shel Kariuki</title>
+    <link>http://localhost:4321/category/packages/</link>
+      <atom:link href="http://localhost:4321/category/packages/index.xml" rel="self" type="application/rss+xml" />
+    <description>Packages</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>©2024</copyright><lastBuildDate>Sat, 10 Apr 2021 09:00:00 +0000</lastBuildDate>
     <image>
-      <url>https://shelkariukiold.netlify.com/img/favicon.png</url>
-      <title>packages</title>
-      <link>https://shelkariukiold.netlify.com/category/packages/</link>
+      <url>http://localhost:4321/img/favicon.png</url>
+      <title>Packages</title>
+      <link>http://localhost:4321/category/packages/</link>
     </image>
     
     <item>
       <title>Introduction to Package Development</title>
-      <link>https://shelkariukiold.netlify.com/talk/nairobir_pkgdev/</link>
+      <link>http://localhost:4321/talk/nairobir_pkgdev/</link>
       <pubDate>Sat, 10 Apr 2021 09:00:00 +0000</pubDate>
-      <guid>https://shelkariukiold.netlify.com/talk/nairobir_pkgdev/</guid>
+      <guid>http://localhost:4321/talk/nairobir_pkgdev/</guid>
       <description>
 &lt;script src=&#34;//rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
 &lt;link href=&#34;//rmarkdown-libs/anchor-sections/anchor-sections.css&#34; rel=&#34;stylesheet&#34; /&gt;
@@ -28,9 +28,9 @@
     
     <item>
       <title>Introduction to Package Development</title>
-      <link>https://shelkariukiold.netlify.com/talk/packagedevelopment/</link>
+      <link>http://localhost:4321/talk/packagedevelopment/</link>
       <pubDate>Sat, 15 Aug 2020 09:00:00 +0000</pubDate>
-      <guid>https://shelkariukiold.netlify.com/talk/packagedevelopment/</guid>
+      <guid>http://localhost:4321/talk/packagedevelopment/</guid>
       <description>
 &lt;script src=&#34;//rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
 

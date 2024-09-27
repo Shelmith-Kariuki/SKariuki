@@ -2,61 +2,61 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Projects | Shel Kariuki</title>
-    <link>https://shelkariukiold.netlify.com/project/</link>
-      <atom:link href="https://shelkariukiold.netlify.com/project/index.xml" rel="self" type="application/rss+xml" />
+    <link>http://localhost:4321/project/</link>
+      <atom:link href="http://localhost:4321/project/index.xml" rel="self" type="application/rss+xml" />
     <description>Projects</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>©2024</copyright><lastBuildDate>Mon, 01 Nov 2021 00:00:00 +0000</lastBuildDate>
     <image>
-      <url>https://shelkariukiold.netlify.com/img/blogimage.jpg</url>
+      <url>http://localhost:4321/img/blogimage.jpg</url>
       <title>Projects</title>
-      <link>https://shelkariukiold.netlify.com/project/</link>
+      <link>http://localhost:4321/project/</link>
     </image>
     
     <item>
       <title>30DayMapChallenge</title>
-      <link>https://shelkariukiold.netlify.com/project/30daymapchallenge2021/</link>
+      <link>http://localhost:4321/project/30daymapchallenge2021/</link>
       <pubDate>Mon, 01 Nov 2021 00:00:00 +0000</pubDate>
-      <guid>https://shelkariukiold.netlify.com/project/30daymapchallenge2021/</guid>
+      <guid>http://localhost:4321/project/30daymapchallenge2021/</guid>
       <description></description>
     </item>
     
     <item>
       <title>World Development Indicators (Africa)</title>
-      <link>https://shelkariukiold.netlify.com/project/wb_wdi/</link>
+      <link>http://localhost:4321/project/wb_wdi/</link>
       <pubDate>Sat, 26 Jun 2021 00:00:00 +0000</pubDate>
-      <guid>https://shelkariukiold.netlify.com/project/wb_wdi/</guid>
+      <guid>http://localhost:4321/project/wb_wdi/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Advent of Code 2020</title>
-      <link>https://shelkariukiold.netlify.com/project/adventofcode/</link>
+      <link>http://localhost:4321/project/adventofcode/</link>
       <pubDate>Sat, 05 Dec 2020 00:00:00 +0000</pubDate>
-      <guid>https://shelkariukiold.netlify.com/project/adventofcode/</guid>
+      <guid>http://localhost:4321/project/adventofcode/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Kenya SDG Tracker Shiny Dashboard</title>
-      <link>https://shelkariukiold.netlify.com/project/kenyasdgs/</link>
+      <link>http://localhost:4321/project/kenyasdgs/</link>
       <pubDate>Wed, 12 Aug 2020 00:00:00 +0000</pubDate>
-      <guid>https://shelkariukiold.netlify.com/project/kenyasdgs/</guid>
+      <guid>http://localhost:4321/project/kenyasdgs/</guid>
       <description></description>
     </item>
     
     <item>
       <title>2019 Kenya Census Data ShinyApp</title>
-      <link>https://shelkariukiold.netlify.com/project/downloadabledata/</link>
+      <link>http://localhost:4321/project/downloadabledata/</link>
       <pubDate>Mon, 08 Jun 2020 00:00:00 +0000</pubDate>
-      <guid>https://shelkariukiold.netlify.com/project/downloadabledata/</guid>
+      <guid>http://localhost:4321/project/downloadabledata/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Marketing Intelligence</title>
-      <link>https://shelkariukiold.netlify.com/project/mi/</link>
+      <link>http://localhost:4321/project/mi/</link>
       <pubDate>Fri, 24 Jan 2020 00:00:00 +0000</pubDate>
-      <guid>https://shelkariukiold.netlify.com/project/mi/</guid>
+      <guid>http://localhost:4321/project/mi/</guid>
       <description>
 
 
@@ -471,9 +471,9 @@ ggcorrplot(corr_mat,
     
     <item>
       <title>Web Analytics</title>
-      <link>https://shelkariukiold.netlify.com/project/eb/</link>
+      <link>http://localhost:4321/project/eb/</link>
       <pubDate>Mon, 19 Aug 2019 00:00:00 +0000</pubDate>
-      <guid>https://shelkariukiold.netlify.com/project/eb/</guid>
+      <guid>http://localhost:4321/project/eb/</guid>
       <description>
 &lt;script src=&#34;//rmarkdown-libs/htmlwidgets/htmlwidgets.js&#34;&gt;&lt;/script&gt;
 &lt;script src=&#34;//rmarkdown-libs/jquery/jquery.min.js&#34;&gt;&lt;/script&gt;
@@ -1074,41 +1074,41 @@ summ_graph&lt;/code&gt;&lt;/pre&gt;
     
     <item>
       <title>A game to measure honesty</title>
-      <link>https://shelkariukiold.netlify.com/project/dishonesty/</link>
+      <link>http://localhost:4321/project/dishonesty/</link>
       <pubDate>Sat, 27 Jul 2019 00:00:00 +0000</pubDate>
-      <guid>https://shelkariukiold.netlify.com/project/dishonesty/</guid>
+      <guid>http://localhost:4321/project/dishonesty/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Improving Soil testing among small holder farmers.</title>
-      <link>https://shelkariukiold.netlify.com/project/soiltesting/</link>
+      <link>http://localhost:4321/project/soiltesting/</link>
       <pubDate>Sat, 27 Jul 2019 00:00:00 +0000</pubDate>
-      <guid>https://shelkariukiold.netlify.com/project/soiltesting/</guid>
+      <guid>http://localhost:4321/project/soiltesting/</guid>
       <description></description>
     </item>
     
     <item>
       <title>The benefits of development with dignity</title>
-      <link>https://shelkariukiold.netlify.com/project/dignity/</link>
+      <link>http://localhost:4321/project/dignity/</link>
       <pubDate>Sat, 27 Jul 2019 00:00:00 +0000</pubDate>
-      <guid>https://shelkariukiold.netlify.com/project/dignity/</guid>
+      <guid>http://localhost:4321/project/dignity/</guid>
       <description></description>
     </item>
     
     <item>
       <title>The Human Account</title>
-      <link>https://shelkariukiold.netlify.com/project/humanaccount/</link>
+      <link>http://localhost:4321/project/humanaccount/</link>
       <pubDate>Sat, 27 Jul 2019 00:00:00 +0000</pubDate>
-      <guid>https://shelkariukiold.netlify.com/project/humanaccount/</guid>
+      <guid>http://localhost:4321/project/humanaccount/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Understanding agent networks</title>
-      <link>https://shelkariukiold.netlify.com/project/agents/</link>
+      <link>http://localhost:4321/project/agents/</link>
       <pubDate>Sat, 27 Jul 2019 00:00:00 +0000</pubDate>
-      <guid>https://shelkariukiold.netlify.com/project/agents/</guid>
+      <guid>http://localhost:4321/project/agents/</guid>
       <description></description>
     </item>
     

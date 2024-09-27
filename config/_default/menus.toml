@@ -38,6 +38,6 @@
 # Link to a PDF of your resume/CV from the menu.
 # To enable, copy your resume/CV to `static/files/cv.pdf` and uncomment the lines below. 
 [[main]]
-    name = "Resume"
-    url = "files/Shelmith_Kariuki_2021CV.pdf" 
-    weight = 60
+    #name = "Resume"
+    #url = "files/Shelmith_Kariuki_2021CV.pdf" 
+    #weight = 60

@@ -2,14 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Pieces of Code | Shel Kariuki</title>
-    <link>https://shelkariukiold.netlify.com/codes/</link>
-      <atom:link href="https://shelkariukiold.netlify.com/codes/index.xml" rel="self" type="application/rss+xml" />
+    <link>http://localhost:4321/codes/</link>
+      <atom:link href="http://localhost:4321/codes/index.xml" rel="self" type="application/rss+xml" />
     <description>Pieces of Code</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>©2024</copyright>
     <image>
-      <url>https://shelkariukiold.netlify.com/img/trainingpic.jpeg</url>
+      <url>http://localhost:4321/img/trainingpic.jpeg</url>
       <title>Pieces of Code</title>
-      <link>https://shelkariukiold.netlify.com/codes/</link>
+      <link>http://localhost:4321/codes/</link>
     </image>
     
   </channel>

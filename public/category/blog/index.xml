@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>blog | Shel Kariuki</title>
-    <link>https://shelkariukiold.netlify.com/category/blog/</link>
-      <atom:link href="https://shelkariukiold.netlify.com/category/blog/index.xml" rel="self" type="application/rss+xml" />
-    <description>blog</description>
+    <title>Blog | Shel Kariuki</title>
+    <link>http://localhost:4321/category/blog/</link>
+      <atom:link href="http://localhost:4321/category/blog/index.xml" rel="self" type="application/rss+xml" />
+    <description>Blog</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>©2024</copyright><lastBuildDate>Wed, 13 May 2020 00:00:00 +0000</lastBuildDate>
     <image>
-      <url>https://shelkariukiold.netlify.com/img/favicon.png</url>
-      <title>blog</title>
-      <link>https://shelkariukiold.netlify.com/category/blog/</link>
+      <url>http://localhost:4321/img/favicon.png</url>
+      <title>Blog</title>
+      <link>http://localhost:4321/category/blog/</link>
     </image>
     
     <item>
       <title>The RStudio Certification Process</title>
-      <link>https://shelkariukiold.netlify.com/post/certification/</link>
+      <link>http://localhost:4321/post/certification/</link>
       <pubDate>Wed, 13 May 2020 00:00:00 +0000</pubDate>
-      <guid>https://shelkariukiold.netlify.com/post/certification/</guid>
+      <guid>http://localhost:4321/post/certification/</guid>
       <description>
 
 
@@ -58,9 +58,9 @@ The first step involved delivering a 15 minutes lesson to Greg. I chose to teach
     
     <item>
       <title>Introducing rKenyaCensus</title>
-      <link>https://shelkariukiold.netlify.com/post/rkenyacensus/</link>
+      <link>http://localhost:4321/post/rkenyacensus/</link>
       <pubDate>Mon, 27 Apr 2020 00:00:00 +0000</pubDate>
-      <guid>https://shelkariukiold.netlify.com/post/rkenyacensus/</guid>
+      <guid>http://localhost:4321/post/rkenyacensus/</guid>
       <description>
 
 
@@ -112,18 +112,6 @@ Each table has been scrapped and given a unique identifier, e.g V1.T2.3 is the d
 &lt;p&gt;&lt;em&gt;Guess what!! We shall overcome Covid19, but before then, keep safe, stay at home, wash your hands regularly and &lt;strong&gt;if you have to leave your premises&lt;/strong&gt;, please wear a mask. It shall be well.&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;Stay safe everyone!🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪🇰🇪&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://media.giphy.com/media/3o6ZsZjE1jQ3qi9ulq/giphy.gif&#34; /&gt;&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Amandla...my new baby</title>
-      <link>https://shelkariukiold.netlify.com/post/amandla/</link>
-      <pubDate>Tue, 10 Mar 2020 02:20:01 -0700</pubDate>
-      <guid>https://shelkariukiold.netlify.com/post/amandla/</guid>
-      <description>
-
-
-&lt;p&gt;Coming Soon&lt;/p&gt;
 </description>
     </item>
     

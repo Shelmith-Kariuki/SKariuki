@@ -2,14 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Authors | Shel Kariuki</title>
-    <link>https://shelkariukiold.netlify.com/authors/</link>
-      <atom:link href="https://shelkariukiold.netlify.com/authors/index.xml" rel="self" type="application/rss+xml" />
+    <link>http://localhost:4321/authors/</link>
+      <atom:link href="http://localhost:4321/authors/index.xml" rel="self" type="application/rss+xml" />
     <description>Authors</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>©2024</copyright><lastBuildDate>Sun, 07 Apr 2019 00:00:00 +0000</lastBuildDate>
     <image>
-      <url>https://shelkariukiold.netlify.com/img/favicon.png</url>
+      <url>http://localhost:4321/img/favicon.png</url>
       <title>Authors</title>
-      <link>https://shelkariukiold.netlify.com/authors/</link>
+      <link>http://localhost:4321/authors/</link>
     </image>
     
   </channel>

@@ -76,6 +76,9 @@ user_groups:
  <style>
 body {text-align: justify}
 </style>
+
+! New site: https://shelkariuki.netlify.app/
+
 I am a Senior Data Analyst based in Nairobi, Kenya. I am an [RStudio Certified Tidyverse trainer](https://education.rstudio.com/trainers/), and recently worked as a Research Manager at Geopoll, and as a Data Analyst at Busara Center for Behavioral Economics. I have previously worked as an assistant lecturer in various Kenyan universities, teaching units in Statistics and Actuarial Science. I have a Bsc in Actuarial Science and Msc in Applied Statistics from JKUAT. I have extensive experience in data analysis using R and Python. I co-organize a community of R users in Nairobi [#NairobiR](https://www.linkedin.com/feed/hashtag/nairobir/) and in Africa [#AfricaR](https://twitter.com/AfricaRUsers). One of the missions of my community work is to make sure that we have an increased number of R adopters, in Africa. I am very passionate about training and using data analytics to drive development projects in Africa.
 
 

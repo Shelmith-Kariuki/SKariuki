@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Community | Shel Kariuki</title>
-    <link>https://shelkariukiold.netlify.com/tag/community/</link>
-      <atom:link href="https://shelkariukiold.netlify.com/tag/community/index.xml" rel="self" type="application/rss+xml" />
+    <link>http://localhost:4321/tag/community/</link>
+      <atom:link href="http://localhost:4321/tag/community/index.xml" rel="self" type="application/rss+xml" />
     <description>Community</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>©2024</copyright><lastBuildDate>Thu, 20 Aug 2020 00:00:00 +0000</lastBuildDate>
     <image>
-      <url>https://shelkariukiold.netlify.com/img/favicon.png</url>
+      <url>http://localhost:4321/img/favicon.png</url>
       <title>Community</title>
-      <link>https://shelkariukiold.netlify.com/tag/community/</link>
+      <link>http://localhost:4321/tag/community/</link>
     </image>
     
     <item>
       <title>My interview with Dataquest (Top Tips for Learning R)</title>
-      <link>https://shelkariukiold.netlify.com/post/dataquest/</link>
+      <link>http://localhost:4321/post/dataquest/</link>
       <pubDate>Thu, 20 Aug 2020 00:00:00 +0000</pubDate>
-      <guid>https://shelkariukiold.netlify.com/post/dataquest/</guid>
+      <guid>http://localhost:4321/post/dataquest/</guid>
       <description></description>
     </item>
     

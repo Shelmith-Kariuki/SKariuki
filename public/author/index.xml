@@ -2,21 +2,38 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Shel Kariuki</title>
-    <link>https://shelkariukiold.netlify.com/author/</link>
-      <atom:link href="https://shelkariukiold.netlify.com/author/index.xml" rel="self" type="application/rss+xml" />
+    <link>http://localhost:4321/author/</link>
+      <atom:link href="http://localhost:4321/author/index.xml" rel="self" type="application/rss+xml" />
     <description>Shel Kariuki</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>©2024</copyright><lastBuildDate>Sun, 07 Apr 2019 00:00:00 +0000</lastBuildDate>
     <image>
-      <url>https://shelkariukiold.netlify.com/img/favicon.png</url>
+      <url>http://localhost:4321/img/favicon.png</url>
       <title>Shel Kariuki</title>
-      <link>https://shelkariukiold.netlify.com/author/</link>
+      <link>http://localhost:4321/author/</link>
     </image>
     
     <item>
-      <title>An example preprint / working paper</title>
-      <link>https://shelkariukiold.netlify.com/publication/preprint/</link>
+      <title></title>
+      <link>http://localhost:4321/author/</link>
       <pubDate>Sun, 07 Apr 2019 00:00:00 +0000</pubDate>
-      <guid>https://shelkariukiold.netlify.com/publication/preprint/</guid>
+      <guid>http://localhost:4321/author/</guid>
+      <description> &lt;style&gt;
+body {text-align: justify}
+&lt;/style&gt;
+&lt;p&gt;! New site: 
+&lt;a href=&#34;https://shelkariuki.netlify.app/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://shelkariuki.netlify.app/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;I am a Senior Data Analyst based in Nairobi, Kenya. I am an 
+&lt;a href=&#34;https://education.rstudio.com/trainers/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;RStudio Certified Tidyverse trainer&lt;/a&gt;, and recently worked as a Research Manager at Geopoll, and as a Data Analyst at Busara Center for Behavioral Economics. I have previously worked as an assistant lecturer in various Kenyan universities, teaching units in Statistics and Actuarial Science. I have a Bsc in Actuarial Science and Msc in Applied Statistics from JKUAT. I have extensive experience in data analysis using R and Python. I co-organize a community of R users in Nairobi 
+&lt;a href=&#34;https://www.linkedin.com/feed/hashtag/nairobir/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;#NairobiR&lt;/a&gt; and in Africa 
+&lt;a href=&#34;https://twitter.com/AfricaRUsers&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;#AfricaR&lt;/a&gt;. One of the missions of my community work is to make sure that we have an increased number of R adopters, in Africa. I am very passionate about training and using data analytics to drive development projects in Africa.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>An example preprint / working paper</title>
+      <link>http://localhost:4321/publication/preprint/</link>
+      <pubDate>Sun, 07 Apr 2019 00:00:00 +0000</pubDate>
+      <guid>http://localhost:4321/publication/preprint/</guid>
       <description>&lt;div class=&#34;alert alert-note&#34;&gt;
   &lt;div&gt;
     Click the &lt;em&gt;Slides&lt;/em&gt; button above to demo Academic&amp;rsquo;s Markdown slides feature.
@@ -29,9 +46,9 @@
     
     <item>
       <title>An example journal article</title>
-      <link>https://shelkariukiold.netlify.com/publication/journal-article/</link>
+      <link>http://localhost:4321/publication/journal-article/</link>
       <pubDate>Tue, 01 Sep 2015 00:00:00 +0000</pubDate>
-      <guid>https://shelkariukiold.netlify.com/publication/journal-article/</guid>
+      <guid>http://localhost:4321/publication/journal-article/</guid>
       <description>&lt;div class=&#34;alert alert-note&#34;&gt;
   &lt;div&gt;
     Click the &lt;em&gt;Cite&lt;/em&gt; button above to demo the feature to enable visitors to import publication metadata into their reference management software.
@@ -49,9 +66,9 @@
     
     <item>
       <title>An example conference paper</title>
-      <link>https://shelkariukiold.netlify.com/publication/conference-paper/</link>
+      <link>http://localhost:4321/publication/conference-paper/</link>
       <pubDate>Mon, 01 Jul 2013 00:00:00 +0000</pubDate>
-      <guid>https://shelkariukiold.netlify.com/publication/conference-paper/</guid>
+      <guid>http://localhost:4321/publication/conference-paper/</guid>
       <description>&lt;div class=&#34;alert alert-note&#34;&gt;
   &lt;div&gt;
     Click the &lt;em&gt;Cite&lt;/em&gt; button above to demo the feature to enable visitors to import publication metadata into their reference management software.
